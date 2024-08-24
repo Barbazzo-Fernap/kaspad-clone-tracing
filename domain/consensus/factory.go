@@ -7,11 +7,13 @@ import (
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/blockwindowheapslicestore"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/daawindowstore"
+	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/krc721store"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/mergedepthrootstore"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/processes/blockparentbuilder"
 	parentssanager "github.com/bugnanetwork/bugnad/domain/consensus/processes/parentsmanager"
 	"github.com/bugnanetwork/bugnad/domain/consensus/processes/pruningproofmanager"
+	"github.com/bugnanetwork/bugnad/domain/consensus/processes/transactionprocessor"
 	"github.com/bugnanetwork/bugnad/util/staging"
 	"github.com/pkg/errors"
 
@@ -147,6 +149,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 	multisetStore := multisetstore.New(prefixBucket, 200, preallocateCaches)
 	pruningStore := pruningstore.New(prefixBucket, 2, preallocateCaches)
 	utxoDiffStore := utxodiffstore.New(prefixBucket, 200, preallocateCaches)
+	krc721Store := krc721store.New(prefixBucket, 200, preallocateCaches)
 	consensusStateStore := consensusstatestore.New(prefixBucket, 10_000, preallocateCaches)
 
 	headersSelectedTipStore := headersselectedtipstore.New(prefixBucket)
@@ -223,6 +226,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		ghostdagDataStore,
 		daaBlocksStore,
 		txMassCalculator)
+	transactionProcessor := transactionprocessor.New(dbManager, krc721Store)
 	difficultyManager := f.difficultyConstructor(
 		dbManager,
 		ghostdagManager,
@@ -288,6 +292,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		dagTraversalManager,
 		pastMedianTimeManager,
 		transactionValidator,
+		transactionProcessor,
 		coinbaseManager,
 		mergeDepthManager,
 		finalityManager,

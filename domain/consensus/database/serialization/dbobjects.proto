@@ -163,3 +163,13 @@ message DbBlockGHOSTDAGDataHashPair {
   DbHash hash = 1;
   DbBlockGhostdagData GhostdagData = 2;
 }
+
+message DbKRC721Collection {
+    DbScriptPublicKey id = 1;
+    DbScriptPublicKey owner = 2;
+    string name = 3;
+    string symbol = 4;
+    uint64 maxSupply = 5;
+    uint64 totalSupply = 6;
+    string baseURI = 7;
+}
