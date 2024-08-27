@@ -24,8 +24,13 @@ func (t *transactionProcessor) Excute(
 	tx *externalapi.DomainTransaction,
 	povBlockHash *externalapi.DomainHash,
 ) error {
+	s := stagingArea
+	if povBlockHash.String() == "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" {
+		s = model.NewStagingArea()
+	}
+
 	for _, input := range tx.Inputs {
-		if err := t.excuteTXInput(stagingArea, input); err != nil {
+		if err := t.excuteTXInput(s, input); err != nil {
 			if err.Error() == "invalid script" {
 				continue
 			}
@@ -125,10 +130,14 @@ func (t *transactionProcessor) excuteKRC721(
 			return fmt.Errorf("invalid args, action mint")
 		}
 
-		addr, _ := util.DecodeAddress(payload.Args[0], util.Bech32PrefixBugna)
+		addr, err := util.DecodeAddress(payload.Args[0], util.Bech32PrefixBugna)
+		if err != nil {
+			return fmt.Errorf("util.DecodeAddress: %w", err)
+		}
+
 		collectionAddr, _ := txscript.PayToAddrScript(addr)
 
-		err := t.krc721Store.Mint(
+		err = t.krc721Store.Mint(
 			t.databaseContext,
 			stagingArea,
 			model.ScriptPublicKeyString(collectionAddr.String()),
