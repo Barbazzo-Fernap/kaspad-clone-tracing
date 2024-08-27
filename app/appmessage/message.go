@@ -163,6 +163,8 @@ const (
 	CmdGetMempoolEntriesByAddressesResponseMessage
 	CmdGetCoinSupplyRequestMessage
 	CmdGetCoinSupplyResponseMessage
+	CmdGetKRC721CollectionRequestMessage
+	CmdGetKRC721CollectionResponseMessage
 )
 
 // ProtocolMessageCommandToString maps all MessageCommands to their string representation
@@ -300,6 +302,8 @@ var RPCMessageCommandToString = map[MessageCommand]string{
 	CmdGetMempoolEntriesByAddressesResponseMessage:                "GetMempoolEntriesByAddressesResponse",
 	CmdGetCoinSupplyRequestMessage:                                "GetCoinSupplyRequest",
 	CmdGetCoinSupplyResponseMessage:                               "GetCoinSupplyResponse",
+	CmdGetKRC721CollectionRequestMessage:                          "GetKRC721CollectionRequest",
+	CmdGetKRC721CollectionResponseMessage:                         "GetKRC721CollectionResponse",
 }
 
 // Message is an interface that describes a bugna message. A type that

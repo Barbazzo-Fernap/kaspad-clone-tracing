@@ -721,3 +721,19 @@ message GetCoinSupplyResponseMessage{
 
         RPCError error = 1000;
 }
+
+message GetKRC721CollectionRequestMessage{
+  string address = 1;
+}
+
+message GetKRC721CollectionResponseMessage{
+  string id = 1;
+  string owner = 2;
+  string name = 3;
+  string symbol = 4;
+  uint64 maxSupply = 5;
+  uint64 totalSupply = 6;
+  string baseURI = 7;
+
+  RPCError error = 1000;
+}

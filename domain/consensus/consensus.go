@@ -59,6 +59,7 @@ type consensus struct {
 	headersSelectedChainStore           model.HeadersSelectedChainStore
 	daaBlocksStore                      model.DAABlocksStore
 	blocksWithTrustedDataDAAWindowStore model.BlocksWithTrustedDataDAAWindowStore
+	krc721Store                         model.KRC721Store
 
 	consensusEventsChan chan externalapi.ConsensusEvent
 	virtualNotUpdated   bool
@@ -1145,4 +1146,13 @@ func (s *consensus) isNearlySyncedNoLock() (bool, error) {
 	log.Debugf("The selected tip timestamp is old (%d), so IsNearlySynced returns false",
 		virtualSelectedParentHeader.TimeInMilliseconds())
 	return false, nil
+}
+
+func (s *consensus) GetKRC721Collection(address *externalapi.ScriptPublicKey) (externalapi.KRC721Collection, error) {
+	c, err := s.krc721Store.GetCollectionByID(s.databaseContext, model.NewStagingArea(), model.ScriptPublicKeyString(address.String()))
+	if err != nil {
+		return nil, err
+	}
+
+	return c, nil
 }

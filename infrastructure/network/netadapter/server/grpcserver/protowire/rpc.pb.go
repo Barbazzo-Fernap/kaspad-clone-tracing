@@ -6111,6 +6111,156 @@ func (x *GetCoinSupplyResponseMessage) GetError() *RPCError {
 	return nil
 }
 
+type GetKRC721CollectionRequestMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (x *GetKRC721CollectionRequestMessage) Reset() {
+	*x = GetKRC721CollectionRequestMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[108]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetKRC721CollectionRequestMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetKRC721CollectionRequestMessage) ProtoMessage() {}
+
+func (x *GetKRC721CollectionRequestMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[108]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetKRC721CollectionRequestMessage.ProtoReflect.Descriptor instead.
+func (*GetKRC721CollectionRequestMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{108}
+}
+
+func (x *GetKRC721CollectionRequestMessage) GetAddress() string {
+	if x != nil {
+		return x.Address
+	}
+	return ""
+}
+
+type GetKRC721CollectionResponseMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          string    `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Owner       string    `protobuf:"bytes,2,opt,name=owner,proto3" json:"owner,omitempty"`
+	Name        string    `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Symbol      string    `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	MaxSupply   uint64    `protobuf:"varint,5,opt,name=maxSupply,proto3" json:"maxSupply,omitempty"`
+	TotalSupply uint64    `protobuf:"varint,6,opt,name=totalSupply,proto3" json:"totalSupply,omitempty"`
+	BaseURI     string    `protobuf:"bytes,7,opt,name=baseURI,proto3" json:"baseURI,omitempty"`
+	Error       *RPCError `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetKRC721CollectionResponseMessage) Reset() {
+	*x = GetKRC721CollectionResponseMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[109]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetKRC721CollectionResponseMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetKRC721CollectionResponseMessage) ProtoMessage() {}
+
+func (x *GetKRC721CollectionResponseMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[109]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetKRC721CollectionResponseMessage.ProtoReflect.Descriptor instead.
+func (*GetKRC721CollectionResponseMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{109}
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetOwner() string {
+	if x != nil {
+		return x.Owner
+	}
+	return ""
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetSymbol() string {
+	if x != nil {
+		return x.Symbol
+	}
+	return ""
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetMaxSupply() uint64 {
+	if x != nil {
+		return x.MaxSupply
+	}
+	return 0
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetTotalSupply() uint64 {
+	if x != nil {
+		return x.TotalSupply
+	}
+	return 0
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetBaseURI() string {
+	if x != nil {
+		return x.BaseURI
+	}
+	return ""
+}
+
+func (x *GetKRC721CollectionResponseMessage) GetError() *RPCError {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
 var File_rpc_proto protoreflect.FileDescriptor
 
 var file_rpc_proto_rawDesc = []byte{
@@ -6914,10 +7064,30 @@ var file_rpc_proto_rawDesc = []byte{
 	0x63, 0x75, 0x6c, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x6f, 0x6d, 0x70, 0x69, 0x12, 0x2a, 0x0a,
 	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72,
-	0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x2a, 0x5a, 0x28, 0x67, 0x69, 0x74,
-	0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x6e, 0x65, 0x74,
-	0x77, 0x6f, 0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x77, 0x69, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x3d, 0x0a, 0x21, 0x47, 0x65, 0x74,
+	0x4b, 0x52, 0x43, 0x37, 0x32, 0x31, 0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x18,
+	0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x22, 0xfc, 0x01, 0x0a, 0x22, 0x47, 0x65, 0x74,
+	0x4b, 0x52, 0x43, 0x37, 0x32, 0x31, 0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x14, 0x0a, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x6f, 0x77, 0x6e, 0x65, 0x72, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d,
+	0x62, 0x6f, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f,
+	0x6c, 0x12, 0x1c, 0x0a, 0x09, 0x6d, 0x61, 0x78, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x18, 0x05,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x6d, 0x61, 0x78, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x12,
+	0x20, 0x0a, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x18, 0x06,
+	0x20, 0x01, 0x28, 0x04, 0x52, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x53, 0x75, 0x70, 0x70, 0x6c,
+	0x79, 0x12, 0x18, 0x0a, 0x07, 0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x18, 0x07, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x07, 0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x12, 0x2a, 0x0a, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72,
+	0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x2a, 0x5a, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75,
+	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x6e, 0x65, 0x74, 0x77, 0x6f,
+	0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77,
+	0x69, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -6933,7 +7103,7 @@ func file_rpc_proto_rawDescGZIP() []byte {
 }
 
 var file_rpc_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 108)
+var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 110)
 var file_rpc_proto_goTypes = []interface{}{
 	(SubmitBlockResponseMessage_RejectReason)(0), // 0: protowire.SubmitBlockResponseMessage.RejectReason
 	(*RPCError)(nil),                                                   // 1: protowire.RPCError
@@ -7044,6 +7214,8 @@ var file_rpc_proto_goTypes = []interface{}{
 	(*GetMempoolEntriesByAddressesResponseMessage)(nil),                // 106: protowire.GetMempoolEntriesByAddressesResponseMessage
 	(*GetCoinSupplyRequestMessage)(nil),                                // 107: protowire.GetCoinSupplyRequestMessage
 	(*GetCoinSupplyResponseMessage)(nil),                               // 108: protowire.GetCoinSupplyResponseMessage
+	(*GetKRC721CollectionRequestMessage)(nil),                          // 109: protowire.GetKRC721CollectionRequestMessage
+	(*GetKRC721CollectionResponseMessage)(nil),                         // 110: protowire.GetKRC721CollectionResponseMessage
 }
 var file_rpc_proto_depIdxs = []int32{
 	3,   // 0: protowire.RpcBlock.header:type_name -> protowire.RpcBlockHeader
@@ -7122,11 +7294,12 @@ var file_rpc_proto_depIdxs = []int32{
 	104, // 73: protowire.GetMempoolEntriesByAddressesResponseMessage.entries:type_name -> protowire.MempoolEntryByAddress
 	1,   // 74: protowire.GetMempoolEntriesByAddressesResponseMessage.error:type_name -> protowire.RPCError
 	1,   // 75: protowire.GetCoinSupplyResponseMessage.error:type_name -> protowire.RPCError
-	76,  // [76:76] is the sub-list for method output_type
-	76,  // [76:76] is the sub-list for method input_type
-	76,  // [76:76] is the sub-list for extension type_name
-	76,  // [76:76] is the sub-list for extension extendee
-	0,   // [0:76] is the sub-list for field type_name
+	1,   // 76: protowire.GetKRC721CollectionResponseMessage.error:type_name -> protowire.RPCError
+	77,  // [77:77] is the sub-list for method output_type
+	77,  // [77:77] is the sub-list for method input_type
+	77,  // [77:77] is the sub-list for extension type_name
+	77,  // [77:77] is the sub-list for extension extendee
+	0,   // [0:77] is the sub-list for field type_name
 }
 
 func init() { file_rpc_proto_init() }
@@ -8431,6 +8604,30 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
+		file_rpc_proto_msgTypes[108].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetKRC721CollectionRequestMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[109].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetKRC721CollectionResponseMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -8438,7 +8635,7 @@ func file_rpc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   108,
+			NumMessages:   110,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

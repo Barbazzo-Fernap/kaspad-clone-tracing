@@ -56,4 +56,7 @@ type Consensus interface {
 	IsChainBlock(blockHash *DomainHash) (bool, error)
 	VirtualMergeDepthRoot() (*DomainHash, error)
 	IsNearlySynced() (bool, error)
+
+	// KRC-721
+	GetKRC721Collection(address *ScriptPublicKey) (KRC721Collection, error)
 }

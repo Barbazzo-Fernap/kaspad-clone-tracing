@@ -65,15 +65,18 @@ func (t *transactionProcessor) excuteTXInput(stagingArea *model.StagingArea, inp
 		return fmt.Errorf("err json.Unmarshal: %w", err)
 	}
 
+	operatorAddr, _ := util.NewAddressPublicKey(datas[0], util.Bech32PrefixBugna)
+	operator, err := txscript.PayToAddrScript(operatorAddr)
+	if err != nil {
+		return fmt.Errorf("err txscript.PayToAddrScript: %w", err)
+	}
+
 	switch payload.Type {
 	case "krc721":
 		return t.excuteKRC721(
 			stagingArea,
 			input.UTXOEntry.ScriptPublicKey(),
-			&externalapi.ScriptPublicKey{
-				Script:  datas[0],
-				Version: 0,
-			},
+			operator,
 			payload)
 	default:
 		return fmt.Errorf("invalid type: %s", payload.Type)

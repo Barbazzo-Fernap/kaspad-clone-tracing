@@ -522,6 +522,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		headersSelectedChainStore:           headersSelectedChainStore,
 		daaBlocksStore:                      daaBlocksStore,
 		blocksWithTrustedDataDAAWindowStore: daaWindowStore,
+		krc721Store:                         krc721Store,
 
 		consensusEventsChan: consensusEventsChan,
 		virtualNotUpdated:   true,
