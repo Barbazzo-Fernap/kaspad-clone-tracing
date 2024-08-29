@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"strconv"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
@@ -14,9 +13,9 @@ import (
 )
 
 type TxPayloadExcutor struct {
-	Type   string   `json:"type"`
-	Action string   `json:"action"`
-	Args   []string `json:"args"`
+	Type   string `json:"type"`
+	Action string `json:"action"`
+	Args   []any  `json:"args"`
 }
 
 func (t *transactionProcessor) Excute(
@@ -100,20 +99,20 @@ func (t *transactionProcessor) excuteKRC721(
 			return fmt.Errorf("invalid args, action deploy")
 		}
 
-		name := payload.Args[0]
-		symbol := payload.Args[1]
-		maxSupply, err := strconv.ParseUint(payload.Args[2], 10, 64)
-		if err != nil {
-			return fmt.Errorf("err strconv.ParseUint: %w", err)
+		name, ok1 := payload.Args[0].(string)
+		symbol, ok2 := payload.Args[1].(string)
+		maxSupply, oke3 := payload.Args[2].(float64)
+		baseURI, ok4 := payload.Args[3].(string)
+		if !ok1 || !ok2 || !oke3 || !ok4 {
+			return fmt.Errorf("invalid args, action deploy, args: [%v, %v, %v, %v]", ok1, ok2, oke3, ok4)
 		}
-		baseURI := payload.Args[3]
 
 		c, err := krc721.NewKRC721Collection(
 			inputAddress,
 			owner,
 			name,
 			symbol,
-			maxSupply,
+			uint64(maxSupply),
 			0,
 			baseURI,
 		)
@@ -130,7 +129,7 @@ func (t *transactionProcessor) excuteKRC721(
 			return fmt.Errorf("invalid args, action mint")
 		}
 
-		addr, err := util.DecodeAddress(payload.Args[0], util.Bech32PrefixBugna)
+		addr, err := util.DecodeAddress(fmt.Sprintf("%v", payload.Args[0]), util.Bech32PrefixBugna)
 		if err != nil {
 			return fmt.Errorf("util.DecodeAddress: %w", err)
 		}
@@ -145,6 +144,40 @@ func (t *transactionProcessor) excuteKRC721(
 		)
 		if err != nil {
 			return fmt.Errorf("err krc721Store.Mint: %w", err)
+		}
+	case "transfer":
+		if len(payload.Args) != 3 {
+			return fmt.Errorf("invalid args, action transfer")
+		}
+
+		addr, err := util.DecodeAddress(fmt.Sprintf("%v", payload.Args[0]), util.Bech32PrefixBugna)
+		if err != nil {
+			return fmt.Errorf("util.DecodeAddress: %w", err)
+		}
+		collectionAddr, _ := txscript.PayToAddrScript(addr)
+
+		addr, err = util.DecodeAddress(fmt.Sprintf("%v", payload.Args[1]), util.Bech32PrefixBugna)
+		if err != nil {
+			return fmt.Errorf("util.DecodeAddress: %w", err)
+		}
+		toAddr, _ := txscript.PayToAddrScript(addr)
+
+		tokenID, ok := payload.Args[2].(float64)
+		if !ok {
+			return fmt.Errorf("invalid args, action transfer")
+		}
+
+		err = t.krc721Store.TransferFrom(
+			t.databaseContext,
+			stagingArea,
+			model.ScriptPublicKeyString(collectionAddr.String()),
+			model.ScriptPublicKeyString(owner.String()),
+			model.ScriptPublicKeyString(owner.String()),
+			model.ScriptPublicKeyString(toAddr.String()),
+			uint64(tokenID),
+		)
+		if err != nil {
+			return fmt.Errorf("err krc721Store.TransferFrom: %w", err)
 		}
 	default:
 		return fmt.Errorf("invalid action: %s", payload.Action)

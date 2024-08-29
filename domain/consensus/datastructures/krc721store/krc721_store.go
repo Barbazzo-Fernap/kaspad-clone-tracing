@@ -222,6 +222,11 @@ func (k *krc721Store) TransferFrom(
 	}
 
 	stagingShard := k.stagingShard(stagingArea)
+
+	if _, ok := stagingShard.toUpdateTokens[collectionID]; !ok {
+		stagingShard.toUpdateTokens[collectionID] = make(map[uint64]model.ScriptPublicKeyString)
+	}
+
 	stagingShard.toUpdateTokens[collectionID][tokenID] = to
 
 	return nil
