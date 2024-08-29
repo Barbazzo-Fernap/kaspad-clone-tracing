@@ -737,3 +737,16 @@ message GetKRC721CollectionResponseMessage{
 
   RPCError error = 1000;
 }
+
+message GetKRC721TokenRequestMessage{
+  string collectionAddress = 1;
+  uint64 tokenId = 2;
+}
+
+message GetKRC721TokenResponseMessage{
+  uint64 tokenId = 2;
+  string owner = 3;
+  string uri = 4;
+
+  RPCError error = 1000;
+}

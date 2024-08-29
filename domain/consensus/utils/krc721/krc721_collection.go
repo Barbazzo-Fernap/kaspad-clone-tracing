@@ -75,7 +75,7 @@ func (u *krc721Collection) BaseURI() string {
 }
 
 func (u *krc721Collection) TokenURI(tokenID uint64) string {
-	return fmt.Sprintf("%s/%d", u.baseURI, tokenID)
+	return fmt.Sprintf("%s%d", u.baseURI, tokenID)
 }
 
 func (u *krc721Collection) TotalSupply() uint64 {

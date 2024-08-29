@@ -59,4 +59,5 @@ type Consensus interface {
 
 	// KRC-721
 	GetKRC721Collection(address *ScriptPublicKey) (KRC721Collection, error)
+	OwnerOfKRC721Token(collectionAddress *ScriptPublicKey, tokenID uint64) (*ScriptPublicKey, error)
 }

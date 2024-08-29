@@ -6261,6 +6261,132 @@ func (x *GetKRC721CollectionResponseMessage) GetError() *RPCError {
 	return nil
 }
 
+type GetKRC721TokenRequestMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CollectionAddress string `protobuf:"bytes,1,opt,name=collectionAddress,proto3" json:"collectionAddress,omitempty"`
+	TokenId           uint64 `protobuf:"varint,2,opt,name=tokenId,proto3" json:"tokenId,omitempty"`
+}
+
+func (x *GetKRC721TokenRequestMessage) Reset() {
+	*x = GetKRC721TokenRequestMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[110]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetKRC721TokenRequestMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetKRC721TokenRequestMessage) ProtoMessage() {}
+
+func (x *GetKRC721TokenRequestMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[110]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetKRC721TokenRequestMessage.ProtoReflect.Descriptor instead.
+func (*GetKRC721TokenRequestMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{110}
+}
+
+func (x *GetKRC721TokenRequestMessage) GetCollectionAddress() string {
+	if x != nil {
+		return x.CollectionAddress
+	}
+	return ""
+}
+
+func (x *GetKRC721TokenRequestMessage) GetTokenId() uint64 {
+	if x != nil {
+		return x.TokenId
+	}
+	return 0
+}
+
+type GetKRC721TokenResponseMessage struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TokenId uint64    `protobuf:"varint,2,opt,name=tokenId,proto3" json:"tokenId,omitempty"`
+	Owner   string    `protobuf:"bytes,3,opt,name=owner,proto3" json:"owner,omitempty"`
+	Uri     string    `protobuf:"bytes,4,opt,name=uri,proto3" json:"uri,omitempty"`
+	Error   *RPCError `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
+}
+
+func (x *GetKRC721TokenResponseMessage) Reset() {
+	*x = GetKRC721TokenResponseMessage{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_rpc_proto_msgTypes[111]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetKRC721TokenResponseMessage) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetKRC721TokenResponseMessage) ProtoMessage() {}
+
+func (x *GetKRC721TokenResponseMessage) ProtoReflect() protoreflect.Message {
+	mi := &file_rpc_proto_msgTypes[111]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetKRC721TokenResponseMessage.ProtoReflect.Descriptor instead.
+func (*GetKRC721TokenResponseMessage) Descriptor() ([]byte, []int) {
+	return file_rpc_proto_rawDescGZIP(), []int{111}
+}
+
+func (x *GetKRC721TokenResponseMessage) GetTokenId() uint64 {
+	if x != nil {
+		return x.TokenId
+	}
+	return 0
+}
+
+func (x *GetKRC721TokenResponseMessage) GetOwner() string {
+	if x != nil {
+		return x.Owner
+	}
+	return ""
+}
+
+func (x *GetKRC721TokenResponseMessage) GetUri() string {
+	if x != nil {
+		return x.Uri
+	}
+	return ""
+}
+
+func (x *GetKRC721TokenResponseMessage) GetError() *RPCError {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
 var File_rpc_proto protoreflect.FileDescriptor
 
 var file_rpc_proto_rawDesc = []byte{
@@ -7084,10 +7210,26 @@ var file_rpc_proto_rawDesc = []byte{
 	0x28, 0x09, 0x52, 0x07, 0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x12, 0x2a, 0x0a, 0x05, 0x65,
 	0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72,
-	0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x2a, 0x5a, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x6e, 0x65, 0x74, 0x77, 0x6f,
-	0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77,
-	0x69, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x66, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4b, 0x52,
+	0x43, 0x37, 0x32, 0x31, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x2c, 0x0a, 0x11, 0x63, 0x6f, 0x6c, 0x6c, 0x65,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x11, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x64,
+	0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x18, 0x0a, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x22,
+	0x8d, 0x01, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x4b, 0x52, 0x43, 0x37, 0x32, 0x31, 0x54, 0x6f, 0x6b,
+	0x65, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x12, 0x18, 0x0a, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x6f,
+	0x77, 0x6e, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65,
+	0x72, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x69, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03,
+	0x75, 0x72, 0x69, 0x12, 0x2a, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e,
+	0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42,
+	0x2a, 0x5a, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75,
+	0x67, 0x6e, 0x61, 0x6e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61,
+	0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -7103,7 +7245,7 @@ func file_rpc_proto_rawDescGZIP() []byte {
 }
 
 var file_rpc_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 110)
+var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 112)
 var file_rpc_proto_goTypes = []interface{}{
 	(SubmitBlockResponseMessage_RejectReason)(0), // 0: protowire.SubmitBlockResponseMessage.RejectReason
 	(*RPCError)(nil),                                                   // 1: protowire.RPCError
@@ -7216,6 +7358,8 @@ var file_rpc_proto_goTypes = []interface{}{
 	(*GetCoinSupplyResponseMessage)(nil),                               // 108: protowire.GetCoinSupplyResponseMessage
 	(*GetKRC721CollectionRequestMessage)(nil),                          // 109: protowire.GetKRC721CollectionRequestMessage
 	(*GetKRC721CollectionResponseMessage)(nil),                         // 110: protowire.GetKRC721CollectionResponseMessage
+	(*GetKRC721TokenRequestMessage)(nil),                               // 111: protowire.GetKRC721TokenRequestMessage
+	(*GetKRC721TokenResponseMessage)(nil),                              // 112: protowire.GetKRC721TokenResponseMessage
 }
 var file_rpc_proto_depIdxs = []int32{
 	3,   // 0: protowire.RpcBlock.header:type_name -> protowire.RpcBlockHeader
@@ -7295,11 +7439,12 @@ var file_rpc_proto_depIdxs = []int32{
 	1,   // 74: protowire.GetMempoolEntriesByAddressesResponseMessage.error:type_name -> protowire.RPCError
 	1,   // 75: protowire.GetCoinSupplyResponseMessage.error:type_name -> protowire.RPCError
 	1,   // 76: protowire.GetKRC721CollectionResponseMessage.error:type_name -> protowire.RPCError
-	77,  // [77:77] is the sub-list for method output_type
-	77,  // [77:77] is the sub-list for method input_type
-	77,  // [77:77] is the sub-list for extension type_name
-	77,  // [77:77] is the sub-list for extension extendee
-	0,   // [0:77] is the sub-list for field type_name
+	1,   // 77: protowire.GetKRC721TokenResponseMessage.error:type_name -> protowire.RPCError
+	78,  // [78:78] is the sub-list for method output_type
+	78,  // [78:78] is the sub-list for method input_type
+	78,  // [78:78] is the sub-list for extension type_name
+	78,  // [78:78] is the sub-list for extension extendee
+	0,   // [0:78] is the sub-list for field type_name
 }
 
 func init() { file_rpc_proto_init() }
@@ -8628,6 +8773,30 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
+		file_rpc_proto_msgTypes[110].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetKRC721TokenRequestMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_rpc_proto_msgTypes[111].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetKRC721TokenResponseMessage); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -8635,7 +8804,7 @@ func file_rpc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   110,
+			NumMessages:   112,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

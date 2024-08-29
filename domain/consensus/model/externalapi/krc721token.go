@@ -10,8 +10,3 @@ type KRC721Collection interface {
 	TotalSupply() uint64
 	MaxSupply() uint64
 }
-
-type KRC721Token interface {
-	TokenID() uint64
-	Owner() *ScriptPublicKey // The public key script for the output.
-}

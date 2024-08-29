@@ -66,7 +66,9 @@ func (mss *krc721tagingShard) Commit(dbTx model.DBTransaction) error {
 func (mss *krc721tagingShard) commitKRC721Token(dbTX model.DBTransaction) error {
 	for collectionID, tokens := range mss.toAddTokens {
 		for tokenID, owner := range tokens {
-			err := dbTX.Put(mss.store.getKey(collectionID, []byte(fmt.Sprintf("%d", tokenID)), krc721TokenSuffix), []byte(owner))
+			bucket := mss.store.getCollectionDataBucket(collectionID, krc721TokenSuffix)
+			key := bucket.Key([]byte(fmt.Sprintf("%d", tokenID)))
+			err := dbTX.Put(key, []byte(owner))
 			if err != nil {
 				return err
 			}
@@ -75,12 +77,14 @@ func (mss *krc721tagingShard) commitKRC721Token(dbTX model.DBTransaction) error 
 
 	for collectionID, tokens := range mss.toUpdateTokens {
 		for tokenID, owner := range tokens {
-			err := dbTX.Delete(mss.store.getKey(collectionID, []byte(fmt.Sprintf("%d", tokenID)), krc721TokenSuffix))
+			bucket := mss.store.getCollectionDataBucket(collectionID, krc721TokenSuffix)
+			key := bucket.Key([]byte(fmt.Sprintf("%d", tokenID)))
+			err := dbTX.Delete(key)
 			if err != nil {
 				return err
 			}
 
-			err = dbTX.Put(mss.store.getKey(collectionID, []byte(fmt.Sprintf("%d", tokenID)), krc721TokenSuffix), []byte(owner))
+			err = dbTX.Put(key, []byte(owner))
 			if err != nil {
 				return err
 			}
@@ -93,7 +97,9 @@ func (mss *krc721tagingShard) commitKRC721Token(dbTX model.DBTransaction) error 
 func (mss *krc721tagingShard) commitKRC721TokenApproval(dbTx model.DBTransaction) error {
 	for collectionID, approvals := range mss.toAddTokenApproval {
 		for tokenID, approval := range approvals {
-			err := dbTx.Put(mss.store.getKey(collectionID, []byte(fmt.Sprintf("token_%d", tokenID)), krc721ApprovalSuffix), []byte(approval.Operator))
+			bucket := mss.store.getCollectionDataBucket(collectionID, krc721ApprovalSuffix)
+			key := bucket.Key([]byte(fmt.Sprintf("token_%d", tokenID)))
+			err := dbTx.Put(key, []byte(approval.Operator))
 			if err != nil {
 				return err
 			}
@@ -102,20 +108,23 @@ func (mss *krc721tagingShard) commitKRC721TokenApproval(dbTx model.DBTransaction
 
 	for collectionID, approvals := range mss.toDeleteTokenApproval {
 		for tokenID, approval := range approvals {
-			err := dbTx.Delete(mss.store.getKey(collectionID, []byte(fmt.Sprintf("token_%d", tokenID)), krc721ApprovalSuffix))
+			bucket := mss.store.getCollectionDataBucket(collectionID, krc721ApprovalSuffix)
+			key := bucket.Key([]byte(fmt.Sprintf("token_%d", tokenID)))
+			err := dbTx.Delete(key)
 			if err != nil {
 				return err
 			}
 
-			err = dbTx.Put(mss.store.getKey(collectionID, []byte(fmt.Sprintf("token_%d", tokenID)), krc721ApprovalSuffix), []byte(approval.Operator))
+			err = dbTx.Put(key, []byte(approval.Operator))
 		}
 	}
 
 	// approval for all
 	for collectionID, approvals := range mss.toAddApprovalForAll {
 		for _, approval := range approvals {
-			k := mss.store.getKey(collectionID, []byte(fmt.Sprintf("%s:%s", approval.Owner, approval.Operator)), krc721ApprovalSuffix)
-			err := dbTx.Put(k, []byte{1})
+			bucket := mss.store.getCollectionDataBucket(collectionID, krc721ApprovalSuffix)
+			key := bucket.Key([]byte(fmt.Sprintf("%s:%s", approval.Owner, approval.Operator)))
+			err := dbTx.Put(key, []byte{1})
 			if err != nil {
 				return err
 			}
@@ -124,8 +133,9 @@ func (mss *krc721tagingShard) commitKRC721TokenApproval(dbTx model.DBTransaction
 
 	for collectionID, approvals := range mss.toDeleteApprovalForAll {
 		for _, approval := range approvals {
-			k := mss.store.getKey(collectionID, []byte(fmt.Sprintf("%s:%s", approval.Owner, approval.Operator)), krc721ApprovalSuffix)
-			err := dbTx.Delete(k)
+			bucket := mss.store.getCollectionDataBucket(collectionID, krc721ApprovalSuffix)
+			key := bucket.Key([]byte(fmt.Sprintf("%s:%s", approval.Owner, approval.Operator)))
+			err := dbTx.Delete(key)
 			if err != nil {
 				return err
 			}

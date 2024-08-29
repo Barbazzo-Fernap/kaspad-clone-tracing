@@ -513,6 +513,13 @@ func toRPCPayload(message appmessage.Message) (isBugnadMessage_Payload, error) {
 			return nil, err
 		}
 		return payload, nil
+	case *appmessage.GetKRC721TokenRequestMessage:
+		payload := new(BugnadMessage_GetKRC721TokenRequest)
+		err := payload.fromAppMessage(message)
+		if err != nil {
+			return nil, err
+		}
+		return payload, nil
 	case *appmessage.SubmitTransactionResponseMessage:
 		payload := new(BugnadMessage_SubmitTransactionResponse)
 		err := payload.fromAppMessage(message)
@@ -977,6 +984,13 @@ func toRPCPayload(message appmessage.Message) (isBugnadMessage_Payload, error) {
 		return payload, nil
 	case *appmessage.GetKRC721CollectionResponseMessage:
 		payload := new(BugnadMessage_GetKRC721CollectionResponse)
+		err := payload.fromAppMessage(message)
+		if err != nil {
+			return nil, err
+		}
+		return payload, nil
+	case *appmessage.GetKRC721TokenResponseMessage:
+		payload := new(BugnadMessage_GetKRC721TokenResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err

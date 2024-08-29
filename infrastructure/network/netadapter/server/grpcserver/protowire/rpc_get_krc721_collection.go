@@ -41,6 +41,20 @@ func (x *BugnadMessage_GetKRC721CollectionResponse) fromAppMessage(message *appm
 		err = &RPCError{Message: message.Error.Message}
 	}
 
+	if message.Collection == nil {
+		x.GetKRC721CollectionResponse = &GetKRC721CollectionResponseMessage{
+			Id:          "",
+			Owner:       "",
+			Name:        "",
+			Symbol:      "",
+			MaxSupply:   0,
+			TotalSupply: 0,
+			BaseURI:     "",
+			Error:       err,
+		}
+		return nil
+	}
+
 	x.GetKRC721CollectionResponse = &GetKRC721CollectionResponseMessage{
 		Id:          message.Collection.ID,
 		Owner:       message.Collection.Owner,

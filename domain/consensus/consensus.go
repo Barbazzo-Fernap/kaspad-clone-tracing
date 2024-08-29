@@ -1156,3 +1156,12 @@ func (s *consensus) GetKRC721Collection(address *externalapi.ScriptPublicKey) (e
 
 	return c, nil
 }
+
+func (s *consensus) OwnerOfKRC721Token(collectionAddress *externalapi.ScriptPublicKey, tokenID uint64) (*externalapi.ScriptPublicKey, error) {
+	t, err := s.krc721Store.OwnerOf(s.databaseContext, model.NewStagingArea(), model.ScriptPublicKeyString(collectionAddress.String()), tokenID)
+	if err != nil {
+		return nil, err
+	}
+
+	return externalapi.NewScriptPublicKeyFromString(string(t)), nil
+}
