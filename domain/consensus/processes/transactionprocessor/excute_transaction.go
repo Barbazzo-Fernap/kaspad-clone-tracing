@@ -40,42 +40,49 @@ func (t *transactionProcessor) Excute(
 	return nil
 }
 
+const (
+	InputPayloadJSON         = 0
+	InputPayloadType         = 1
+	InputPayloadRedeemScript = 3
+)
+
 func (t *transactionProcessor) excuteTXInput(stagingArea *model.StagingArea, input *externalapi.DomainTransactionInput) error {
 	if !txscript.IsPayToScriptHash(input.UTXOEntry.ScriptPublicKey()) {
 		return fmt.Errorf("invalid script")
 	}
 
-	if !bytes.Contains(input.SignatureScript, []byte("bugna_script")) {
-		return fmt.Errorf("invalid script")
-	}
+	// if !bytes.Contains(input.SignatureScript, []byte("bugna_script")) {
+	// 	return fmt.Errorf("invalid script")
+	// }
 
 	datas, err := txscript.PushedData(input.SignatureScript)
 	if err != nil {
 		return fmt.Errorf("err txscript.PushedData: %w", err)
 	}
 
-	datas, err = txscript.PushedData(datas[1])
-	if err != nil {
-		return fmt.Errorf("err txscript.PushedData: %w", err)
-	}
-
-	if bytes.Compare(datas[2], []byte("bugna_script")) != 0 {
+	if len(datas) > 2 && !bytes.Contains(datas[InputPayloadType], []byte("krc721")) {
 		return fmt.Errorf("invalid script")
 	}
 
+	kind := string(datas[InputPayloadType])
 	payload := &TxPayloadExcutor{}
-	err = json.Unmarshal(datas[5], payload)
+	err = json.Unmarshal(datas[InputPayloadJSON], payload)
 	if err != nil {
 		return fmt.Errorf("err json.Unmarshal: %w", err)
 	}
 
-	operatorAddr, _ := util.NewAddressPublicKey(datas[0], util.Bech32PrefixBugna)
+	redeemScript, err := txscript.PushedData(datas[InputPayloadRedeemScript])
+	if err != nil {
+		return fmt.Errorf("err txscript.PushedData: %w", err)
+	}
+
+	operatorAddr, _ := util.NewAddressPublicKey(redeemScript[0], util.Bech32PrefixBugna)
 	operator, err := txscript.PayToAddrScript(operatorAddr)
 	if err != nil {
 		return fmt.Errorf("err txscript.PayToAddrScript: %w", err)
 	}
 
-	switch payload.Type {
+	switch kind {
 	case "krc721":
 		return t.excuteKRC721(
 			stagingArea,
