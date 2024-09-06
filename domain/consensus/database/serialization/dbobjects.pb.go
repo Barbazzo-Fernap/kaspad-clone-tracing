@@ -1838,6 +1838,61 @@ func (x *DbKRC721Collection) GetBaseURI() string {
 	return ""
 }
 
+type DbAccount struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Nonce    uint64  `protobuf:"varint,1,opt,name=nonce,proto3" json:"nonce,omitempty"`
+	CodeHash *DbHash `protobuf:"bytes,2,opt,name=codeHash,proto3" json:"codeHash,omitempty"`
+}
+
+func (x *DbAccount) Reset() {
+	*x = DbAccount{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_dbobjects_proto_msgTypes[30]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DbAccount) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DbAccount) ProtoMessage() {}
+
+func (x *DbAccount) ProtoReflect() protoreflect.Message {
+	mi := &file_dbobjects_proto_msgTypes[30]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DbAccount.ProtoReflect.Descriptor instead.
+func (*DbAccount) Descriptor() ([]byte, []int) {
+	return file_dbobjects_proto_rawDescGZIP(), []int{30}
+}
+
+func (x *DbAccount) GetNonce() uint64 {
+	if x != nil {
+		return x.Nonce
+	}
+	return 0
+}
+
+func (x *DbAccount) GetCodeHash() *DbHash {
+	if x != nil {
+		return x.CodeHash
+	}
+	return nil
+}
+
 var File_dbobjects_proto protoreflect.FileDescriptor
 
 var file_dbobjects_proto_rawDesc = []byte{
@@ -2111,10 +2166,16 @@ var file_dbobjects_proto_rawDesc = []byte{
 	0x6f, 0x74, 0x61, 0x6c, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x18, 0x06, 0x20, 0x01, 0x28, 0x04,
 	0x52, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x12, 0x18, 0x0a,
 	0x07, 0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
-	0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x42, 0x2e, 0x5a, 0x2c, 0x67, 0x69, 0x74, 0x68, 0x75,
-	0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x6e, 0x65, 0x74, 0x77, 0x6f,
-	0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64, 0x2f, 0x73, 0x65, 0x72, 0x69, 0x61, 0x6c,
-	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x22, 0x54, 0x0a, 0x09, 0x44, 0x62, 0x41, 0x63, 0x63,
+	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x6e, 0x6f, 0x6e, 0x63, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x05, 0x6e, 0x6f, 0x6e, 0x63, 0x65, 0x12, 0x31, 0x0a, 0x08, 0x63, 0x6f,
+	0x64, 0x65, 0x48, 0x61, 0x73, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x73,
+	0x65, 0x72, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x44, 0x62, 0x48,
+	0x61, 0x73, 0x68, 0x52, 0x08, 0x63, 0x6f, 0x64, 0x65, 0x48, 0x61, 0x73, 0x68, 0x42, 0x2e, 0x5a,
+	0x2c, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67, 0x6e,
+	0x61, 0x6e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64, 0x2f,
+	0x73, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2129,7 +2190,7 @@ func file_dbobjects_proto_rawDescGZIP() []byte {
 	return file_dbobjects_proto_rawDescData
 }
 
-var file_dbobjects_proto_msgTypes = make([]protoimpl.MessageInfo, 30)
+var file_dbobjects_proto_msgTypes = make([]protoimpl.MessageInfo, 31)
 var file_dbobjects_proto_goTypes = []interface{}{
 	(*DbBlock)(nil),                     // 0: serialization.DbBlock
 	(*DbBlockHeader)(nil),               // 1: serialization.DbBlockHeader
@@ -2161,6 +2222,7 @@ var file_dbobjects_proto_goTypes = []interface{}{
 	(*DbBlockHeaderCount)(nil),          // 27: serialization.DbBlockHeaderCount
 	(*DbBlockGHOSTDAGDataHashPair)(nil), // 28: serialization.DbBlockGHOSTDAGDataHashPair
 	(*DbKRC721Collection)(nil),          // 29: serialization.DbKRC721Collection
+	(*DbAccount)(nil),                   // 30: serialization.DbAccount
 }
 var file_dbobjects_proto_depIdxs = []int32{
 	1,  // 0: serialization.DbBlock.header:type_name -> serialization.DbBlockHeader
@@ -2204,11 +2266,12 @@ var file_dbobjects_proto_depIdxs = []int32{
 	15, // 38: serialization.DbBlockGHOSTDAGDataHashPair.GhostdagData:type_name -> serialization.DbBlockGhostdagData
 	20, // 39: serialization.DbKRC721Collection.id:type_name -> serialization.DbScriptPublicKey
 	20, // 40: serialization.DbKRC721Collection.owner:type_name -> serialization.DbScriptPublicKey
-	41, // [41:41] is the sub-list for method output_type
-	41, // [41:41] is the sub-list for method input_type
-	41, // [41:41] is the sub-list for extension type_name
-	41, // [41:41] is the sub-list for extension extendee
-	0,  // [0:41] is the sub-list for field type_name
+	3,  // 41: serialization.DbAccount.codeHash:type_name -> serialization.DbHash
+	42, // [42:42] is the sub-list for method output_type
+	42, // [42:42] is the sub-list for method input_type
+	42, // [42:42] is the sub-list for extension type_name
+	42, // [42:42] is the sub-list for extension extendee
+	0,  // [0:42] is the sub-list for field type_name
 }
 
 func init() { file_dbobjects_proto_init() }
@@ -2577,6 +2640,18 @@ func file_dbobjects_proto_init() {
 				return nil
 			}
 		}
+		file_dbobjects_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DbAccount); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -2584,7 +2659,7 @@ func file_dbobjects_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_dbobjects_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   30,
+			NumMessages:   31,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

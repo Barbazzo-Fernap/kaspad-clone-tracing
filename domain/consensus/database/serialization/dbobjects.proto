@@ -173,3 +173,8 @@ message DbKRC721Collection {
     uint64 totalSupply = 6;
     string baseURI = 7;
 }
+
+message DbAccount {
+    uint64 nonce = 1;
+    DbHash codeHash = 2;
+}
