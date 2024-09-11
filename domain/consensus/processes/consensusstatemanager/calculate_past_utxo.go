@@ -255,7 +255,7 @@ func (csm *consensusStateManager) maybeAcceptTransaction(stagingArea *model.Stag
 			return false, accumulatedMassBefore, nil
 		}
 
-		err = csm.transactionProcessor.Excute(stagingArea, transaction, blockHash)
+		err = csm.transactionProcessor.Excute(stagingArea, blockHash, blockDAAScore, transaction)
 		if err != nil {
 			log.Errorf("Transaction %s in block %s failed to execute: %s", transactionID, blockHash, err.Error())
 			return false, accumulatedMassBefore, nil

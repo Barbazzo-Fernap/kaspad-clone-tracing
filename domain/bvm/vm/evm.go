@@ -21,12 +21,6 @@ import (
 )
 
 func run(evm *EVM, contract *Contract, input []byte) ([]byte, error) {
-	if contract.CodeAddr != nil {
-		precompiles := PrecompiledContractsHomestead
-		if p := precompiles[*contract.CodeAddr]; p != nil {
-			return RunPrecompiledContract(p, input, contract)
-		}
-	}
 	return evm.interpreter.Run(contract, input)
 }
 
@@ -75,6 +69,8 @@ func NewEVM(ctx Context, statedb StateDB, chainConfig *ChainConfig, vmConfig Con
 		chainConfig:    chainConfig,
 	}
 
+	statedb.Prepare(ctx.TxHash, int(ctx.TxIndex))
+
 	evm.interpreter = NewInterpreter(evm, vmConfig)
 	return evm
 }
@@ -104,15 +100,6 @@ func (evm *EVM) Call(caller ContractRef, addr Address, input []byte, gas uint64,
 		snapshot = evm.StateDBHandler.Snapshot()
 	)
 	if !evm.StateDBHandler.Exist(addr) {
-		precompiles := PrecompiledContractsHomestead
-		if precompiles[addr] == nil && value.Sign() == 0 {
-			// Calling a non existing account, don't do antything, but ping the tracer
-			if evm.vmConfig.Debug && evm.depth == 0 {
-				evm.vmConfig.Tracer.CaptureStart(caller.Address(), addr, false, input, gas)
-				evm.vmConfig.Tracer.CaptureEnd(ret, 0, 0, nil)
-			}
-			return nil, gas, nil
-		}
 		evm.StateDBHandler.CreateAccount(addr)
 	}
 

@@ -10,6 +10,8 @@ type Context struct {
 	// Message information
 	Origin   Address  // Provides information for ORIGIN
 	GasPrice *big.Int // Provides information for GASPRICE
+	TxHash   Hash     // Provides information for TXHASH
+	TxIndex  uint32
 
 	// Block information
 	GasLimit    uint64   // Provides information for GASLIMIT

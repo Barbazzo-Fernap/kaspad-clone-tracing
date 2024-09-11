@@ -50,7 +50,7 @@ func (ms *bvmStore) get(dbContext model.DBReader, stagingArea *model.StagingArea
 		return value, nil
 	}
 
-	k, err := externalapi.NewDomainHashFromByteSlice(key.Bytes())
+	k, err := externalapi.NewDomainHashFromByteSlice(vm.Keccak256(key.Bytes()))
 	if err != nil {
 		return nil, err
 	}

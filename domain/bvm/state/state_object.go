@@ -143,7 +143,7 @@ func (s *stateObject) GetCommittedState(key vm.Hash) vm.Hash {
 
 	enc, err := s.db.db.GetStorage(s.address, key)
 	if err != nil {
-		s.setError(err)
+		// s.setError(err)
 		return vm.Hash{}
 	}
 	var value vm.Hash

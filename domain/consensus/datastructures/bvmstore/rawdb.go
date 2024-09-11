@@ -19,6 +19,7 @@ var _ state.Database = (*rawDB)(nil)
 func (s *rawDB) ReadCode(hash vm.Hash) []byte {
 	key := s.store.codeKey(hash)
 	codes, _ := s.store.get(s.dbContext, s.stagingArea, key)
+
 	return codes
 }
 

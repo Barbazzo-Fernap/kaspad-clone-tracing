@@ -6,5 +6,10 @@ import (
 
 // TransactionProcessor processes Transaction
 type TransactionProcessor interface {
-	Excute(stagingArea *StagingArea, tx *externalapi.DomainTransaction, povBlockHash *externalapi.DomainHash) error
+	Excute(
+		stagingArea *StagingArea,
+		povBlockHash *externalapi.DomainHash,
+		blockDaaScore uint64,
+		tx *externalapi.DomainTransaction,
+	) error
 }

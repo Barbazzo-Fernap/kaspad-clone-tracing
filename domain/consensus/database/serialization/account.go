@@ -5,7 +5,6 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
-// KRC721ToDBKRC721 converts KRC721 to DbKRC721
 func AccountToDBAccount(account *state.Account) *DbAccount {
 	codeHash, _ := externalapi.NewDomainHashFromByteSlice(account.CodeHash)
 	return &DbAccount{

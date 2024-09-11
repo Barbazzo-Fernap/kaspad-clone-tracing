@@ -18,6 +18,9 @@ package vm
 
 import (
 	"math/big"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/util"
 )
 
 var EmptyCodeHash = Keccak256Hash(nil) // c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
@@ -81,12 +84,19 @@ func allZero(b []byte) bool {
 
 // CreateAddress creates an ethereum address given the bytes and the nonce
 func CreateAddress(b Address, nonce uint64) Address {
-	data := append(b.Bytes(), big.NewInt(int64(nonce)).Bytes()...)
-	return BytesToAddress(Keccak256(data)[12:])
+	secret, _ := secretContract(b.Bytes(), int64(nonce))
+	scriptHash := util.HashBlake2b(secret)
+	return BytesToAddress(scriptHash)
 }
 
-// CreateAddress2 creates an ethereum address given the address bytes, initial
-// contract code hash and a salt.
-func CreateAddress2(b Address, salt [32]byte, inithash []byte) Address {
-	return BytesToAddress(Keccak256([]byte{0xff}, b.Bytes(), salt[:], inithash)[12:])
+func secretContract(pubkhThem []byte, nonce int64) ([]byte, error) {
+	builder := txscript.NewScriptBuilder()
+
+	builder.AddData(pubkhThem)
+	builder.AddOp(txscript.OpCheckSig)
+
+	builder.AddInt64(nonce)
+	builder.AddOp(txscript.OpEqualVerify)
+
+	return builder.Script()
 }

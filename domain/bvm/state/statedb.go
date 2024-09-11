@@ -20,6 +20,7 @@ package state
 import (
 	"fmt"
 	"sort"
+	"strings"
 
 	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
 )
@@ -321,7 +322,9 @@ func (s *StateDB) getDeletedStateObject(addr vm.Address) *stateObject {
 
 	data, err := s.db.GetAccount(addr)
 	if err != nil {
-		s.setError(err)
+		if !strings.Contains(err.Error(), "not found") {
+			s.setError(err)
+		}
 		return nil
 	}
 

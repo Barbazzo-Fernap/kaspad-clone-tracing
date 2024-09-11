@@ -2,6 +2,7 @@ package bvmstore
 
 import (
 	"github.com/bugnanetwork/bugnad/domain/bvm/state"
+	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
@@ -43,7 +44,7 @@ func (mss *bvmStagingShard) Commit(dbTx model.DBTransaction) error {
 		if err != nil {
 			return err
 		}
-		k, err := externalapi.NewDomainHashFromByteSlice(hash.Bytes())
+		k, err := externalapi.NewDomainHashFromByteSlice(vm.Keccak256(hash.Bytes()))
 		if err != nil {
 			return err
 		}
@@ -56,7 +57,7 @@ func (mss *bvmStagingShard) Commit(dbTx model.DBTransaction) error {
 			return err
 		}
 
-		k, err := externalapi.NewDomainHashFromByteSlice(key.Bytes())
+		k, err := externalapi.NewDomainHashFromByteSlice(vm.Keccak256(key.Bytes()))
 		if err != nil {
 			return err
 		}

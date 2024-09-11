@@ -38,6 +38,7 @@ type StateDB interface {
 	AddLog(*Log)
 	AddPreimage(Hash, []byte)
 
+	Prepare(thash Hash, ti int)
 	Logs() []*Log
 }
 
