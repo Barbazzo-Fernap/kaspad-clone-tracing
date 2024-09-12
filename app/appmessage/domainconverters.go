@@ -309,6 +309,16 @@ func DomainTransactionToRPCTransaction(transaction *externalapi.DomainTransactio
 					Version: entry.ScriptPublicKey.Version,
 				},
 			}
+		case *externalapi.DomainTransactionJournalNonceChange:
+			scriptPublicKey := hex.EncodeToString(entry.ScriptPublicKey.Script)
+			journal[i] = &RPCTransactionJournalNonceChange{
+				ScriptPublicKey: &RPCScriptPublicKey{
+					Script:  scriptPublicKey,
+					Version: entry.ScriptPublicKey.Version,
+				},
+				PreviousNonce: entry.PreviousNonce,
+				NewNonce:      entry.NewNonce,
+			}
 		}
 	}
 

@@ -216,6 +216,13 @@ func ScriptHashToScriptPublicKey(scriptHash []byte) ([]byte, error) {
 		AddOp(OpEqual).Script()
 }
 
+func PubKeyToScriptPublicKey(pubKey []byte) ([]byte, error) {
+	return NewScriptBuilder().
+		AddData(pubKey).
+		AddOp(OpCheckSig).
+		Script()
+}
+
 // PayToAddrScript creates a new script to pay a transaction output to a the
 // specified address.
 func PayToAddrScript(addr util.Address) (*externalapi.ScriptPublicKey, error) {

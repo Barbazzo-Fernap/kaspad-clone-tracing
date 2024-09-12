@@ -134,7 +134,21 @@ type RPCTransactionJournalCreateObjectChange struct {
 
 func (RPCTransactionJournalCreateObjectChange) isRPCTransactionJournal() {}
 
+type RPCTransactionJournalNonceChange struct {
+	ScriptPublicKey *RPCScriptPublicKey
+	PreviousNonce   uint64
+	NewNonce        uint64
+	VerboseData     *RPCTransactionJournalNonceChangeVerboseData
+}
+
+func (RPCTransactionJournalNonceChange) isRPCTransactionJournal() {}
+
 type RPCTransactionJournalCreateObjectChangeVerboseData struct {
+	ScriptPublicKeyType    string
+	ScriptPublicKeyAddress string
+}
+
+type RPCTransactionJournalNonceChangeVerboseData struct {
 	ScriptPublicKeyType    string
 	ScriptPublicKeyAddress string
 }

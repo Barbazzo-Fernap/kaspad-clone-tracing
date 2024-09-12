@@ -122,11 +122,22 @@ message RpcTransactionJournal {
         message VerboseData{
             string scriptPublicKeyType = 1;
             string scriptPublicKeyAddress = 2;
-            }
+        }
         VerboseData verboseData = 2;
         }
+    message NonceChange {
+        RpcScriptPublicKey scriptPublicKey = 1;
+        uint64 previousNonce = 2;
+        uint64 newNonce = 3;
+        message VerboseData{
+            string scriptPublicKeyType = 1;
+            string scriptPublicKeyAddress = 2;
+        }
+        VerboseData verboseData = 4;
+    }
     oneof payload {
         CreateObjectChange createObjectChange = 1;
+        NonceChange nonceChange = 2;
     }
 }
 

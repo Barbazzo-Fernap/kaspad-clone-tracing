@@ -56,12 +56,7 @@ func (tx *DomainTransaction) Clone() *DomainTransaction {
 
 	journalClone := make([]DomainTransactionJournal, len(tx.Journal))
 	for i, journal := range tx.Journal {
-		switch journal := journal.(type) {
-		case *DomainTransactionJournalCreateObjectChange:
-			journalClone[i] = journal.Clone()
-		default:
-			panic(errors.Errorf("unexpected journal type: %T", journal))
-		}
+		journalClone[i] = journal.Clone()
 	}
 
 	return &DomainTransaction{
@@ -133,13 +128,8 @@ func (tx *DomainTransaction) Equal(other *DomainTransaction) bool {
 	}
 
 	for i, journal := range tx.Journal {
-		switch journal := journal.(type) {
-		case *DomainTransactionJournalCreateObjectChange:
-			if !journal.Equal(other.Journal[i].(*DomainTransactionJournalCreateObjectChange)) {
-				return false
-			}
-		default:
-			panic(errors.Errorf("unexpected journal type: %T", journal))
+		if !journal.Equal(other.Journal[i].(*DomainTransactionJournalCreateObjectChange)) {
+			return false
 		}
 	}
 
@@ -462,6 +452,8 @@ func (l *DomainTransactionLog) Equal(other *DomainTransactionLog) bool {
 
 type DomainTransactionJournal interface {
 	isDomainTransactionJournal()
+	Clone() DomainTransactionJournal
+	Equal(other DomainTransactionJournal) bool
 }
 
 type DomainTransactionJournalCreateObjectChange struct {
@@ -470,7 +462,7 @@ type DomainTransactionJournalCreateObjectChange struct {
 
 func (DomainTransactionJournalCreateObjectChange) isDomainTransactionJournal() {}
 
-func (j *DomainTransactionJournalCreateObjectChange) Clone() *DomainTransactionJournalCreateObjectChange {
+func (j *DomainTransactionJournalCreateObjectChange) Clone() DomainTransactionJournal {
 	scriptPublicKeyClone := &ScriptPublicKey{
 		Script:  make([]byte, len(j.ScriptPublicKey.Script)),
 		Version: j.ScriptPublicKey.Version}
@@ -481,10 +473,49 @@ func (j *DomainTransactionJournalCreateObjectChange) Clone() *DomainTransactionJ
 	}
 }
 
-func (j *DomainTransactionJournalCreateObjectChange) Equal(other *DomainTransactionJournalCreateObjectChange) bool {
+func (j *DomainTransactionJournalCreateObjectChange) Equal(o DomainTransactionJournal) bool {
+	other, ok := o.(*DomainTransactionJournalCreateObjectChange)
+	if !ok {
+		return false
+	}
+
 	if j == nil || other == nil {
 		return j == other
 	}
 
 	return j.ScriptPublicKey.Equal(other.ScriptPublicKey)
+}
+
+type DomainTransactionJournalNonceChange struct {
+	ScriptPublicKey *ScriptPublicKey
+	PreviousNonce   uint64
+	NewNonce        uint64
+}
+
+func (DomainTransactionJournalNonceChange) isDomainTransactionJournal() {}
+
+func (j *DomainTransactionJournalNonceChange) Clone() DomainTransactionJournal {
+	scriptPublicKeyClone := &ScriptPublicKey{
+		Script:  make([]byte, len(j.ScriptPublicKey.Script)),
+		Version: j.ScriptPublicKey.Version}
+	copy(scriptPublicKeyClone.Script, j.ScriptPublicKey.Script)
+
+	return &DomainTransactionJournalNonceChange{
+		ScriptPublicKey: scriptPublicKeyClone,
+		PreviousNonce:   j.PreviousNonce,
+		NewNonce:        j.NewNonce,
+	}
+}
+
+func (j *DomainTransactionJournalNonceChange) Equal(o DomainTransactionJournal) bool {
+	other, ok := o.(*DomainTransactionJournalNonceChange)
+	if !ok {
+		return false
+	}
+
+	if j == nil || other == nil {
+		return j == other
+	}
+
+	return j.ScriptPublicKey.Equal(other.ScriptPublicKey) && j.PreviousNonce == other.PreviousNonce && j.NewNonce == other.NewNonce
 }

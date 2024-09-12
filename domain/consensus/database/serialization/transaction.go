@@ -50,12 +50,17 @@ func DomainTransactionToDbTransaction(domainTransaction *externalapi.DomainTrans
 			journal[i] = &DbTransactionJournal{
 				Payload: &DbTransactionJournal_CreateObjectChange_{
 					CreateObjectChange: &DbTransactionJournal_CreateObjectChange{
-						ScriptPublicKey: ScriptPublicKeyToDBScriptPublicKey(&externalapi.ScriptPublicKey{
-							Script:  p.ScriptPublicKey.Script,
-							Version: p.ScriptPublicKey.Version,
-						}),
+						ScriptPublicKey: ScriptPublicKeyToDBScriptPublicKey(p.ScriptPublicKey),
 					},
 				},
+			}
+		case *externalapi.DomainTransactionJournalNonceChange:
+			journal[i] = &DbTransactionJournal{
+				Payload: &DbTransactionJournal_NonceChange_{NonceChange: &DbTransactionJournal_NonceChange{
+					ScriptPublicKey: ScriptPublicKeyToDBScriptPublicKey(p.ScriptPublicKey),
+					PreviousNonce:   p.PreviousNonce,
+					NewNonce:        p.NewNonce,
+				}},
 			}
 		}
 	}

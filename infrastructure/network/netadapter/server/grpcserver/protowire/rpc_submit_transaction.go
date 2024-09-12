@@ -418,6 +418,19 @@ func (x *RpcTransactionJournal) fromAppMessage(message appmessage.RPCTransaction
 			ScriptPublicKey: s,
 			VerboseData:     v,
 		}}
+	case *appmessage.RPCTransactionJournalNonceChange:
+		s := &RpcScriptPublicKey{}
+		s.fromAppMessage(p.ScriptPublicKey)
+
+		v := &RpcTransactionJournal_NonceChange_VerboseData{}
+		v.fromAppMessage(p.VerboseData)
+
+		x.Payload = &RpcTransactionJournal_NonceChange_{NonceChange: &RpcTransactionJournal_NonceChange{
+			ScriptPublicKey: s,
+			PreviousNonce:   p.PreviousNonce,
+			NewNonce:        p.NewNonce,
+			VerboseData:     v,
+		}}
 	}
 }
 
@@ -433,6 +446,23 @@ func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) toAppMessage() (*
 
 func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) fromAppMessage(message *appmessage.RPCTransactionJournalCreateObjectChangeVerboseData) {
 	*x = RpcTransactionJournal_CreateObjectChange_VerboseData{
+		ScriptPublicKeyType:    message.ScriptPublicKeyType,
+		ScriptPublicKeyAddress: message.ScriptPublicKeyAddress,
+	}
+}
+
+func (x *RpcTransactionJournal_NonceChange_VerboseData) toAppMessage() (*appmessage.RPCTransactionJournalNonceChangeVerboseData, error) {
+	if x == nil {
+		return nil, errors.Wrapf(errorNil, "RpcTransactionOutputVerboseData is nil")
+	}
+	return &appmessage.RPCTransactionJournalNonceChangeVerboseData{
+		ScriptPublicKeyType:    x.ScriptPublicKeyType,
+		ScriptPublicKeyAddress: x.ScriptPublicKeyAddress,
+	}, nil
+}
+
+func (x *RpcTransactionJournal_NonceChange_VerboseData) fromAppMessage(message *appmessage.RPCTransactionJournalNonceChangeVerboseData) {
+	*x = RpcTransactionJournal_NonceChange_VerboseData{
 		ScriptPublicKeyType:    message.ScriptPublicKeyType,
 		ScriptPublicKeyAddress: message.ScriptPublicKeyAddress,
 	}

@@ -54,8 +54,14 @@ message DbTransactionJournal {
     message CreateObjectChange {
         DbScriptPublicKey scriptPublicKey = 1;
     }
+    message NonceChange {
+        DbScriptPublicKey scriptPublicKey = 1;
+        uint64 previousNonce = 2;
+        uint64 newNonce = 3;
+    }
     oneof payload {
         CreateObjectChange createObjectChange = 1;
+        NonceChange nonceChange = 2;
     }
 }
 

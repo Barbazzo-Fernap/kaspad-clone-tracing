@@ -445,17 +445,42 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 	for _, entry := range s.journal.entries {
 		switch e := entry.(type) {
 		case createObjectChange:
-			scriptPublicKey, _ := txscript.ScriptHashToScriptPublicKey(e.account.Bytes())
 			changes = append(changes, &externalapi.DomainTransactionJournalCreateObjectChange{
-				ScriptPublicKey: &externalapi.ScriptPublicKey{
-					Script:  scriptPublicKey,
-					Version: constants.MaxScriptPublicKeyVersion,
-				},
+				ScriptPublicKey: s.Address2ScriptPubkey(*e.account),
+			})
+
+		case nonceChange:
+			if e.prev == 0 {
+				break
+			}
+			changes = append(changes, &externalapi.DomainTransactionJournalNonceChange{
+				ScriptPublicKey: s.Address2ScriptPubkey(*e.account),
+				PreviousNonce:   e.prev,
+				NewNonce:        e.prev + 1,
 			})
 		}
 	}
 
 	return changes
+}
+
+func (s *StateDB) Address2ScriptPubkey(addr vm.Address) *externalapi.ScriptPublicKey {
+	codeHash := s.GetCodeHash(addr)
+	isContract := codeHash != (vm.Hash{}) && codeHash != vm.EmptyCodeHash
+
+	if isContract {
+		scriptPublicKey, _ := txscript.ScriptHashToScriptPublicKey(addr.Bytes())
+		return &externalapi.ScriptPublicKey{
+			Script:  scriptPublicKey,
+			Version: constants.MaxScriptPublicKeyVersion,
+		}
+	}
+
+	scriptPublicKey, _ := txscript.PubKeyToScriptPublicKey(addr.Bytes())
+	return &externalapi.ScriptPublicKey{
+		Script:  scriptPublicKey,
+		Version: constants.MaxScriptPublicKeyVersion,
+	}
 }
 
 // Finalise finalises the state by removing the s destructed objects and clears
