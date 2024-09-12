@@ -129,6 +129,12 @@ type RPCTransactionJournal interface {
 
 type RPCTransactionJournalCreateObjectChange struct {
 	ScriptPublicKey *RPCScriptPublicKey
+	VerboseData     *RPCTransactionJournalCreateObjectChangeVerboseData
 }
 
 func (RPCTransactionJournalCreateObjectChange) isRPCTransactionJournal() {}
+
+type RPCTransactionJournalCreateObjectChangeVerboseData struct {
+	ScriptPublicKeyType    string
+	ScriptPublicKeyAddress string
+}

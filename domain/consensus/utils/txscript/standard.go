@@ -211,6 +211,11 @@ func payToScriptHashScript(scriptHash []byte) ([]byte, error) {
 		AddOp(OpEqual).Script()
 }
 
+func ScriptHashToScriptPublicKey(scriptHash []byte) ([]byte, error) {
+	return NewScriptBuilder().AddOp(OpBlake2b).AddData(scriptHash).
+		AddOp(OpEqual).Script()
+}
+
 // PayToAddrScript creates a new script to pay a transaction output to a the
 // specified address.
 func PayToAddrScript(addr util.Address) (*externalapi.ScriptPublicKey, error) {

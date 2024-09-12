@@ -25,6 +25,7 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 )
 
 // StateDBs within the ethereum protocol are used to store anything
@@ -444,9 +445,10 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 	for _, entry := range s.journal.entries {
 		switch e := entry.(type) {
 		case createObjectChange:
+			scriptPublicKey, _ := txscript.ScriptHashToScriptPublicKey(e.account.Bytes())
 			changes = append(changes, &externalapi.DomainTransactionJournalCreateObjectChange{
 				ScriptPublicKey: &externalapi.ScriptPublicKey{
-					Script:  e.account.Bytes(),
+					Script:  scriptPublicKey,
 					Version: constants.MaxScriptPublicKeyVersion,
 				},
 			})

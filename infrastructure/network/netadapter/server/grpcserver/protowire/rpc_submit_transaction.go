@@ -130,6 +130,19 @@ func (x *RpcTransaction) fromAppMessage(transaction *appmessage.RPCTransaction) 
 		verboseData = &RpcTransactionVerboseData{}
 		verboseData.fromAppMessage(transaction.VerboseData)
 	}
+
+	logs := make([]*RpcTransactionLog, len(transaction.Logs))
+	for i, log := range transaction.Logs {
+		logs[i] = &RpcTransactionLog{}
+		logs[i].fromAppMessage(log)
+	}
+
+	journal := make([]*RpcTransactionJournal, len(transaction.Journal))
+	for i, j := range transaction.Journal {
+		journal[i] = &RpcTransactionJournal{}
+		journal[i].fromAppMessage(j)
+	}
+
 	*x = RpcTransaction{
 		Version:      uint32(transaction.Version),
 		Inputs:       inputs,
@@ -139,6 +152,8 @@ func (x *RpcTransaction) fromAppMessage(transaction *appmessage.RPCTransaction) 
 		Gas:          transaction.Gas,
 		Payload:      transaction.Payload,
 		VerboseData:  verboseData,
+		Logs:         logs,
+		Journal:      journal,
 	}
 }
 
@@ -319,7 +334,7 @@ func (x *RpcTransactionInputVerboseData) toAppMessage() (*appmessage.RPCTransact
 	return &appmessage.RPCTransactionInputVerboseData{}, nil
 }
 
-func (x *RpcTransactionInputVerboseData) fromAppData(message *appmessage.RPCTransactionInputVerboseData) {
+func (x *RpcTransactionInputVerboseData) fromAppData(_ *appmessage.RPCTransactionInputVerboseData) {
 	*x = RpcTransactionInputVerboseData{}
 }
 
@@ -335,6 +350,89 @@ func (x *RpcTransactionOutputVerboseData) toAppMessage() (*appmessage.RPCTransac
 
 func (x *RpcTransactionOutputVerboseData) fromAppMessage(message *appmessage.RPCTransactionOutputVerboseData) {
 	*x = RpcTransactionOutputVerboseData{
+		ScriptPublicKeyType:    message.ScriptPublicKeyType,
+		ScriptPublicKeyAddress: message.ScriptPublicKeyAddress,
+	}
+}
+
+func (x *RpcTransactionLog) toAppMessage() (*appmessage.RPCTransactionLog, error) {
+	if x == nil {
+		return nil, errors.Wrapf(errorNil, "RpcTransactionLog is nil")
+	}
+
+	scriptPublicKey, err := x.ScriptPublicKey.toAppMessage()
+	if err != nil {
+		return nil, err
+	}
+
+	return &appmessage.RPCTransactionLog{
+		ScriptPublicKey: scriptPublicKey,
+		Topics:          x.Topics,
+		Data:            x.Data,
+		Index:           x.Index,
+	}, nil
+}
+
+func (x *RpcTransactionLog) fromAppMessage(message *appmessage.RPCTransactionLog) {
+	scriptPublicKey := &RpcScriptPublicKey{}
+	scriptPublicKey.fromAppMessage(message.ScriptPublicKey)
+
+	*x = RpcTransactionLog{
+		ScriptPublicKey: scriptPublicKey,
+		Topics:          message.Topics,
+		Data:            message.Data,
+		Index:           message.Index,
+	}
+}
+
+func (x *RpcTransactionJournal) toAppMessage() (appmessage.RPCTransactionJournal, error) {
+	if x == nil {
+		return nil, errors.Wrapf(errorNil, "RpcTransactionJournal is nil")
+	}
+
+	switch p := x.GetPayload().(type) {
+	case *RpcTransactionJournal_CreateObjectChange_:
+		s, err := p.CreateObjectChange.ScriptPublicKey.toAppMessage()
+		if err != nil {
+			return nil, err
+		}
+
+		return &appmessage.RPCTransactionJournalCreateObjectChange{
+			ScriptPublicKey: s,
+		}, nil
+	default:
+		return nil, errors.New("unknown RpcTransactionJournal type")
+	}
+}
+
+func (x *RpcTransactionJournal) fromAppMessage(message appmessage.RPCTransactionJournal) {
+	switch p := message.(type) {
+	case *appmessage.RPCTransactionJournalCreateObjectChange:
+		s := &RpcScriptPublicKey{}
+		s.fromAppMessage(p.ScriptPublicKey)
+
+		v := &RpcTransactionJournal_CreateObjectChange_VerboseData{}
+		v.fromAppMessage(p.VerboseData)
+
+		x.Payload = &RpcTransactionJournal_CreateObjectChange_{CreateObjectChange: &RpcTransactionJournal_CreateObjectChange{
+			ScriptPublicKey: s,
+			VerboseData:     v,
+		}}
+	}
+}
+
+func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) toAppMessage() (*appmessage.RPCTransactionJournalCreateObjectChangeVerboseData, error) {
+	if x == nil {
+		return nil, errors.Wrapf(errorNil, "RpcTransactionOutputVerboseData is nil")
+	}
+	return &appmessage.RPCTransactionJournalCreateObjectChangeVerboseData{
+		ScriptPublicKeyType:    x.ScriptPublicKeyType,
+		ScriptPublicKeyAddress: x.ScriptPublicKeyAddress,
+	}, nil
+}
+
+func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) fromAppMessage(message *appmessage.RPCTransactionJournalCreateObjectChangeVerboseData) {
+	*x = RpcTransactionJournal_CreateObjectChange_VerboseData{
 		ScriptPublicKeyType:    message.ScriptPublicKeyType,
 		ScriptPublicKeyAddress: message.ScriptPublicKeyAddress,
 	}

@@ -141,6 +141,14 @@ func (ctx *Context) PopulateTransactionWithVerboseData(
 			return err
 		}
 	}
+
+	for _, journal := range transaction.Journal {
+		err := ctx.populateTransactionJournalWithVerboseData(journal)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -171,6 +179,37 @@ func (ctx *Context) populateTransactionOutputWithVerboseData(transactionOutput *
 	transactionOutput.VerboseData = &appmessage.RPCTransactionOutputVerboseData{
 		ScriptPublicKeyType:    scriptPublicKeyType.String(),
 		ScriptPublicKeyAddress: encodedScriptPublicKeyAddress,
+	}
+	return nil
+}
+
+func (ctx *Context) populateTransactionJournalWithVerboseData(transactionJournal appmessage.RPCTransactionJournal) error {
+	switch j := transactionJournal.(type) {
+	case *appmessage.RPCTransactionJournalCreateObjectChange:
+		scriptPublicKey, err := hex.DecodeString(j.ScriptPublicKey.Script)
+		if err != nil {
+			return err
+		}
+		domainScriptPublicKey := &externalapi.ScriptPublicKey{
+			Script:  scriptPublicKey,
+			Version: j.ScriptPublicKey.Version,
+		}
+
+		// Ignore the error here since an error means the script
+		// couldn't be parsed and there's no additional information about
+		// it anyways
+		scriptPublicKeyType, scriptPublicKeyAddress, _ := txscript.ExtractScriptPubKeyAddress(
+			domainScriptPublicKey, ctx.Config.ActiveNetParams)
+
+		var encodedScriptPublicKeyAddress string
+		if scriptPublicKeyAddress != nil {
+			encodedScriptPublicKeyAddress = scriptPublicKeyAddress.EncodeAddress()
+		}
+
+		j.VerboseData = &appmessage.RPCTransactionJournalCreateObjectChangeVerboseData{
+			ScriptPublicKeyType:    scriptPublicKeyType.String(),
+			ScriptPublicKeyAddress: encodedScriptPublicKeyAddress,
+		}
 	}
 	return nil
 }

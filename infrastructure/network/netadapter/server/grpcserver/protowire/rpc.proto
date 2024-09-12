@@ -119,7 +119,12 @@ message RpcTransactionLog {
 message RpcTransactionJournal {
     message CreateObjectChange {
         RpcScriptPublicKey scriptPublicKey = 1;
-    }
+        message VerboseData{
+            string scriptPublicKeyType = 1;
+            string scriptPublicKeyAddress = 2;
+            }
+        VerboseData verboseData = 2;
+        }
     oneof payload {
         CreateObjectChange createObjectChange = 1;
     }

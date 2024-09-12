@@ -94,9 +94,10 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 				topics = append(topics, *hash)
 			}
 
+			scriptPublicKey, _ := txscript.ScriptHashToScriptPublicKey(log.Address.Bytes())
 			tx.Logs = append(tx.Logs, &externalapi.DomainTransactionLog{
 				ScriptPublicKey: &externalapi.ScriptPublicKey{
-					Script:  log.Address.Bytes(),
+					Script:  scriptPublicKey,
 					Version: constants.MaxScriptPublicKeyVersion,
 				},
 				Topics: topics,
