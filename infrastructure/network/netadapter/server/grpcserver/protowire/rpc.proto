@@ -66,6 +66,8 @@ message RpcTransaction {
   uint64 gas = 6;
   string payload = 8;
   RpcTransactionVerboseData verboseData = 9;
+  repeated RpcTransactionLog logs = 10;
+  repeated RpcTransactionJournal journal = 11;
 }
 
 message RpcTransactionInput {
@@ -105,6 +107,22 @@ message RpcTransactionVerboseData{
   uint64 mass = 4;
   string blockHash = 12;
   uint64 blockTime = 14;
+}
+
+message RpcTransactionLog {
+  RpcScriptPublicKey scriptPublicKey = 1;
+  repeated string topics = 2;
+  string data = 3;
+  uint64 index = 4;
+}
+
+message RpcTransactionJournal {
+    message CreateObjectChange {
+        RpcScriptPublicKey scriptPublicKey = 1;
+    }
+    oneof payload {
+        CreateObjectChange createObjectChange = 1;
+    }
 }
 
 message RpcTransactionInputVerboseData{

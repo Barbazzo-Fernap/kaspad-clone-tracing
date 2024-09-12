@@ -428,6 +428,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		config.MaxBlockLevel,
 		dbManager,
 		consensusStateManager,
+		transactionProcessor,
 		pruningManager,
 		blockValidator,
 		dagTopologyManager,

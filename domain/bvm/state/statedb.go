@@ -23,6 +23,8 @@ import (
 	"strings"
 
 	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 )
 
 // StateDBs within the ethereum protocol are used to store anything
@@ -44,9 +46,6 @@ type StateDB struct {
 	// during a database read is memoized here and will eventually be returned
 	// by StateDB.Commit.
 	dbErr error
-
-	// The refund counter, also used by state transitioning.
-	refund uint64
 
 	thash   vm.Hash
 	txIndex int
@@ -95,14 +94,12 @@ func (s *StateDB) Reset() {
 	s.logs = make(map[vm.Hash][]*vm.Log)
 	s.logSize = 0
 	s.preimages = make(map[vm.Hash][]byte)
-	s.clearJournalAndRefund()
+	s.clearJournal()
 }
 
 func (s *StateDB) AddLog(log *vm.Log) {
 	s.journal.append(addLogChange{txhash: s.thash})
 
-	log.TxHash = s.thash
-	log.TxIndex = uint(s.txIndex)
 	log.Index = s.logSize
 	s.logs[s.thash] = append(s.logs[s.thash], log)
 	s.logSize++
@@ -133,22 +130,6 @@ func (s *StateDB) AddPreimage(hash vm.Hash, preimage []byte) {
 // Preimages returns a list of SHA3 preimages that have been submitted.
 func (s *StateDB) Preimages() map[vm.Hash][]byte {
 	return s.preimages
-}
-
-// AddRefund adds gas to the refund counter
-func (s *StateDB) AddRefund(gas uint64) {
-	s.journal.append(refundChange{prev: s.refund})
-	s.refund += gas
-}
-
-// SubRefund removes gas from the refund counter.
-// This method will panic if the refund counter goes below zero
-func (s *StateDB) SubRefund(gas uint64) {
-	s.journal.append(refundChange{prev: s.refund})
-	if gas > s.refund {
-		panic("Refund counter below zero")
-	}
-	s.refund -= gas
 }
 
 // Exist reports whether the given account address exists in the state.
@@ -384,7 +365,6 @@ func (s *StateDB) Copy() *StateDB {
 		stateObjects:        make(map[vm.Address]*stateObject, len(s.journal.dirties)),
 		stateObjectsPending: make(map[vm.Address]struct{}, len(s.stateObjectsPending)),
 		stateObjectsDirty:   make(map[vm.Address]struct{}, len(s.journal.dirties)),
-		refund:              s.refund,
 		logs:                make(map[vm.Hash][]*vm.Log, len(s.logs)),
 		logSize:             s.logSize,
 		preimages:           make(map[vm.Hash][]byte, len(s.preimages)),
@@ -459,9 +439,21 @@ func (s *StateDB) RevertToSnapshot(revid int) {
 	s.validRevisions = s.validRevisions[:idx]
 }
 
-// GetRefund returns the current value of the refund counter.
-func (s *StateDB) GetRefund() uint64 {
-	return s.refund
+func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
+	changes := make([]externalapi.DomainTransactionJournal, 0)
+	for _, entry := range s.journal.entries {
+		switch e := entry.(type) {
+		case createObjectChange:
+			changes = append(changes, &externalapi.DomainTransactionJournalCreateObjectChange{
+				ScriptPublicKey: &externalapi.ScriptPublicKey{
+					Script:  e.account.Bytes(),
+					Version: constants.MaxScriptPublicKeyVersion,
+				},
+			})
+		}
+	}
+
+	return changes
 }
 
 // Finalise finalises the state by removing the s destructed objects and clears
@@ -471,12 +463,6 @@ func (s *StateDB) Finalise(deleteEmptyObjects bool) {
 	for addr := range s.journal.dirties {
 		obj, exist := s.stateObjects[addr]
 		if !exist {
-			// ripeMD is 'touched' at block 1714175, in tx 0x1237f737031e40bcde4a8b7e717b2d15e3ecadfe49bb1bbc71ee9deb09c6fcf2
-			// That tx goes out of gas, and although the notion of 'touched' does not exist there, the
-			// touch-event will still be recorded in the journal. Since ripeMD is a special snowflake,
-			// it will persist in the journal even though the journal is reverted. In this special circumstance,
-			// it may exist in `s.journal.dirties` but not in `s.stateObjects`.
-			// Thus, we can safely ignore it here
 			continue
 		}
 		if obj.suicided || (deleteEmptyObjects && obj.empty()) {
@@ -488,7 +474,7 @@ func (s *StateDB) Finalise(deleteEmptyObjects bool) {
 		s.stateObjectsDirty[addr] = struct{}{}
 	}
 	// Invalidate journal because reverting across transactions is not allowed.
-	s.clearJournalAndRefund()
+	s.clearJournal()
 }
 
 // It is called in between transactions to get the root hash that
@@ -521,10 +507,9 @@ func (s *StateDB) Prepare(thash vm.Hash, ti int) {
 	s.txIndex = ti
 }
 
-func (s *StateDB) clearJournalAndRefund() {
+func (s *StateDB) clearJournal() {
 	if len(s.journal.entries) > 0 {
 		s.journal = newJournal()
-		s.refund = 0
 	}
 	s.validRevisions = s.validRevisions[:0] // Snapshots can be created without journal entires
 }

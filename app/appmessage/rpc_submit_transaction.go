@@ -53,6 +53,8 @@ type RPCTransaction struct {
 	Gas          uint64
 	Payload      string
 	VerboseData  *RPCTransactionVerboseData
+	Logs         []*RPCTransactionLog
+	Journal      []RPCTransactionJournal
 }
 
 // RPCTransactionInput is a bugnad transaction input representation
@@ -113,3 +115,20 @@ type RPCTransactionOutputVerboseData struct {
 	ScriptPublicKeyType    string
 	ScriptPublicKeyAddress string
 }
+
+type RPCTransactionLog struct {
+	ScriptPublicKey *RPCScriptPublicKey
+	Topics          []string
+	Data            string
+	Index           uint64
+}
+
+type RPCTransactionJournal interface {
+	isRPCTransactionJournal()
+}
+
+type RPCTransactionJournalCreateObjectChange struct {
+	ScriptPublicKey *RPCScriptPublicKey
+}
+
+func (RPCTransactionJournalCreateObjectChange) isRPCTransactionJournal() {}

@@ -2,8 +2,9 @@ package appmessage
 
 import (
 	"encoding/hex"
-	"github.com/pkg/errors"
 	"math/big"
+
+	"github.com/pkg/errors"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/hashes"
@@ -278,6 +279,39 @@ func DomainTransactionToRPCTransaction(transaction *externalapi.DomainTransactio
 			ScriptPublicKey: &RPCScriptPublicKey{Script: scriptPublicKey, Version: output.ScriptPublicKey.Version},
 		}
 	}
+
+	logs := make([]*RPCTransactionLog, len(transaction.Logs))
+	for i, log := range transaction.Logs {
+		topics := make([]string, len(log.Topics))
+		for j, topic := range log.Topics {
+			topics[j] = hex.EncodeToString(topic.ByteSlice())
+		}
+
+		logs[i] = &RPCTransactionLog{
+			ScriptPublicKey: &RPCScriptPublicKey{
+				Script:  hex.EncodeToString(log.ScriptPublicKey.Script),
+				Version: log.ScriptPublicKey.Version,
+			},
+			Topics: topics,
+			Data:   hex.EncodeToString(log.Data),
+			Index:  uint64(i),
+		}
+	}
+
+	journal := make([]RPCTransactionJournal, len(transaction.Journal))
+	for i, journalEntry := range transaction.Journal {
+		switch entry := journalEntry.(type) {
+		case *externalapi.DomainTransactionJournalCreateObjectChange:
+			scriptPublicKey := hex.EncodeToString(entry.ScriptPublicKey.Script)
+			journal[i] = &RPCTransactionJournalCreateObjectChange{
+				ScriptPublicKey: &RPCScriptPublicKey{
+					Script:  scriptPublicKey,
+					Version: entry.ScriptPublicKey.Version,
+				},
+			}
+		}
+	}
+
 	subnetworkID := transaction.SubnetworkID.String()
 	payload := hex.EncodeToString(transaction.Payload)
 	return &RPCTransaction{
@@ -288,6 +322,8 @@ func DomainTransactionToRPCTransaction(transaction *externalapi.DomainTransactio
 		SubnetworkID: subnetworkID,
 		Gas:          transaction.Gas,
 		Payload:      payload,
+		Logs:         logs,
+		Journal:      journal,
 	}
 }
 

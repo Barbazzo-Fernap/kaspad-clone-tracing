@@ -39,6 +39,24 @@ message DbTransaction {
   DbSubnetworkId subnetworkID = 5;
   uint64 gas = 6;
   bytes payload = 8;
+  repeated DbTransactionLog logs = 9;
+  repeated DbTransactionJournal journal = 10;
+}
+
+message DbTransactionLog {
+  DbScriptPublicKey scriptPublicKey = 1;
+  repeated DbHash topics = 2;
+  bytes data = 3;
+  uint64 index = 4;
+}
+
+message DbTransactionJournal {
+    message CreateObjectChange {
+        DbScriptPublicKey scriptPublicKey = 1;
+    }
+    oneof payload {
+        CreateObjectChange createObjectChange = 1;
+    }
 }
 
 message DbTransactionInput {

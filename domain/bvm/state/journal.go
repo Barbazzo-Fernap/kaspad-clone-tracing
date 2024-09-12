@@ -96,10 +96,6 @@ type (
 		prevcode, prevhash []byte
 	}
 
-	// Changes to other state values.
-	refundChange struct {
-		prev uint64
-	}
 	addLogChange struct {
 		txhash vm.Hash
 	}
@@ -168,14 +164,6 @@ func (ch storageChange) revert(s *StateDB) {
 
 func (ch storageChange) dirtied() *vm.Address {
 	return ch.account
-}
-
-func (ch refundChange) revert(s *StateDB) {
-	s.refund = ch.prev
-}
-
-func (ch refundChange) dirtied() *vm.Address {
-	return nil
 }
 
 func (ch addLogChange) revert(s *StateDB) {

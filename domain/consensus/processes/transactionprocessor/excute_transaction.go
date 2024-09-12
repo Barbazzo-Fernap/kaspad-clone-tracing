@@ -5,10 +5,12 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/bugnanetwork/bugnad/domain/bvm/state"
 	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/bugnanetwork/bugnad/util"
 )
@@ -29,9 +31,8 @@ func (t *transactionProcessor) Excute(
 		s = model.NewStagingArea()
 	}
 
-	transactionID := consensushashing.TransactionID(tx)
 	for i, input := range tx.Inputs {
-		if err := t.excuteTXInput(blockDaaScore, transactionID, s, input, i); err != nil {
+		if err := t.excuteTXInput(tx, blockDaaScore, s, input, i); err != nil {
 			if err.Error() == "invalid script" {
 				continue
 			}
@@ -42,10 +43,10 @@ func (t *transactionProcessor) Excute(
 	return nil
 }
 
-func (t *transactionProcessor) excuteTXInput(blockDaaScore uint64, txID *externalapi.DomainTransactionID, stagingArea *model.StagingArea, input *externalapi.DomainTransactionInput, inputIndex int) error {
-	if !txscript.IsPayToScriptHash(input.UTXOEntry.ScriptPublicKey()) {
-		return fmt.Errorf("invalid script")
-	}
+func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, blockDaaScore uint64, stagingArea *model.StagingArea, input *externalapi.DomainTransactionInput, inputIndex int) error {
+	// if !txscript.IsPayToScriptHash(input.UTXOEntry.ScriptPublicKey()) {
+	// 	return fmt.Errorf("invalid script")
+	// }
 
 	// if !bytes.Contains(input.SignatureScript, []byte("bugna_script")) {
 	// 	return fmt.Errorf("invalid script")
@@ -56,7 +57,7 @@ func (t *transactionProcessor) excuteTXInput(blockDaaScore uint64, txID *externa
 		return fmt.Errorf("err txscript.PushedData: %w", err)
 	}
 
-	if len(datas) < 2 {
+	if len(datas) < 3 {
 		return fmt.Errorf("invalid script")
 	}
 
@@ -81,7 +82,35 @@ func (t *transactionProcessor) excuteTXInput(blockDaaScore uint64, txID *externa
 
 	caller := vm.BytesToAddress([]byte(redeemScript[0]))
 
-	stateDB := t.bvmStore.StateDBWrapper(t.databaseContext, stagingArea)
+	stateDB := t.bvmStore.StateDBWrapper(t.databaseContext, stagingArea).(*state.StateDB)
+	txID := consensushashing.TransactionID(tx)
+
+	defer func() {
+		logs := stateDB.GetLogs(vm.BytesToHash(txID.ByteSlice()))
+		for _, log := range logs {
+			topics := []externalapi.DomainHash{}
+			for _, topic := range log.Topics {
+				hash, _ := externalapi.NewDomainHashFromByteSlice(topic.Bytes())
+				topics = append(topics, *hash)
+			}
+
+			tx.Logs = append(tx.Logs, &externalapi.DomainTransactionLog{
+				ScriptPublicKey: &externalapi.ScriptPublicKey{
+					Script:  log.Address.Bytes(),
+					Version: constants.MaxScriptPublicKeyVersion,
+				},
+				Topics: topics,
+				Data:   log.Data,
+				Index:  uint64(log.Index),
+			})
+		}
+
+		journal := stateDB.DumpJournal()
+		tx.Journal = journal
+
+		stateDB.IntermediateRoot(true)
+	}()
+
 	context := CreateExecuteContext(blockDaaScore, caller, vm.BytesToHash(txID.ByteSlice()), uint32(inputIndex))
 	chainConfig := CreateChainConfig()
 	vmConfig := CreateVMDefaultConfig()
@@ -103,6 +132,8 @@ func (t *transactionProcessor) excuteTXInput(blockDaaScore uint64, txID *externa
 
 	switch kind {
 	case "deploy":
+		nonce := stateDB.GetNonce(caller)
+		fmt.Println("------ nonce: ", nonce)
 		_, contractAddr, _, err := evm.Create(vm.AccountRef(caller), payload, evm.GasLimit, big.NewInt(0))
 		if err != nil {
 			return fmt.Errorf("err evm.Create: %w", err)
@@ -110,12 +141,32 @@ func (t *transactionProcessor) excuteTXInput(blockDaaScore uint64, txID *externa
 
 		addr, _ := util.NewAddressScriptHashFromHash(contractAddr.Bytes(), util.Bech32PrefixBugna)
 
-		fmt.Println("------ contractAddr: ", contractAddr.Hex())
+		// fmt.Println("------ contractAddr: ", contractAddr.Hex())
 		// fmt.Printf("------ contractAddr: %x", addr.ScriptAddress())
 		fmt.Println("------ contractAddr: ", addr.EncodeAddress())
 	case "interact":
-		// toAddr := vm.BytesToAddress(payload)
-		// _, _, err := evm.Call(vm.AccountRef(caller),
+		toAddr := vm.BytesToAddress(datas[1])
+
+		retrieInput := vm.Hex2Bytes("2e64cec1")
+		ret, _, err := evm.Call(
+			vm.AccountRef(caller),
+			toAddr,
+			retrieInput,
+			evm.GasLimit,
+			new(big.Int))
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println("------- output", big.NewInt(0).SetBytes(ret))
+		}
+
+		fmt.Printf("payload: %x\n", payload)
+		fmt.Printf("--------- toAddr: %x\n", toAddr)
+
+		_, _, err = evm.Call(vm.AccountRef(caller), toAddr, payload, evm.GasLimit, big.NewInt(0))
+		if err != nil {
+			return fmt.Errorf("err evm.Call: %w", err)
+		}
 	// case "krc721":
 	// 	return t.excuteKRC721(
 	// 		stagingArea,
