@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
 type Code []byte
@@ -39,10 +40,9 @@ func (s Storage) Copy() Storage {
 // Account values can be accessed and modified through the object.
 // Finally, call CommitTrie to write the modified storage trie into a database.
 type stateObject struct {
-	address  vm.Address
-	addrHash vm.Hash // hash of ethereum address of the account
-	data     Account
-	db       *StateDB
+	address vm.Address
+	data    Account
+	db      *StateDB
 
 	// DB error.
 	// State objects are used by the consensus core and VM which are
@@ -75,8 +75,9 @@ func (s *stateObject) empty() bool {
 // Account is the Ethereum consensus representation of accounts.
 // These objects are stored in the main account trie.
 type Account struct {
-	Nonce    uint64
-	CodeHash []byte
+	Nonce           uint64
+	CodeHash        []byte
+	ScriptPublicKey *externalapi.ScriptPublicKey
 }
 
 // newObject creates a state object.
@@ -87,7 +88,6 @@ func newObject(db *StateDB, address vm.Address, data Account) *stateObject {
 	return &stateObject{
 		db:             db,
 		address:        address,
-		addrHash:       vm.Keccak256Hash(address[:]),
 		data:           data,
 		originStorage:  make(Storage),
 		pendingStorage: make(Storage),
@@ -296,6 +296,10 @@ func (s *stateObject) SetNonce(nonce uint64) {
 
 func (s *stateObject) setNonce(nonce uint64) {
 	s.data.Nonce = nonce
+}
+
+func (s *stateObject) setScriptPublicKey(scriptPublicKey *externalapi.ScriptPublicKey) {
+	s.data.ScriptPublicKey = scriptPublicKey
 }
 
 func (s *stateObject) CodeHash() []byte {

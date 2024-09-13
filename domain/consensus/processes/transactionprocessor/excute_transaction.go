@@ -10,7 +10,6 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 )
 
@@ -55,7 +54,11 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 		return fmt.Errorf("err txscript.PushedData: %w", err)
 	}
 
-	caller := vm.BytesToAddress([]byte(redeemScript[0]))
+	caller := vm.ScriptPubkeyToAddress(&externalapi.ScriptPublicKey{
+		Script:  redeemScript[0],
+		Version: 0,
+	})
+
 	stateDB := t.bvmStore.StateDBWrapper(t.databaseContext, stagingArea).(*state.StateDB)
 	txID := consensushashing.TransactionID(tx)
 
@@ -68,15 +71,11 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 				topics = append(topics, *hash)
 			}
 
-			scriptPublicKey, _ := txscript.ScriptHashToScriptPublicKey(log.Address.Bytes())
 			tx.Logs = append(tx.Logs, &externalapi.DomainTransactionLog{
-				ScriptPublicKey: &externalapi.ScriptPublicKey{
-					Script:  scriptPublicKey,
-					Version: constants.MaxScriptPublicKeyVersion,
-				},
-				Topics: topics,
-				Data:   log.Data,
-				Index:  uint64(log.Index),
+				ScriptPublicKey: log.Address.ScriptPublicKey(),
+				Topics:          topics,
+				Data:            log.Data,
+				Index:           uint64(log.Index),
 			})
 		}
 

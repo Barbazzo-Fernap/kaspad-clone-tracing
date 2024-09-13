@@ -24,8 +24,6 @@ import (
 
 	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 )
 
 // StateDBs within the ethereum protocol are used to store anything
@@ -336,6 +334,8 @@ func (s *StateDB) createObject(addr vm.Address) (newobj, prev *stateObject) {
 
 	newobj = newObject(s, addr, Account{})
 	newobj.setNonce(0) // sets the object to dirty
+	newobj.setScriptPublicKey(addr.ScriptPublicKey())
+
 	if prev == nil {
 		s.journal.append(createObjectChange{account: &addr})
 	} else {
@@ -445,8 +445,9 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 	for _, entry := range s.journal.entries {
 		switch e := entry.(type) {
 		case createObjectChange:
+			// TODO: check case ScriptPublicKey is null
 			changes = append(changes, &externalapi.DomainTransactionJournalCreateObjectChange{
-				ScriptPublicKey: s.Address2ScriptPubkey(*e.account),
+				ScriptPublicKey: e.account.ScriptPublicKey(),
 			})
 
 		case nonceChange:
@@ -454,7 +455,7 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 				break
 			}
 			changes = append(changes, &externalapi.DomainTransactionJournalNonceChange{
-				ScriptPublicKey: s.Address2ScriptPubkey(*e.account),
+				ScriptPublicKey: e.account.ScriptPublicKey(),
 				PreviousNonce:   e.prev,
 				NewNonce:        e.prev + 1,
 			})
@@ -462,25 +463,6 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 	}
 
 	return changes
-}
-
-func (s *StateDB) Address2ScriptPubkey(addr vm.Address) *externalapi.ScriptPublicKey {
-	codeHash := s.GetCodeHash(addr)
-	isContract := codeHash != (vm.Hash{}) && codeHash != vm.EmptyCodeHash
-
-	if isContract {
-		scriptPublicKey, _ := txscript.ScriptHashToScriptPublicKey(addr.Bytes())
-		return &externalapi.ScriptPublicKey{
-			Script:  scriptPublicKey,
-			Version: constants.MaxScriptPublicKeyVersion,
-		}
-	}
-
-	scriptPublicKey, _ := txscript.PubKeyToScriptPublicKey(addr.Bytes())
-	return &externalapi.ScriptPublicKey{
-		Script:  scriptPublicKey,
-		Version: constants.MaxScriptPublicKeyVersion,
-	}
 }
 
 // Finalise finalises the state by removing the s destructed objects and clears
