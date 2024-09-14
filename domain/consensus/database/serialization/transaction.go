@@ -75,6 +75,7 @@ func DomainTransactionToDbTransaction(domainTransaction *externalapi.DomainTrans
 		Payload:      domainTransaction.Payload,
 		Logs:         logs,
 		Journal:      journal,
+		Result:       domainTransaction.Result,
 	}
 }
 
@@ -154,5 +155,6 @@ func DbTransactionToDomainTransaction(dbTransaction *DbTransaction) (*externalap
 		Payload:      dbTransaction.Payload,
 		Logs:         logs,
 		Journal:      journal,
+		Result:       dbTransaction.Result,
 	}, nil
 }

@@ -23,6 +23,7 @@ type DomainTransaction struct {
 
 	Logs    []*DomainTransactionLog
 	Journal []DomainTransactionJournal
+	Result  string
 
 	// ID is a field that is used to cache the transaction ID.
 	// Always use consensushashing.TransactionID instead of accessing this field directly
@@ -71,6 +72,7 @@ func (tx *DomainTransaction) Clone() *DomainTransaction {
 		Mass:         tx.Mass,
 		Logs:         logsClone,
 		Journal:      journalClone,
+		Result:       tx.Result,
 		ID:           idClone,
 	}
 }
@@ -81,6 +83,7 @@ var _ = DomainTransaction{0, []*DomainTransactionInput{}, []*DomainTransactionOu
 	DomainSubnetworkID{}, 0, []byte{}, 0, 0,
 	[]*DomainTransactionLog{},
 	[]DomainTransactionJournal{},
+	"",
 	&DomainTransactionID{}}
 
 // Equal returns whether tx equals to other
@@ -146,6 +149,10 @@ func (tx *DomainTransaction) Equal(other *DomainTransaction) bool {
 	}
 
 	if !bytes.Equal(tx.Payload, other.Payload) {
+		return false
+	}
+
+	if tx.Result != other.Result {
 		return false
 	}
 

@@ -41,6 +41,7 @@ message DbTransaction {
   bytes payload = 8;
   repeated DbTransactionLog logs = 9;
   repeated DbTransactionJournal journal = 10;
+  string result = 11;
 }
 
 message DbTransactionLog {
@@ -201,4 +202,5 @@ message DbKRC721Collection {
 message DbAccount {
     uint64 nonce = 1;
     DbHash codeHash = 2;
+    DbScriptPublicKey scriptPublicKey = 3;
 }

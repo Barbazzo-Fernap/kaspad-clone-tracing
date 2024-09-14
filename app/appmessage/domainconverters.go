@@ -221,6 +221,7 @@ func RPCTransactionToDomainTransaction(rpcTransaction *RPCTransaction) (*externa
 		SubnetworkID: *subnetworkID,
 		Gas:          rpcTransaction.Gas,
 		Payload:      payload,
+		Result:       rpcTransaction.Result,
 	}, nil
 }
 
@@ -334,6 +335,7 @@ func DomainTransactionToRPCTransaction(transaction *externalapi.DomainTransactio
 		Payload:      payload,
 		Logs:         logs,
 		Journal:      journal,
+		Result:       transaction.Result,
 	}
 }
 

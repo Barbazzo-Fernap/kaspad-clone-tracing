@@ -55,6 +55,7 @@ type RPCTransaction struct {
 	VerboseData  *RPCTransactionVerboseData
 	Logs         []*RPCTransactionLog
 	Journal      []RPCTransactionJournal
+	Result       string
 }
 
 // RPCTransactionInput is a bugnad transaction input representation

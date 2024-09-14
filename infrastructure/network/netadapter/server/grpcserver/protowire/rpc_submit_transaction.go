@@ -154,6 +154,7 @@ func (x *RpcTransaction) fromAppMessage(transaction *appmessage.RPCTransaction) 
 		VerboseData:  verboseData,
 		Logs:         logs,
 		Journal:      journal,
+		Result:       transaction.Result,
 	}
 }
 

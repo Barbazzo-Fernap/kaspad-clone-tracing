@@ -445,15 +445,10 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 	for _, entry := range s.journal.entries {
 		switch e := entry.(type) {
 		case createObjectChange:
-			// TODO: check case ScriptPublicKey is null
 			changes = append(changes, &externalapi.DomainTransactionJournalCreateObjectChange{
 				ScriptPublicKey: e.account.ScriptPublicKey(),
 			})
-
 		case nonceChange:
-			if e.prev == 0 {
-				break
-			}
 			changes = append(changes, &externalapi.DomainTransactionJournalNonceChange{
 				ScriptPublicKey: e.account.ScriptPublicKey(),
 				PreviousNonce:   e.prev,

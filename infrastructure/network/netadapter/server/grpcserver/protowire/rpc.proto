@@ -68,6 +68,7 @@ message RpcTransaction {
   RpcTransactionVerboseData verboseData = 9;
   repeated RpcTransactionLog logs = 10;
   repeated RpcTransactionJournal journal = 11;
+  string result = 12;
 }
 
 message RpcTransactionInput {

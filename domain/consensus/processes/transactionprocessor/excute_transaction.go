@@ -54,8 +54,9 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 		return fmt.Errorf("err txscript.PushedData: %w", err)
 	}
 
+	scriptPubKey, _ := txscript.PubKeyToScriptPublicKey(redeemScript[0])
 	caller := vm.ScriptPubkeyToAddress(&externalapi.ScriptPublicKey{
-		Script:  redeemScript[0],
+		Script:  scriptPubKey,
 		Version: 0,
 	})
 
@@ -95,17 +96,21 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 	case "deploy":
 		_, _, _, err := evm.Create(vm.AccountRef(caller), payload, evm.GasLimit, big.NewInt(0))
 		if err != nil {
+			tx.Result = err.Error()
 			return fmt.Errorf("err evm.Create: %w", err)
 		}
 	case "interact":
 		toAddr := vm.BytesToAddress(datas[1])
 		_, _, err = evm.Call(vm.AccountRef(caller), toAddr, payload, evm.GasLimit, big.NewInt(0))
 		if err != nil {
+			tx.Result = err.Error()
 			return fmt.Errorf("err evm.Call: %w", err)
 		}
 	default:
 		return fmt.Errorf("invalid type: %s", kind)
 	}
+
+	tx.Result = "Ok"
 
 	return nil
 }
