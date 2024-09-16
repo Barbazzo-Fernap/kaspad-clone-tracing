@@ -21,6 +21,7 @@ import (
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 )
 
 var EmptyCodeHash = Keccak256Hash(nil) // c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470
@@ -84,7 +85,8 @@ func allZero(b []byte) bool {
 
 // CreateAddress creates an ethereum address given the bytes and the nonce
 func CreateAddress(b Address, nonce uint64) Address {
-	secret, _ := secretContract(b.Bytes(), int64(nonce))
+	_, addr, _ := txscript.ExtractScriptPubKeyAddress(b.ScriptPublicKey(), &dagconfig.MainnetParams)
+	secret, _ := secretContract(addr.ScriptAddress(), int64(nonce))
 	contractP2SHPkScript, _ := txscript.PayToScriptHashScript(secret)
 	return ScriptPubkeyToAddress(&externalapi.ScriptPublicKey{Script: contractP2SHPkScript, Version: 0})
 }

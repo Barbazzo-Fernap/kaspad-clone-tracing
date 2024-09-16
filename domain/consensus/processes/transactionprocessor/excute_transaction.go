@@ -1,8 +1,11 @@
 package transactionprocessor
 
 import (
+	"bytes"
+	"encoding/hex"
 	"fmt"
 	"math/big"
+	"strings"
 	"time"
 
 	"github.com/bugnanetwork/bugnad/domain/bvm/state"
@@ -37,28 +40,12 @@ func (t *transactionProcessor) Excute(
 }
 
 func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, blockDaaScore uint64, stagingArea *model.StagingArea, input *externalapi.DomainTransactionInput, inputIndex int) error {
-	datas, err := txscript.PushedData(input.SignatureScript)
+	operator, action, _, payload, err := extractSignatureScript(input.SignatureScript)
 	if err != nil {
-		return fmt.Errorf("err txscript.PushedData: %w", err)
+		return err
 	}
 
-	if len(datas) < 3 {
-		return fmt.Errorf("invalid script")
-	}
-
-	kind := string(datas[len(datas)-3])
-	payload := datas[0]
-
-	redeemScript, err := txscript.PushedData(datas[len(datas)-1])
-	if err != nil {
-		return fmt.Errorf("err txscript.PushedData: %w", err)
-	}
-
-	scriptPubKey, _ := txscript.PubKeyToScriptPublicKey(redeemScript[0])
-	caller := vm.ScriptPubkeyToAddress(&externalapi.ScriptPublicKey{
-		Script:  scriptPubKey,
-		Version: 0,
-	})
+	caller := vm.ScriptPubkeyToAddress(operator)
 
 	stateDB := t.bvmStore.StateDBWrapper(t.databaseContext, stagingArea).(*state.StateDB)
 	txID := consensushashing.TransactionID(tx)
@@ -92,22 +79,22 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 
 	evm := vm.NewEVM(context, stateDB, chainConfig, vmConfig)
 
-	switch kind {
-	case "deploy":
+	switch action {
+	case ActionDeploy:
 		_, _, _, err := evm.Create(vm.AccountRef(caller), payload, evm.GasLimit, big.NewInt(0))
 		if err != nil {
 			tx.Result = err.Error()
 			return fmt.Errorf("err evm.Create: %w", err)
 		}
-	case "interact":
-		toAddr := vm.BytesToAddress(datas[1])
-		_, _, err = evm.Call(vm.AccountRef(caller), toAddr, payload, evm.GasLimit, big.NewInt(0))
-		if err != nil {
-			tx.Result = err.Error()
-			return fmt.Errorf("err evm.Call: %w", err)
-		}
+	// case "interact":
+	// 	toAddr := vm.BytesToAddress(datas[1])
+	// 	_, _, err = evm.Call(vm.AccountRef(caller), toAddr, payload, evm.GasLimit, big.NewInt(0))
+	// 	if err != nil {
+	// 		tx.Result = err.Error()
+	// 		return fmt.Errorf("err evm.Call: %w", err)
+	// 	}
 	default:
-		return fmt.Errorf("invalid type: %s", kind)
+		return fmt.Errorf("invalid type: %s", action)
 	}
 
 	tx.Result = "Ok"
@@ -159,4 +146,82 @@ func CreateVMDefaultConfig() vm.Config {
 		EnablePreimageRecording: false,
 	}
 
+}
+
+type Action byte
+
+const (
+	ActionDeploy = 0x01
+)
+
+func extractSignatureScript(script []byte) (operator *externalapi.ScriptPublicKey, action Action, toAddress []byte, payload []byte, err error) {
+	if !bytes.Contains(script, []byte("bugna_script")) {
+		err = fmt.Errorf("invalid script")
+		return
+	}
+
+	datas, err := txscript.PushedData(script)
+	if err != nil {
+		return nil, 0, nil, nil, err
+	}
+
+	s, err := txscript.DisasmString(0, datas[len(datas)-1])
+	if err != nil {
+		return
+	}
+
+	parts := strings.Split(s, " ")
+	for i, part := range parts {
+		switch part {
+		case "OP_CHECKSIG":
+			pubKey, err := hex.DecodeString(parts[i-1])
+			if err != nil {
+				return nil, 0, nil, nil, err
+			}
+
+			scriptPubKey, _ := txscript.PubKeyToScriptPublicKey(pubKey)
+			operator = &externalapi.ScriptPublicKey{
+				Script:  scriptPubKey,
+				Version: 0,
+			}
+			continue
+		case "6275676e615f736372697074": // bugnascript
+			if parts[i-1] != "OP_IF" {
+				return nil, 0, nil, nil, fmt.Errorf("invalid script")
+			}
+
+			_rawAction := parts[i+1]
+			if len(_rawAction) != 2 {
+				_rawAction = "0" + _rawAction
+			}
+
+			rawAction, err := hex.DecodeString(_rawAction)
+			if err != nil {
+				return nil, 0, nil, nil, err
+			}
+			if len(rawAction) != 1 {
+				return nil, 0, nil, nil, fmt.Errorf("invalid script")
+			}
+
+			action = Action(rawAction[0])
+			switch action {
+			case ActionDeploy:
+				//for loop until OP_ENDIF
+				for _, p := range parts[i+2:] {
+					if p == "OP_ENDIF" {
+						break
+					}
+
+					_p, err := hex.DecodeString(p)
+					if err != nil {
+						return nil, 0, nil, nil, err
+					}
+
+					payload = append(payload, _p...)
+				}
+			}
+		}
+	}
+
+	return
 }

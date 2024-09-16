@@ -224,18 +224,6 @@ func (csm *consensusStateManager) resolveSingleBlockStatus(stagingArea *model.St
 	}
 	log.Debugf("UTXO verification for block %s passed", blockHash)
 
-	// // excute txn
-	// for i, transaction := range block.Transactions {
-	// 	if transactionhelper.IsCoinBase(transaction) {
-	// 		continue
-	// 	}
-	// 	log.Infof("after verify UTXO: blockhash: %s,  excute txid: %s", blockHash, consensushashing.TransactionID(transaction))
-	// 	err = csm.transactionProcessor.Excute(stagingArea, blockHash, block.Header.DAAScore(), transaction)
-	// 	if err != nil {
-	// 		log.Errorf("Transaction %s - input %d in block %s failed to execute: %s", consensushashing.TransactionID(transaction), i, blockHash, err.Error())
-	// 	}
-	// }
-	//
 	log.Tracef("Staging the multiset of block %s", blockHash)
 	csm.multisetStore.Stage(stagingArea, blockHash, multiset)
 
