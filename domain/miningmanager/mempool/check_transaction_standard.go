@@ -34,7 +34,9 @@ const (
 	// That brings the total to 1+(15*74)+3+513 = 1627. This value also
 	// adds a few extra bytes to provide a little buffer.
 	// (1 + 15*74 + 3) + (15*34 + 3) + 23 = 1650
-	maximumStandardSignatureScriptSize = 1650
+	// maximumStandardSignatureScriptSize = 1650
+	//TODO:  set the maximumStandardSignatureScriptSize to 1650
+	maximumStandardSignatureScriptSize = 16500
 
 	// MaximumStandardTransactionMass is the maximum mass allowed for transactions that
 	// are considered standard and will therefore be relayed and considered for mining.

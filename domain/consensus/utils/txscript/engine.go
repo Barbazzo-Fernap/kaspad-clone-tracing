@@ -28,7 +28,9 @@ const (
 	MaxStackSize = 244
 
 	// MaxScriptSize is the maximum allowed length of a raw script.
-	MaxScriptSize = 10000
+	// MaxScriptSize = 10000
+	//TODO: change this value to 10000
+	MaxScriptSize = 20000
 )
 
 // Engine is the virtual machine that executes scripts.

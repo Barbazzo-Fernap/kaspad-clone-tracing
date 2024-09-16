@@ -60,6 +60,20 @@ func isPayToPubkey(pops []parsedOpcode) bool {
 		pops[1].opcode.value == OpCheckSig
 }
 
+func isPayToPubkeyInput(pops []parsedOpcode) bool {
+	isPubkey := len(pops) > 2 && pops[0].opcode.value == OpData32 && pops[1].opcode.value == OpCheckSig
+
+	for _, pop := range pops[2:] {
+		if pop.opcode.value == OpDrop || pop.opcode.value == Op2Drop {
+			continue
+		}
+
+		return false
+	}
+
+	return isPubkey
+}
+
 // isPayToPubkeyECDSA returns true if the script passed is an ECDSA pay-to-pubkey
 // transaction, false otherwise.
 func isPayToPubkeyECDSA(pops []parsedOpcode) bool {
@@ -67,6 +81,20 @@ func isPayToPubkeyECDSA(pops []parsedOpcode) bool {
 		pops[0].opcode.value == OpData33 &&
 		pops[1].opcode.value == OpCheckSigECDSA
 
+}
+
+func isPayToPubkeyECDSAInput(pops []parsedOpcode) bool {
+	isPubkey := len(pops) > 2 && pops[0].opcode.value == OpData32 && pops[1].opcode.value == OpCheckSigECDSA
+
+	for _, pop := range pops[2:] {
+		if pop.opcode.value == OpDrop || pop.opcode.value == Op2Drop {
+			continue
+		}
+
+		return false
+	}
+
+	return isPubkey
 }
 
 // scriptType returns the type of the script being inspected from the known
@@ -452,4 +480,62 @@ func ExtractAtomicSwapDataPushes(version uint16, scriptPubKey []byte) (*AtomicSw
 		return nil, nil
 	}
 	return pushes, nil
+}
+
+// scriptType returns the type of the script being inspected from the known
+// standard types.
+func typeOfInputScript(pops []parsedOpcode) ScriptClass {
+	switch {
+	case isPayToPubkeyInput(pops):
+		return PubKeyTy
+	case isPayToPubkeyECDSAInput(pops):
+		return PubKeyECDSATy
+	case isScriptHashInput(pops):
+		return ScriptHashTy
+	}
+	return NonStandardTy
+}
+
+func ExtractSignatureScriptToSmartcontractInputData(signatureScript []byte) (*externalapi.ScriptPublicKey, [][]byte, error) {
+	parts, err := PushedData(signatureScript)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if len(parts) < 3 {
+		return nil, nil, fmt.Errorf("invalid script")
+	}
+
+	pops, err := parseScript(parts[len(parts)-1])
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var script []byte
+
+	scriptClass := typeOfInputScript(pops)
+	switch scriptClass {
+	case PubKeyTy:
+		script, err = payToPubKeyScript(pops[0].data)
+		if err != nil {
+			return nil, nil, err
+		}
+	case PubKeyECDSATy:
+		script, err = payToPubKeyScriptECDSA(pops[0].data)
+		if err != nil {
+			return nil, nil, err
+		}
+	case ScriptHashTy:
+		script, err = payToScriptHashScript(pops[1].data)
+		if err != nil {
+			return nil, nil, err
+		}
+	default:
+		return nil, nil, fmt.Errorf("cannot handle script class %s", scriptClass)
+	}
+
+	return &externalapi.ScriptPublicKey{
+		Script:  script,
+		Version: constants.MaxScriptPublicKeyVersion,
+	}, parts[:len(parts)-2], nil
 }
