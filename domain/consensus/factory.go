@@ -8,7 +8,6 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/blockwindowheapslicestore"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/bvmstore"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/daawindowstore"
-	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/krc721store"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/mergedepthrootstore"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/processes/blockparentbuilder"
@@ -150,7 +149,6 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 	multisetStore := multisetstore.New(prefixBucket, 200, preallocateCaches)
 	pruningStore := pruningstore.New(prefixBucket, 2, preallocateCaches)
 	utxoDiffStore := utxodiffstore.New(prefixBucket, 200, preallocateCaches)
-	krc721Store := krc721store.New(prefixBucket, 200, preallocateCaches)
 	bvmStore := bvmstore.New(prefixBucket, 200, preallocateCaches)
 	consensusStateStore := consensusstatestore.New(prefixBucket, 10_000, preallocateCaches)
 
@@ -228,7 +226,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		ghostdagDataStore,
 		daaBlocksStore,
 		txMassCalculator)
-	transactionProcessor := transactionprocessor.New(dbManager, krc721Store, bvmStore)
+	transactionProcessor := transactionprocessor.New(dbManager, bvmStore)
 	difficultyManager := f.difficultyConstructor(
 		dbManager,
 		ghostdagManager,
@@ -525,7 +523,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		headersSelectedChainStore:           headersSelectedChainStore,
 		daaBlocksStore:                      daaBlocksStore,
 		blocksWithTrustedDataDAAWindowStore: daaWindowStore,
-		krc721Store:                         krc721Store,
+		bvmStore:                            bvmStore,
 
 		consensusEventsChan: consensusEventsChan,
 		virtualNotUpdated:   true,

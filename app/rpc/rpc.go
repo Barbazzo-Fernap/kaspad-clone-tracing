@@ -51,8 +51,7 @@ var handlers = map[appmessage.MessageCommand]handler{
 	appmessage.CmdNotifyNewBlockTemplateRequestMessage:                      rpchandlers.HandleNotifyNewBlockTemplate,
 	appmessage.CmdGetCoinSupplyRequestMessage:                               rpchandlers.HandleGetCoinSupply,
 	appmessage.CmdGetMempoolEntriesByAddressesRequestMessage:                rpchandlers.HandleGetMempoolEntriesByAddresses,
-	appmessage.CmdGetKRC721CollectionRequestMessage:                         rpchandlers.HandleGetKRC721Collection,
-	appmessage.CmdGetKRC721TokenRequestMessage:                              rpchandlers.HandleGetKRC721Token,
+	appmessage.CmdGetBvmSmartContractDataRequestMessage:                     rpchandlers.HandleGetBvmSmartContractData,
 }
 
 func (m *Manager) routerInitializer(router *router.Router, netConnection *netadapter.NetConnection) {

@@ -769,31 +769,13 @@ message GetCoinSupplyResponseMessage{
         RPCError error = 1000;
 }
 
-message GetKRC721CollectionRequestMessage{
+message GetBvmSmartContractDataRequestMessage{
   string address = 1;
+  string input = 2;
 }
 
-message GetKRC721CollectionResponseMessage{
-  string id = 1;
-  string owner = 2;
-  string name = 3;
-  string symbol = 4;
-  uint64 maxSupply = 5;
-  uint64 totalSupply = 6;
-  string baseURI = 7;
-
-  RPCError error = 1000;
-}
-
-message GetKRC721TokenRequestMessage{
-  string collectionAddress = 1;
-  uint64 tokenId = 2;
-}
-
-message GetKRC721TokenResponseMessage{
-  uint64 tokenId = 2;
-  string owner = 3;
-  string uri = 4;
+message GetBvmSmartContractDataResponseMessage{
+  string data = 1;
 
   RPCError error = 1000;
 }

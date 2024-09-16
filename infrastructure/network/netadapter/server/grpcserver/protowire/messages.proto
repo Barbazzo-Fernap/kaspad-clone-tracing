@@ -139,10 +139,8 @@ message BugnadMessage {
     GetMempoolEntriesByAddressesResponseMessage getMempoolEntriesByAddressesResponse = 1085;
     GetCoinSupplyRequestMessage getCoinSupplyRequest = 1086;
     GetCoinSupplyResponseMessage getCoinSupplyResponse= 1087;
-    GetKRC721CollectionRequestMessage getKRC721CollectionRequest = 1088;
-    GetKRC721CollectionResponseMessage getKRC721CollectionResponse = 1089;
-    GetKRC721TokenRequestMessage getKRC721TokenRequest = 1090;
-    GetKRC721TokenResponseMessage getKRC721TokenResponse = 1091;
+    GetBvmSmartContractDataRequestMessage getBvmSmartContractDataRequest = 1088;
+    GetBvmSmartContractDataResponseMessage getBvmSmartContractDataResponse = 1089;
   }
 }
 

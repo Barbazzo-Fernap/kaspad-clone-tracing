@@ -6301,16 +6301,17 @@ func (x *GetCoinSupplyResponseMessage) GetError() *RPCError {
 	return nil
 }
 
-type GetKRC721CollectionRequestMessage struct {
+type GetBvmSmartContractDataRequestMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Input   string `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
 }
 
-func (x *GetKRC721CollectionRequestMessage) Reset() {
-	*x = GetKRC721CollectionRequestMessage{}
+func (x *GetBvmSmartContractDataRequestMessage) Reset() {
+	*x = GetBvmSmartContractDataRequestMessage{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_proto_msgTypes[110]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -6318,13 +6319,13 @@ func (x *GetKRC721CollectionRequestMessage) Reset() {
 	}
 }
 
-func (x *GetKRC721CollectionRequestMessage) String() string {
+func (x *GetBvmSmartContractDataRequestMessage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetKRC721CollectionRequestMessage) ProtoMessage() {}
+func (*GetBvmSmartContractDataRequestMessage) ProtoMessage() {}
 
-func (x *GetKRC721CollectionRequestMessage) ProtoReflect() protoreflect.Message {
+func (x *GetBvmSmartContractDataRequestMessage) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_proto_msgTypes[110]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -6336,35 +6337,36 @@ func (x *GetKRC721CollectionRequestMessage) ProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetKRC721CollectionRequestMessage.ProtoReflect.Descriptor instead.
-func (*GetKRC721CollectionRequestMessage) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetBvmSmartContractDataRequestMessage.ProtoReflect.Descriptor instead.
+func (*GetBvmSmartContractDataRequestMessage) Descriptor() ([]byte, []int) {
 	return file_rpc_proto_rawDescGZIP(), []int{110}
 }
 
-func (x *GetKRC721CollectionRequestMessage) GetAddress() string {
+func (x *GetBvmSmartContractDataRequestMessage) GetAddress() string {
 	if x != nil {
 		return x.Address
 	}
 	return ""
 }
 
-type GetKRC721CollectionResponseMessage struct {
+func (x *GetBvmSmartContractDataRequestMessage) GetInput() string {
+	if x != nil {
+		return x.Input
+	}
+	return ""
+}
+
+type GetBvmSmartContractDataResponseMessage struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id          string    `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Owner       string    `protobuf:"bytes,2,opt,name=owner,proto3" json:"owner,omitempty"`
-	Name        string    `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Symbol      string    `protobuf:"bytes,4,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	MaxSupply   uint64    `protobuf:"varint,5,opt,name=maxSupply,proto3" json:"maxSupply,omitempty"`
-	TotalSupply uint64    `protobuf:"varint,6,opt,name=totalSupply,proto3" json:"totalSupply,omitempty"`
-	BaseURI     string    `protobuf:"bytes,7,opt,name=baseURI,proto3" json:"baseURI,omitempty"`
-	Error       *RPCError `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
+	Data  string    `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
+	Error *RPCError `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
 }
 
-func (x *GetKRC721CollectionResponseMessage) Reset() {
-	*x = GetKRC721CollectionResponseMessage{}
+func (x *GetBvmSmartContractDataResponseMessage) Reset() {
+	*x = GetBvmSmartContractDataResponseMessage{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_rpc_proto_msgTypes[111]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -6372,13 +6374,13 @@ func (x *GetKRC721CollectionResponseMessage) Reset() {
 	}
 }
 
-func (x *GetKRC721CollectionResponseMessage) String() string {
+func (x *GetBvmSmartContractDataResponseMessage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetKRC721CollectionResponseMessage) ProtoMessage() {}
+func (*GetBvmSmartContractDataResponseMessage) ProtoMessage() {}
 
-func (x *GetKRC721CollectionResponseMessage) ProtoReflect() protoreflect.Message {
+func (x *GetBvmSmartContractDataResponseMessage) ProtoReflect() protoreflect.Message {
 	mi := &file_rpc_proto_msgTypes[111]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -6390,187 +6392,19 @@ func (x *GetKRC721CollectionResponseMessage) ProtoReflect() protoreflect.Message
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetKRC721CollectionResponseMessage.ProtoReflect.Descriptor instead.
-func (*GetKRC721CollectionResponseMessage) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetBvmSmartContractDataResponseMessage.ProtoReflect.Descriptor instead.
+func (*GetBvmSmartContractDataResponseMessage) Descriptor() ([]byte, []int) {
 	return file_rpc_proto_rawDescGZIP(), []int{111}
 }
 
-func (x *GetKRC721CollectionResponseMessage) GetId() string {
+func (x *GetBvmSmartContractDataResponseMessage) GetData() string {
 	if x != nil {
-		return x.Id
+		return x.Data
 	}
 	return ""
 }
 
-func (x *GetKRC721CollectionResponseMessage) GetOwner() string {
-	if x != nil {
-		return x.Owner
-	}
-	return ""
-}
-
-func (x *GetKRC721CollectionResponseMessage) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *GetKRC721CollectionResponseMessage) GetSymbol() string {
-	if x != nil {
-		return x.Symbol
-	}
-	return ""
-}
-
-func (x *GetKRC721CollectionResponseMessage) GetMaxSupply() uint64 {
-	if x != nil {
-		return x.MaxSupply
-	}
-	return 0
-}
-
-func (x *GetKRC721CollectionResponseMessage) GetTotalSupply() uint64 {
-	if x != nil {
-		return x.TotalSupply
-	}
-	return 0
-}
-
-func (x *GetKRC721CollectionResponseMessage) GetBaseURI() string {
-	if x != nil {
-		return x.BaseURI
-	}
-	return ""
-}
-
-func (x *GetKRC721CollectionResponseMessage) GetError() *RPCError {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-type GetKRC721TokenRequestMessage struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	CollectionAddress string `protobuf:"bytes,1,opt,name=collectionAddress,proto3" json:"collectionAddress,omitempty"`
-	TokenId           uint64 `protobuf:"varint,2,opt,name=tokenId,proto3" json:"tokenId,omitempty"`
-}
-
-func (x *GetKRC721TokenRequestMessage) Reset() {
-	*x = GetKRC721TokenRequestMessage{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[112]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetKRC721TokenRequestMessage) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetKRC721TokenRequestMessage) ProtoMessage() {}
-
-func (x *GetKRC721TokenRequestMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[112]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetKRC721TokenRequestMessage.ProtoReflect.Descriptor instead.
-func (*GetKRC721TokenRequestMessage) Descriptor() ([]byte, []int) {
-	return file_rpc_proto_rawDescGZIP(), []int{112}
-}
-
-func (x *GetKRC721TokenRequestMessage) GetCollectionAddress() string {
-	if x != nil {
-		return x.CollectionAddress
-	}
-	return ""
-}
-
-func (x *GetKRC721TokenRequestMessage) GetTokenId() uint64 {
-	if x != nil {
-		return x.TokenId
-	}
-	return 0
-}
-
-type GetKRC721TokenResponseMessage struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	TokenId uint64    `protobuf:"varint,2,opt,name=tokenId,proto3" json:"tokenId,omitempty"`
-	Owner   string    `protobuf:"bytes,3,opt,name=owner,proto3" json:"owner,omitempty"`
-	Uri     string    `protobuf:"bytes,4,opt,name=uri,proto3" json:"uri,omitempty"`
-	Error   *RPCError `protobuf:"bytes,1000,opt,name=error,proto3" json:"error,omitempty"`
-}
-
-func (x *GetKRC721TokenResponseMessage) Reset() {
-	*x = GetKRC721TokenResponseMessage{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[113]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetKRC721TokenResponseMessage) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetKRC721TokenResponseMessage) ProtoMessage() {}
-
-func (x *GetKRC721TokenResponseMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[113]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetKRC721TokenResponseMessage.ProtoReflect.Descriptor instead.
-func (*GetKRC721TokenResponseMessage) Descriptor() ([]byte, []int) {
-	return file_rpc_proto_rawDescGZIP(), []int{113}
-}
-
-func (x *GetKRC721TokenResponseMessage) GetTokenId() uint64 {
-	if x != nil {
-		return x.TokenId
-	}
-	return 0
-}
-
-func (x *GetKRC721TokenResponseMessage) GetOwner() string {
-	if x != nil {
-		return x.Owner
-	}
-	return ""
-}
-
-func (x *GetKRC721TokenResponseMessage) GetUri() string {
-	if x != nil {
-		return x.Uri
-	}
-	return ""
-}
-
-func (x *GetKRC721TokenResponseMessage) GetError() *RPCError {
+func (x *GetBvmSmartContractDataResponseMessage) GetError() *RPCError {
 	if x != nil {
 		return x.Error
 	}
@@ -6589,7 +6423,7 @@ type RpcTransactionJournal_CreateObjectChange struct {
 func (x *RpcTransactionJournal_CreateObjectChange) Reset() {
 	*x = RpcTransactionJournal_CreateObjectChange{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[114]
+		mi := &file_rpc_proto_msgTypes[112]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6602,7 +6436,7 @@ func (x *RpcTransactionJournal_CreateObjectChange) String() string {
 func (*RpcTransactionJournal_CreateObjectChange) ProtoMessage() {}
 
 func (x *RpcTransactionJournal_CreateObjectChange) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[114]
+	mi := &file_rpc_proto_msgTypes[112]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6646,7 +6480,7 @@ type RpcTransactionJournal_NonceChange struct {
 func (x *RpcTransactionJournal_NonceChange) Reset() {
 	*x = RpcTransactionJournal_NonceChange{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[115]
+		mi := &file_rpc_proto_msgTypes[113]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6659,7 +6493,7 @@ func (x *RpcTransactionJournal_NonceChange) String() string {
 func (*RpcTransactionJournal_NonceChange) ProtoMessage() {}
 
 func (x *RpcTransactionJournal_NonceChange) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[115]
+	mi := &file_rpc_proto_msgTypes[113]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6718,7 +6552,7 @@ type RpcTransactionJournal_StorageChange struct {
 func (x *RpcTransactionJournal_StorageChange) Reset() {
 	*x = RpcTransactionJournal_StorageChange{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[116]
+		mi := &file_rpc_proto_msgTypes[114]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6731,7 +6565,7 @@ func (x *RpcTransactionJournal_StorageChange) String() string {
 func (*RpcTransactionJournal_StorageChange) ProtoMessage() {}
 
 func (x *RpcTransactionJournal_StorageChange) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[116]
+	mi := &file_rpc_proto_msgTypes[114]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6794,7 +6628,7 @@ type RpcTransactionJournal_CreateObjectChange_VerboseData struct {
 func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) Reset() {
 	*x = RpcTransactionJournal_CreateObjectChange_VerboseData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[117]
+		mi := &file_rpc_proto_msgTypes[115]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6807,7 +6641,7 @@ func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) String() string {
 func (*RpcTransactionJournal_CreateObjectChange_VerboseData) ProtoMessage() {}
 
 func (x *RpcTransactionJournal_CreateObjectChange_VerboseData) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[117]
+	mi := &file_rpc_proto_msgTypes[115]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6849,7 +6683,7 @@ type RpcTransactionJournal_NonceChange_VerboseData struct {
 func (x *RpcTransactionJournal_NonceChange_VerboseData) Reset() {
 	*x = RpcTransactionJournal_NonceChange_VerboseData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[118]
+		mi := &file_rpc_proto_msgTypes[116]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6862,7 +6696,7 @@ func (x *RpcTransactionJournal_NonceChange_VerboseData) String() string {
 func (*RpcTransactionJournal_NonceChange_VerboseData) ProtoMessage() {}
 
 func (x *RpcTransactionJournal_NonceChange_VerboseData) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[118]
+	mi := &file_rpc_proto_msgTypes[116]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6904,7 +6738,7 @@ type RpcTransactionJournal_StorageChange_VerboseData struct {
 func (x *RpcTransactionJournal_StorageChange_VerboseData) Reset() {
 	*x = RpcTransactionJournal_StorageChange_VerboseData{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_proto_msgTypes[119]
+		mi := &file_rpc_proto_msgTypes[117]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6917,7 +6751,7 @@ func (x *RpcTransactionJournal_StorageChange_VerboseData) String() string {
 func (*RpcTransactionJournal_StorageChange_VerboseData) ProtoMessage() {}
 
 func (x *RpcTransactionJournal_StorageChange_VerboseData) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_proto_msgTypes[119]
+	mi := &file_rpc_proto_msgTypes[117]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7855,46 +7689,22 @@ var file_rpc_proto_rawDesc = []byte{
 	0x75, 0x6c, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x6f, 0x6d, 0x70, 0x69, 0x12, 0x2a, 0x0a, 0x05,
 	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70,
 	0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f,
-	0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x3d, 0x0a, 0x21, 0x47, 0x65, 0x74, 0x4b,
-	0x52, 0x43, 0x37, 0x32, 0x31, 0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x18, 0x0a,
-	0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
-	0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x22, 0xfc, 0x01, 0x0a, 0x22, 0x47, 0x65, 0x74, 0x4b,
-	0x52, 0x43, 0x37, 0x32, 0x31, 0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x0e,
-	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14,
-	0x0a, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6f,
-	0x77, 0x6e, 0x65, 0x72, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x79, 0x6d, 0x62,
-	0x6f, 0x6c, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x79, 0x6d, 0x62, 0x6f, 0x6c,
-	0x12, 0x1c, 0x0a, 0x09, 0x6d, 0x61, 0x78, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x18, 0x05, 0x20,
-	0x01, 0x28, 0x04, 0x52, 0x09, 0x6d, 0x61, 0x78, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x12, 0x20,
-	0x0a, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79, 0x18, 0x06, 0x20,
-	0x01, 0x28, 0x04, 0x52, 0x0b, 0x74, 0x6f, 0x74, 0x61, 0x6c, 0x53, 0x75, 0x70, 0x70, 0x6c, 0x79,
-	0x12, 0x18, 0x0a, 0x07, 0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x18, 0x07, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x07, 0x62, 0x61, 0x73, 0x65, 0x55, 0x52, 0x49, 0x12, 0x2a, 0x0a, 0x05, 0x65, 0x72,
-	0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52, 0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52,
-	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x66, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x4b, 0x52, 0x43,
-	0x37, 0x32, 0x31, 0x54, 0x6f, 0x6b, 0x65, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4d,
-	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x2c, 0x0a, 0x11, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63,
-	0x74, 0x69, 0x6f, 0x6e, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x11, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x64, 0x64,
-	0x72, 0x65, 0x73, 0x73, 0x12, 0x18, 0x0a, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x22, 0x8d,
-	0x01, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x4b, 0x52, 0x43, 0x37, 0x32, 0x31, 0x54, 0x6f, 0x6b, 0x65,
-	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65,
-	0x12, 0x18, 0x0a, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x04, 0x52, 0x07, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x6f, 0x77,
-	0x6e, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6f, 0x77, 0x6e, 0x65, 0x72,
-	0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x69, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75,
-	0x72, 0x69, 0x12, 0x2a, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52,
-	0x50, 0x43, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x2a,
-	0x5a, 0x28, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67,
-	0x6e, 0x61, 0x6e, 0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64,
-	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x57, 0x0a, 0x25, 0x47, 0x65, 0x74, 0x42,
+	0x76, 0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x44,
+	0x61, 0x74, 0x61, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67,
+	0x65, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x07, 0x61, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x12, 0x14, 0x0a, 0x05, 0x69,
+	0x6e, 0x70, 0x75, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6e, 0x70, 0x75,
+	0x74, 0x22, 0x68, 0x0a, 0x26, 0x47, 0x65, 0x74, 0x42, 0x76, 0x6d, 0x53, 0x6d, 0x61, 0x72, 0x74,
+	0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x64,
+	0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12,
+	0x2a, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0xe8, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x2e, 0x52, 0x50, 0x43, 0x45,
+	0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x42, 0x2a, 0x5a, 0x28, 0x67,
+	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x6e,
+	0x65, 0x74, 0x77, 0x6f, 0x72, 0x6b, 0x2f, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x64, 0x2f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x77, 0x69, 0x72, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -7910,7 +7720,7 @@ func file_rpc_proto_rawDescGZIP() []byte {
 }
 
 var file_rpc_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 120)
+var file_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 118)
 var file_rpc_proto_goTypes = []interface{}{
 	(SubmitBlockResponseMessage_RejectReason)(0), // 0: protowire.SubmitBlockResponseMessage.RejectReason
 	(*RPCError)(nil),                                                   // 1: protowire.RPCError
@@ -8023,16 +7833,14 @@ var file_rpc_proto_goTypes = []interface{}{
 	(*GetMempoolEntriesByAddressesResponseMessage)(nil),                // 108: protowire.GetMempoolEntriesByAddressesResponseMessage
 	(*GetCoinSupplyRequestMessage)(nil),                                // 109: protowire.GetCoinSupplyRequestMessage
 	(*GetCoinSupplyResponseMessage)(nil),                               // 110: protowire.GetCoinSupplyResponseMessage
-	(*GetKRC721CollectionRequestMessage)(nil),                          // 111: protowire.GetKRC721CollectionRequestMessage
-	(*GetKRC721CollectionResponseMessage)(nil),                         // 112: protowire.GetKRC721CollectionResponseMessage
-	(*GetKRC721TokenRequestMessage)(nil),                               // 113: protowire.GetKRC721TokenRequestMessage
-	(*GetKRC721TokenResponseMessage)(nil),                              // 114: protowire.GetKRC721TokenResponseMessage
-	(*RpcTransactionJournal_CreateObjectChange)(nil),                   // 115: protowire.RpcTransactionJournal.CreateObjectChange
-	(*RpcTransactionJournal_NonceChange)(nil),                          // 116: protowire.RpcTransactionJournal.NonceChange
-	(*RpcTransactionJournal_StorageChange)(nil),                        // 117: protowire.RpcTransactionJournal.StorageChange
-	(*RpcTransactionJournal_CreateObjectChange_VerboseData)(nil),       // 118: protowire.RpcTransactionJournal.CreateObjectChange.VerboseData
-	(*RpcTransactionJournal_NonceChange_VerboseData)(nil),              // 119: protowire.RpcTransactionJournal.NonceChange.VerboseData
-	(*RpcTransactionJournal_StorageChange_VerboseData)(nil),            // 120: protowire.RpcTransactionJournal.StorageChange.VerboseData
+	(*GetBvmSmartContractDataRequestMessage)(nil),                      // 111: protowire.GetBvmSmartContractDataRequestMessage
+	(*GetBvmSmartContractDataResponseMessage)(nil),                     // 112: protowire.GetBvmSmartContractDataResponseMessage
+	(*RpcTransactionJournal_CreateObjectChange)(nil),                   // 113: protowire.RpcTransactionJournal.CreateObjectChange
+	(*RpcTransactionJournal_NonceChange)(nil),                          // 114: protowire.RpcTransactionJournal.NonceChange
+	(*RpcTransactionJournal_StorageChange)(nil),                        // 115: protowire.RpcTransactionJournal.StorageChange
+	(*RpcTransactionJournal_CreateObjectChange_VerboseData)(nil),       // 116: protowire.RpcTransactionJournal.CreateObjectChange.VerboseData
+	(*RpcTransactionJournal_NonceChange_VerboseData)(nil),              // 117: protowire.RpcTransactionJournal.NonceChange.VerboseData
+	(*RpcTransactionJournal_StorageChange_VerboseData)(nil),            // 118: protowire.RpcTransactionJournal.StorageChange.VerboseData
 }
 var file_rpc_proto_depIdxs = []int32{
 	3,   // 0: protowire.RpcBlock.header:type_name -> protowire.RpcBlockHeader
@@ -8050,9 +7858,9 @@ var file_rpc_proto_depIdxs = []int32{
 	16,  // 12: protowire.RpcTransactionOutput.verboseData:type_name -> protowire.RpcTransactionOutputVerboseData
 	8,   // 13: protowire.RpcUtxoEntry.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
 	8,   // 14: protowire.RpcTransactionLog.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
-	115, // 15: protowire.RpcTransactionJournal.createObjectChange:type_name -> protowire.RpcTransactionJournal.CreateObjectChange
-	116, // 16: protowire.RpcTransactionJournal.nonceChange:type_name -> protowire.RpcTransactionJournal.NonceChange
-	117, // 17: protowire.RpcTransactionJournal.storageChange:type_name -> protowire.RpcTransactionJournal.StorageChange
+	113, // 15: protowire.RpcTransactionJournal.createObjectChange:type_name -> protowire.RpcTransactionJournal.CreateObjectChange
+	114, // 16: protowire.RpcTransactionJournal.nonceChange:type_name -> protowire.RpcTransactionJournal.NonceChange
+	115, // 17: protowire.RpcTransactionJournal.storageChange:type_name -> protowire.RpcTransactionJournal.StorageChange
 	1,   // 18: protowire.GetCurrentNetworkResponseMessage.error:type_name -> protowire.RPCError
 	2,   // 19: protowire.SubmitBlockRequestMessage.block:type_name -> protowire.RpcBlock
 	0,   // 20: protowire.SubmitBlockResponseMessage.rejectReason:type_name -> protowire.SubmitBlockResponseMessage.RejectReason
@@ -8117,19 +7925,18 @@ var file_rpc_proto_depIdxs = []int32{
 	106, // 79: protowire.GetMempoolEntriesByAddressesResponseMessage.entries:type_name -> protowire.MempoolEntryByAddress
 	1,   // 80: protowire.GetMempoolEntriesByAddressesResponseMessage.error:type_name -> protowire.RPCError
 	1,   // 81: protowire.GetCoinSupplyResponseMessage.error:type_name -> protowire.RPCError
-	1,   // 82: protowire.GetKRC721CollectionResponseMessage.error:type_name -> protowire.RPCError
-	1,   // 83: protowire.GetKRC721TokenResponseMessage.error:type_name -> protowire.RPCError
-	8,   // 84: protowire.RpcTransactionJournal.CreateObjectChange.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
-	118, // 85: protowire.RpcTransactionJournal.CreateObjectChange.verboseData:type_name -> protowire.RpcTransactionJournal.CreateObjectChange.VerboseData
-	8,   // 86: protowire.RpcTransactionJournal.NonceChange.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
-	119, // 87: protowire.RpcTransactionJournal.NonceChange.verboseData:type_name -> protowire.RpcTransactionJournal.NonceChange.VerboseData
-	8,   // 88: protowire.RpcTransactionJournal.StorageChange.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
-	120, // 89: protowire.RpcTransactionJournal.StorageChange.verboseData:type_name -> protowire.RpcTransactionJournal.StorageChange.VerboseData
-	90,  // [90:90] is the sub-list for method output_type
-	90,  // [90:90] is the sub-list for method input_type
-	90,  // [90:90] is the sub-list for extension type_name
-	90,  // [90:90] is the sub-list for extension extendee
-	0,   // [0:90] is the sub-list for field type_name
+	1,   // 82: protowire.GetBvmSmartContractDataResponseMessage.error:type_name -> protowire.RPCError
+	8,   // 83: protowire.RpcTransactionJournal.CreateObjectChange.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
+	116, // 84: protowire.RpcTransactionJournal.CreateObjectChange.verboseData:type_name -> protowire.RpcTransactionJournal.CreateObjectChange.VerboseData
+	8,   // 85: protowire.RpcTransactionJournal.NonceChange.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
+	117, // 86: protowire.RpcTransactionJournal.NonceChange.verboseData:type_name -> protowire.RpcTransactionJournal.NonceChange.VerboseData
+	8,   // 87: protowire.RpcTransactionJournal.StorageChange.scriptPublicKey:type_name -> protowire.RpcScriptPublicKey
+	118, // 88: protowire.RpcTransactionJournal.StorageChange.verboseData:type_name -> protowire.RpcTransactionJournal.StorageChange.VerboseData
+	89,  // [89:89] is the sub-list for method output_type
+	89,  // [89:89] is the sub-list for method input_type
+	89,  // [89:89] is the sub-list for extension type_name
+	89,  // [89:89] is the sub-list for extension extendee
+	0,   // [0:89] is the sub-list for field type_name
 }
 
 func init() { file_rpc_proto_init() }
@@ -9459,7 +9266,7 @@ func file_rpc_proto_init() {
 			}
 		}
 		file_rpc_proto_msgTypes[110].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetKRC721CollectionRequestMessage); i {
+			switch v := v.(*GetBvmSmartContractDataRequestMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9471,7 +9278,7 @@ func file_rpc_proto_init() {
 			}
 		}
 		file_rpc_proto_msgTypes[111].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetKRC721CollectionResponseMessage); i {
+			switch v := v.(*GetBvmSmartContractDataResponseMessage); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9483,30 +9290,6 @@ func file_rpc_proto_init() {
 			}
 		}
 		file_rpc_proto_msgTypes[112].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetKRC721TokenRequestMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_proto_msgTypes[113].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetKRC721TokenResponseMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_proto_msgTypes[114].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RpcTransactionJournal_CreateObjectChange); i {
 			case 0:
 				return &v.state
@@ -9518,7 +9301,7 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_proto_msgTypes[115].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_proto_msgTypes[113].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RpcTransactionJournal_NonceChange); i {
 			case 0:
 				return &v.state
@@ -9530,7 +9313,7 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_proto_msgTypes[116].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_proto_msgTypes[114].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RpcTransactionJournal_StorageChange); i {
 			case 0:
 				return &v.state
@@ -9542,7 +9325,7 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_proto_msgTypes[117].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_proto_msgTypes[115].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RpcTransactionJournal_CreateObjectChange_VerboseData); i {
 			case 0:
 				return &v.state
@@ -9554,7 +9337,7 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_proto_msgTypes[118].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_proto_msgTypes[116].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RpcTransactionJournal_NonceChange_VerboseData); i {
 			case 0:
 				return &v.state
@@ -9566,7 +9349,7 @@ func file_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_rpc_proto_msgTypes[119].Exporter = func(v interface{}, i int) interface{} {
+		file_rpc_proto_msgTypes[117].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*RpcTransactionJournal_StorageChange_VerboseData); i {
 			case 0:
 				return &v.state
@@ -9590,7 +9373,7 @@ func file_rpc_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_rpc_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   120,
+			NumMessages:   118,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -6,9 +6,12 @@ import (
 
 	"github.com/bugnanetwork/bugnad/util/mstime"
 
+	"github.com/bugnanetwork/bugnad/domain/bvm/state"
+	"github.com/bugnanetwork/bugnad/domain/bvm/vm"
 	"github.com/bugnanetwork/bugnad/domain/consensus/database"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/processes/transactionprocessor"
 	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/bugnanetwork/bugnad/util/staging"
@@ -59,7 +62,7 @@ type consensus struct {
 	headersSelectedChainStore           model.HeadersSelectedChainStore
 	daaBlocksStore                      model.DAABlocksStore
 	blocksWithTrustedDataDAAWindowStore model.BlocksWithTrustedDataDAAWindowStore
-	krc721Store                         model.KRC721Store
+	bvmStore                            model.BVMStore
 
 	consensusEventsChan chan externalapi.ConsensusEvent
 	virtualNotUpdated   bool
@@ -1148,20 +1151,24 @@ func (s *consensus) isNearlySyncedNoLock() (bool, error) {
 	return false, nil
 }
 
-func (s *consensus) GetKRC721Collection(address *externalapi.ScriptPublicKey) (externalapi.KRC721Collection, error) {
-	c, err := s.krc721Store.GetCollectionByID(s.databaseContext, model.NewStagingArea(), model.ScriptPublicKeyString(address.String()))
+func (s *consensus) GetBvmSmartContractData(address *externalapi.ScriptPublicKey, input []byte) ([]byte, error) {
+	toAddress := vm.ScriptPubkeyToAddress(address)
+	stateDB := s.bvmStore.StateDBWrapper(s.databaseContext, model.NewStagingArea()).(*state.StateDB)
+
+	blockDaaScore, err := s.GetVirtualDAAScore()
 	if err != nil {
 		return nil, err
 	}
 
-	return c, nil
-}
+	context := transactionprocessor.CreateExecuteContext(blockDaaScore, vm.Address{}, vm.Hash{}, 0)
+	chainConfig := transactionprocessor.CreateChainConfig()
+	vmConfig := transactionprocessor.CreateVMDefaultConfig()
 
-func (s *consensus) OwnerOfKRC721Token(collectionAddress *externalapi.ScriptPublicKey, tokenID uint64) (*externalapi.ScriptPublicKey, error) {
-	t, err := s.krc721Store.OwnerOf(s.databaseContext, model.NewStagingArea(), model.ScriptPublicKeyString(collectionAddress.String()), tokenID)
+	evm := vm.NewEVM(context, stateDB, chainConfig, vmConfig)
+	ret, _, err := evm.Call(vm.AccountRef(vm.Address{}), toAddress, input, evm.GasLimit, big.NewInt(0))
 	if err != nil {
 		return nil, err
 	}
 
-	return externalapi.NewScriptPublicKeyFromString(string(t)), nil
+	return ret, nil
 }

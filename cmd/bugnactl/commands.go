@@ -42,8 +42,7 @@ var commandTypes = []reflect.Type{
 	reflect.TypeOf(protowire.BugnadMessage_BanRequest{}),
 	reflect.TypeOf(protowire.BugnadMessage_UnbanRequest{}),
 
-	reflect.TypeOf(protowire.BugnadMessage_GetKRC721CollectionRequest{}),
-	reflect.TypeOf(protowire.BugnadMessage_GetKRC721TokenRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBvmSmartContractDataRequest{}),
 }
 
 type commandDescription struct {

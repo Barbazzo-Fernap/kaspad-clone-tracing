@@ -506,15 +506,8 @@ func toRPCPayload(message appmessage.Message) (isBugnadMessage_Payload, error) {
 			return nil, err
 		}
 		return payload, nil
-	case *appmessage.GetKRC721CollectionRequestMessage:
-		payload := new(BugnadMessage_GetKRC721CollectionRequest)
-		err := payload.fromAppMessage(message)
-		if err != nil {
-			return nil, err
-		}
-		return payload, nil
-	case *appmessage.GetKRC721TokenRequestMessage:
-		payload := new(BugnadMessage_GetKRC721TokenRequest)
+	case *appmessage.GetBvmSmartContractDataRequestMessage:
+		payload := new(BugnadMessage_GetBvmSmartContractDataRequest)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err
@@ -982,15 +975,8 @@ func toRPCPayload(message appmessage.Message) (isBugnadMessage_Payload, error) {
 			return nil, err
 		}
 		return payload, nil
-	case *appmessage.GetKRC721CollectionResponseMessage:
-		payload := new(BugnadMessage_GetKRC721CollectionResponse)
-		err := payload.fromAppMessage(message)
-		if err != nil {
-			return nil, err
-		}
-		return payload, nil
-	case *appmessage.GetKRC721TokenResponseMessage:
-		payload := new(BugnadMessage_GetKRC721TokenResponse)
+	case *appmessage.GetBvmSmartContractDataResponseMessage:
+		payload := new(BugnadMessage_GetBvmSmartContractDataResponse)
 		err := payload.fromAppMessage(message)
 		if err != nil {
 			return nil, err

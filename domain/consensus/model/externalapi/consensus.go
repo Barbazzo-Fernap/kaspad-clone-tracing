@@ -57,7 +57,5 @@ type Consensus interface {
 	VirtualMergeDepthRoot() (*DomainHash, error)
 	IsNearlySynced() (bool, error)
 
-	// KRC-721
-	GetKRC721Collection(address *ScriptPublicKey) (KRC721Collection, error)
-	OwnerOfKRC721Token(collectionAddress *ScriptPublicKey, tokenID uint64) (*ScriptPublicKey, error)
+	GetBvmSmartContractData(address *ScriptPublicKey, input []byte) ([]byte, error)
 }
