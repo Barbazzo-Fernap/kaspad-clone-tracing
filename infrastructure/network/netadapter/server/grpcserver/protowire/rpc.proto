@@ -136,9 +136,21 @@ message RpcTransactionJournal {
         }
         VerboseData verboseData = 4;
     }
+    message StorageChange {
+        RpcScriptPublicKey scriptPublicKey = 1;
+        string key = 2;
+        string previousValue = 3;
+        string newValue = 4;
+        message VerboseData{
+            string scriptPublicKeyType = 1;
+            string scriptPublicKeyAddress = 2;
+        }
+        VerboseData verboseData = 5;
+    }
     oneof payload {
         CreateObjectChange createObjectChange = 1;
         NonceChange nonceChange = 2;
+        StorageChange storageChange = 3;
     }
 }
 

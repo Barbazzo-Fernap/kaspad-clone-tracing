@@ -153,3 +153,18 @@ type RPCTransactionJournalNonceChangeVerboseData struct {
 	ScriptPublicKeyType    string
 	ScriptPublicKeyAddress string
 }
+
+type RPCTransactionJournalStorageChange struct {
+	ScriptPublicKey *RPCScriptPublicKey
+	Key             string
+	PreviousValue   string
+	NewValue        string
+	VerboseData     *RPCTransactionJournalStorageChangeVerboseData
+}
+
+func (RPCTransactionJournalStorageChange) isRPCTransactionJournal() {}
+
+type RPCTransactionJournalStorageChangeVerboseData struct {
+	ScriptPublicKeyType    string
+	ScriptPublicKeyAddress string
+}

@@ -454,6 +454,14 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 				PreviousNonce:   e.prev,
 				NewNonce:        e.prev + 1,
 			})
+		case storageChange:
+			key, _ := externalapi.NewDomainHashFromByteSlice(e.key.Bytes())
+			changes = append(changes, &externalapi.DomainTransactionJournalStorageChange{
+				ScriptPublicKey: e.account.ScriptPublicKey(),
+				Key:             *key,
+				PreviousValue:   e.prevalue.Bytes(),
+				NewValue:        e.value.Bytes(),
+			})
 		}
 	}
 

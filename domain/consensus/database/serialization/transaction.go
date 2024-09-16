@@ -62,6 +62,15 @@ func DomainTransactionToDbTransaction(domainTransaction *externalapi.DomainTrans
 					NewNonce:        p.NewNonce,
 				}},
 			}
+		case *externalapi.DomainTransactionJournalStorageChange:
+			journal[i] = &DbTransactionJournal{
+				Payload: &DbTransactionJournal_StorageChange_{StorageChange: &DbTransactionJournal_StorageChange{
+					ScriptPublicKey: ScriptPublicKeyToDBScriptPublicKey(p.ScriptPublicKey),
+					Key:             DomainHashToDbHash(&p.Key),
+					PreviousValue:   p.PreviousValue,
+					NewValue:        p.NewValue,
+				}},
+			}
 		}
 	}
 
@@ -133,11 +142,25 @@ func DbTransactionToDomainTransaction(dbTransaction *DbTransaction) (*externalap
 	for i, dbJournal := range dbTransaction.Journal {
 		switch p := dbJournal.Payload.(type) {
 		case *DbTransactionJournal_CreateObjectChange_:
+			scriptPublicKey, _ := DBScriptPublicKeyToScriptPublicKey(p.CreateObjectChange.ScriptPublicKey)
 			journal[i] = &externalapi.DomainTransactionJournalCreateObjectChange{
-				ScriptPublicKey: &externalapi.ScriptPublicKey{
-					Script:  p.CreateObjectChange.ScriptPublicKey.Script,
-					Version: uint16(p.CreateObjectChange.ScriptPublicKey.Version),
-				},
+				ScriptPublicKey: scriptPublicKey,
+			}
+		case *DbTransactionJournal_NonceChange_:
+			scriptPublicKey, _ := DBScriptPublicKeyToScriptPublicKey(p.NonceChange.ScriptPublicKey)
+			journal[i] = &externalapi.DomainTransactionJournalNonceChange{
+				ScriptPublicKey: scriptPublicKey,
+				PreviousNonce:   p.NonceChange.PreviousNonce,
+				NewNonce:        p.NonceChange.NewNonce,
+			}
+		case *DbTransactionJournal_StorageChange_:
+			key, _ := DbHashToDomainHash(p.StorageChange.Key)
+			scriptPublicKey, _ := DBScriptPublicKeyToScriptPublicKey(p.StorageChange.ScriptPublicKey)
+			journal[i] = &externalapi.DomainTransactionJournalStorageChange{
+				ScriptPublicKey: scriptPublicKey,
+				Key:             *key,
+				PreviousValue:   p.StorageChange.PreviousValue,
+				NewValue:        p.StorageChange.NewValue,
 			}
 		}
 	}

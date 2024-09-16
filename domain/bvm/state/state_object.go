@@ -171,6 +171,7 @@ func (s *stateObject) SetState(key, value vm.Hash) {
 		account:  &s.address,
 		key:      key,
 		prevalue: prev,
+		value:    value,
 	})
 	s.setState(key, value)
 }
@@ -308,4 +309,8 @@ func (s *stateObject) CodeHash() []byte {
 
 func (s *stateObject) Nonce() uint64 {
 	return s.data.Nonce
+}
+
+func (s *stateObject) ScriptPublicKey() *externalapi.ScriptPublicKey {
+	return s.data.ScriptPublicKey
 }

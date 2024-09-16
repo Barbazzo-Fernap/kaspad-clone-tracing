@@ -60,9 +60,16 @@ message DbTransactionJournal {
         uint64 previousNonce = 2;
         uint64 newNonce = 3;
     }
+    message StorageChange {
+        DbScriptPublicKey scriptPublicKey = 1;
+        DbHash key = 2;
+        bytes previousValue = 3;
+        bytes newValue = 4;
+    }
     oneof payload {
         CreateObjectChange createObjectChange = 1;
         NonceChange nonceChange = 2;
+        StorageChange storageChange = 3;
     }
 }
 

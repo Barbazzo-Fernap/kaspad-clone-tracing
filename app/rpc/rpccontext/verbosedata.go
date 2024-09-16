@@ -198,6 +198,12 @@ func (ctx *Context) populateTransactionJournalWithVerboseData(transactionJournal
 			ScriptPublicKeyType:    scriptPublicKeyType.String(),
 			ScriptPublicKeyAddress: encodedScriptPublicKeyAddress,
 		}
+	case *appmessage.RPCTransactionJournalStorageChange:
+		scriptPublicKeyType, encodedScriptPublicKeyAddress := ctx.extractScriptPubKeyAddress(j.ScriptPublicKey)
+		j.VerboseData = &appmessage.RPCTransactionJournalStorageChangeVerboseData{
+			ScriptPublicKeyType:    scriptPublicKeyType.String(),
+			ScriptPublicKeyAddress: encodedScriptPublicKeyAddress,
+		}
 	}
 	return nil
 }

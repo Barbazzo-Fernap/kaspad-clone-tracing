@@ -40,13 +40,12 @@ func (t *transactionProcessor) Excute(
 }
 
 func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, blockDaaScore uint64, stagingArea *model.StagingArea, input *externalapi.DomainTransactionInput, inputIndex int) error {
-	operator, action, _, payload, err := extractSignatureScript(input.SignatureScript)
+	operator, action, toAddress, payload, err := extractSignatureScript(input.SignatureScript)
 	if err != nil {
 		return err
 	}
 
 	caller := vm.ScriptPubkeyToAddress(operator)
-
 	stateDB := t.bvmStore.StateDBWrapper(t.databaseContext, stagingArea).(*state.StateDB)
 	txID := consensushashing.TransactionID(tx)
 
@@ -86,13 +85,21 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 			tx.Result = err.Error()
 			return fmt.Errorf("err evm.Create: %w", err)
 		}
-	// case "interact":
-	// 	toAddr := vm.BytesToAddress(datas[1])
-	// 	_, _, err = evm.Call(vm.AccountRef(caller), toAddr, payload, evm.GasLimit, big.NewInt(0))
-	// 	if err != nil {
-	// 		tx.Result = err.Error()
-	// 		return fmt.Errorf("err evm.Call: %w", err)
-	// 	}
+	case ActionInteract:
+		stateObject := stateDB.GetOrNewStateObject(vm.BytesToAddress(toAddress))
+		if stateObject.ScriptPublicKey() == nil {
+			return fmt.Errorf("invalid toAddress")
+		}
+
+		nonce := evm.StateDBHandler.GetNonce(caller)
+		evm.StateDBHandler.SetNonce(caller, nonce+1)
+
+		toAddr := vm.ScriptPubkeyToAddress(stateObject.ScriptPublicKey())
+		_, _, err = evm.Call(vm.AccountRef(caller), toAddr, payload, evm.GasLimit, big.NewInt(0))
+		if err != nil {
+			tx.Result = err.Error()
+			return fmt.Errorf("err evm.Call: %w", err)
+		}
 	default:
 		return fmt.Errorf("invalid type: %s", action)
 	}
@@ -151,7 +158,8 @@ func CreateVMDefaultConfig() vm.Config {
 type Action byte
 
 const (
-	ActionDeploy = 0x01
+	ActionDeploy   = 0x01
+	ActionInteract = 0x02
 )
 
 func extractSignatureScript(script []byte) (operator *externalapi.ScriptPublicKey, action Action, toAddress []byte, payload []byte, err error) {
@@ -218,6 +226,23 @@ func extractSignatureScript(script []byte) (operator *externalapi.ScriptPublicKe
 					}
 
 					payload = append(payload, _p...)
+				}
+			case ActionInteract:
+				for _, p := range parts[i+2:] {
+					if p == "OP_ENDIF" {
+						break
+					}
+
+					_p, err := hex.DecodeString(p)
+					if err != nil {
+						return nil, 0, nil, nil, err
+					}
+
+					if toAddress == nil {
+						toAddress = _p
+					} else {
+						payload = append(payload, _p...)
+					}
 				}
 			}
 		}

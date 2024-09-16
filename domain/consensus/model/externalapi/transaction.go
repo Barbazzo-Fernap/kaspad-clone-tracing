@@ -526,3 +526,48 @@ func (j *DomainTransactionJournalNonceChange) Equal(o DomainTransactionJournal) 
 
 	return j.ScriptPublicKey.Equal(other.ScriptPublicKey) && j.PreviousNonce == other.PreviousNonce && j.NewNonce == other.NewNonce
 }
+
+type DomainTransactionJournalStorageChange struct {
+	ScriptPublicKey *ScriptPublicKey
+	Key             DomainHash
+	PreviousValue   []byte
+	NewValue        []byte
+}
+
+func (DomainTransactionJournalStorageChange) isDomainTransactionJournal() {}
+
+func (j *DomainTransactionJournalStorageChange) Clone() DomainTransactionJournal {
+	scriptPublicKeyClone := &ScriptPublicKey{
+		Script:  make([]byte, len(j.ScriptPublicKey.Script)),
+		Version: j.ScriptPublicKey.Version}
+	copy(scriptPublicKeyClone.Script, j.ScriptPublicKey.Script)
+
+	previousValueClone := make([]byte, len(j.PreviousValue))
+	copy(previousValueClone, j.PreviousValue)
+
+	newValueClone := make([]byte, len(j.NewValue))
+	copy(newValueClone, j.NewValue)
+
+	return &DomainTransactionJournalStorageChange{
+		ScriptPublicKey: scriptPublicKeyClone,
+		Key:             j.Key,
+		PreviousValue:   previousValueClone,
+		NewValue:        newValueClone,
+	}
+}
+
+func (j *DomainTransactionJournalStorageChange) Equal(o DomainTransactionJournal) bool {
+	other, ok := o.(*DomainTransactionJournalStorageChange)
+	if !ok {
+		return false
+	}
+
+	if j == nil || other == nil {
+		return j == other
+	}
+
+	return j.ScriptPublicKey.Equal(other.ScriptPublicKey) &&
+		j.Key.Equal(&other.Key) &&
+		bytes.Equal(j.PreviousValue, other.PreviousValue) &&
+		bytes.Equal(j.NewValue, other.NewValue)
+}
