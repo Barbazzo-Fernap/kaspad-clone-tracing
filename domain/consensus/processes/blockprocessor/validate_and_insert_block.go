@@ -330,7 +330,6 @@ func (bp *blockProcessor) validatePostProofOfWork(stagingArea *model.StagingArea
 			if transactionhelper.IsCoinBase(transaction) {
 				continue
 			}
-			log.Infof("blockhash: %s,  excute txid: %s", blockHash, consensushashing.TransactionID(transaction))
 			err := bp.transactionProcessor.Excute(excuteStagingArea, blockHash, block.Header.DAAScore(), transaction)
 			if err != nil {
 				log.Errorf("Transaction %s - input %d in block %s failed to execute: %s", consensushashing.TransactionID(transaction), i, blockHash, err.Error())
