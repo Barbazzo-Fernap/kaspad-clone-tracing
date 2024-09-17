@@ -6,7 +6,9 @@ import (
 	"time"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/server/grpcserver/protowire"
 	"github.com/bugnanetwork/bugnad/infrastructure/network/rpcclient"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 func deploySmartContract(cfg *deployConfig) error {
@@ -69,11 +71,22 @@ func deploySmartContract(cfg *deployConfig) error {
 			if err != nil {
 				return fmt.Errorf("Error getting blocks: %s", err)
 			}
+			rpcResponse, err := protowire.FromAppMessage(blocks)
+			if err != nil {
+				return fmt.Errorf("Error converting to app message: %s", err)
+			}
 
-			for _, block := range blocks.Blocks {
+			for _, block := range rpcResponse.GetGetBlocksResponse().Blocks {
 				for _, txn := range block.Transactions {
-					if txn.VerboseData.TransactionID == txID {
+					if txn.VerboseData.TransactionId == txID {
 						log.Infof("Contract deployed successfully. BlockHash: %s Transaction ID: %s", block.VerboseData.Hash, txID)
+
+						marshalOptions := &protojson.MarshalOptions{}
+						marshalOptions.Indent = "    "
+						marshalOptions.EmitUnpopulated = true
+
+						fmt.Println(marshalOptions.Format(txn))
+
 						return nil
 					}
 				}

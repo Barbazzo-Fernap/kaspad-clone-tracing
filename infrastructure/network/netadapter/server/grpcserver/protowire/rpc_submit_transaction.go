@@ -102,6 +102,27 @@ func (x *RpcTransaction) toAppMessage() (*appmessage.RPCTransaction, error) {
 		}
 		verboseData = appMessageVerboseData
 	}
+
+	logs := make([]*appmessage.RPCTransactionLog, len(x.Logs))
+	for i, log := range x.Logs {
+		appLog, err := log.toAppMessage()
+		if err != nil {
+			return nil, err
+		}
+
+		logs[i] = appLog
+	}
+
+	journal := make([]appmessage.RPCTransactionJournal, len(x.Journal))
+	for i, j := range x.Journal {
+		appJournal, err := j.toAppMessage()
+		if err != nil {
+			return nil, err
+		}
+
+		journal[i] = appJournal
+	}
+
 	return &appmessage.RPCTransaction{
 		Version:      uint16(x.Version),
 		Inputs:       inputs,
@@ -111,6 +132,9 @@ func (x *RpcTransaction) toAppMessage() (*appmessage.RPCTransaction, error) {
 		Gas:          x.Gas,
 		Payload:      x.Payload,
 		VerboseData:  verboseData,
+		Journal:      journal,
+		Logs:         logs,
+		Result:       x.Result,
 	}, nil
 }
 
@@ -398,11 +422,22 @@ func (x *RpcTransactionJournal) toAppMessage() (appmessage.RPCTransactionJournal
 			return nil, err
 		}
 
+		v, err := p.CreateObjectChange.VerboseData.toAppMessage()
+		if err != nil {
+			return nil, err
+		}
+
 		return &appmessage.RPCTransactionJournalCreateObjectChange{
 			ScriptPublicKey: s,
+			VerboseData:     v,
 		}, nil
 	case *RpcTransactionJournal_NonceChange_:
 		s, err := p.NonceChange.ScriptPublicKey.toAppMessage()
+		if err != nil {
+			return nil, err
+		}
+
+		v, err := p.NonceChange.VerboseData.toAppMessage()
 		if err != nil {
 			return nil, err
 		}
@@ -411,9 +446,15 @@ func (x *RpcTransactionJournal) toAppMessage() (appmessage.RPCTransactionJournal
 			ScriptPublicKey: s,
 			PreviousNonce:   p.NonceChange.PreviousNonce,
 			NewNonce:        p.NonceChange.NewNonce,
+			VerboseData:     v,
 		}, nil
 	case *RpcTransactionJournal_StorageChange_:
 		s, err := p.StorageChange.ScriptPublicKey.toAppMessage()
+		if err != nil {
+			return nil, err
+		}
+
+		v, err := p.StorageChange.VerboseData.toAppMessage()
 		if err != nil {
 			return nil, err
 		}
@@ -423,6 +464,7 @@ func (x *RpcTransactionJournal) toAppMessage() (appmessage.RPCTransactionJournal
 			Key:             p.StorageChange.Key,
 			PreviousValue:   p.StorageChange.PreviousValue,
 			NewValue:        p.StorageChange.NewValue,
+			VerboseData:     v,
 		}, nil
 	default:
 		return nil, errors.New("unknown RpcTransactionJournal type")
