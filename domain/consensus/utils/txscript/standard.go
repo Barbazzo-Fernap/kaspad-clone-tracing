@@ -5,6 +5,7 @@
 package txscript
 
 import (
+	"bytes"
 	"fmt"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
@@ -496,12 +497,24 @@ func typeOfInputScript(pops []parsedOpcode) ScriptClass {
 	return NonStandardTy
 }
 
+var BugnaScript = []byte{0x0c, 0x62, 0x75, 0x67, 0x6e, 0x61, 0x5f, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74}
+
+func IsBugnaScript(script []byte) bool {
+	return bytes.Equal(script[:len(BugnaScript)], BugnaScript)
+}
+
 func ExtractSignatureScriptToSmartcontractInputData(signatureScript []byte) (*externalapi.ScriptPublicKey, [][]byte, error) {
+	if !IsBugnaScript(signatureScript) {
+		return nil, nil, fmt.Errorf("invalid script")
+	}
+
 	parts, err := PushedData(signatureScript)
 	if err != nil {
 		return nil, nil, err
 	}
 
+	// cut prefix bugna_script
+	parts = parts[1:]
 	if len(parts) < 3 {
 		return nil, nil, fmt.Errorf("invalid script")
 	}

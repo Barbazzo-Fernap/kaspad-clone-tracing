@@ -78,10 +78,6 @@ func (t *transactionProcessor) excuteTXInputV2(tx *externalapi.DomainTransaction
 
 	evm := vm.NewEVM(context, stateDB, chainConfig, vmConfig)
 
-	fmt.Println("action", action)
-	fmt.Println("toAddress", toAddress)
-	fmt.Println("payload", len(payload))
-
 	switch action {
 	case ActionDeploy:
 		_, _, _, err := evm.Create(vm.AccountRef(caller), payload, evm.GasLimit, big.NewInt(0))

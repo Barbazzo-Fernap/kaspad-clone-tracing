@@ -448,13 +448,12 @@ func (s *StateDB) DumpJournal() []externalapi.DomainTransactionJournal {
 			changes = append(changes, &externalapi.DomainTransactionJournalCreateObjectChange{
 				ScriptPublicKey: e.account.ScriptPublicKey(),
 			})
-		// no need nonce change event
-		// case nonceChange:
-		// 	changes = append(changes, &externalapi.DomainTransactionJournalNonceChange{
-		// 		ScriptPublicKey: e.account.ScriptPublicKey(),
-		// 		PreviousNonce:   e.prev,
-		// 		NewNonce:        e.prev + 1,
-		// 	})
+		case nonceChange:
+			changes = append(changes, &externalapi.DomainTransactionJournalNonceChange{
+				ScriptPublicKey: e.account.ScriptPublicKey(),
+				PreviousNonce:   e.prev,
+				NewNonce:        e.prev + 1,
+			})
 		case storageChange:
 			key, _ := externalapi.NewDomainHashFromByteSlice(e.key.Bytes())
 			changes = append(changes, &externalapi.DomainTransactionJournalStorageChange{
