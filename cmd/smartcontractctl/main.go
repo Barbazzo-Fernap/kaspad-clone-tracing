@@ -27,6 +27,11 @@ func main() {
 	case evmAddrSubCmd:
 		evmAddrCfg := cfg.(*evmAddrConfig)
 		err = evmaddress(evmAddrCfg)
+	case queryContractSubCmd:
+		queryContractCfg := cfg.(*queryContractConfig)
+		err = queryContract(queryContractCfg)
+	default:
+		printErrorAndExit("Unknown command")
 	}
 
 	if err != nil {

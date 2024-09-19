@@ -17,9 +17,10 @@ const (
 )
 
 const (
-	deploySubCmd       = "deploy"
-	callContractSubCmd = "callcontract"
-	evmAddrSubCmd      = "evmaddr"
+	deploySubCmd        = "deploy"
+	callContractSubCmd  = "callcontract"
+	evmAddrSubCmd       = "evmaddr"
+	queryContractSubCmd = "querycontract"
 )
 
 var (
@@ -53,6 +54,15 @@ type evmAddrConfig struct {
 	config.NetworkFlags
 }
 
+type queryContractConfig struct {
+	RPCServer       string   `short:"s" long:"rpcserver" description:"RPC server to connect to"`
+	ContractAddress string   `short:"a" long:"contractaddress" description:"Address of the contract"`
+	AbiFile         string   `short:"b" long:"abifile" description:"Path to the ABI file"`
+	Method          string   `short:"m" long:"method" description:"Method to call"`
+	Args            []string `short:"g" long:"args" description:"Arguments to the method"`
+	config.NetworkFlags
+}
+
 func parseCommandLine() (subCommand string, config interface{}) {
 	cfg := &configFlags{}
 	parser := flags.NewParser(cfg, flags.PrintErrors|flags.HelpFlag)
@@ -67,6 +77,9 @@ func parseCommandLine() (subCommand string, config interface{}) {
 
 	evmAddrConf := &evmAddrConfig{}
 	parser.AddCommand(evmAddrSubCmd, "Convert Bugna address to EVM address", "Converts a Bugna address to an EVM address", evmAddrConf)
+
+	queryContractConf := &queryContractConfig{}
+	parser.AddCommand(queryContractSubCmd, "Query a contract", "Queries a contract on the network", queryContractConf)
 
 	_, err := parser.Parse()
 	if err != nil {
@@ -104,6 +117,14 @@ func parseCommandLine() (subCommand string, config interface{}) {
 		}
 		validateEVMAddrConfig(evmAddrConf)
 		config = evmAddrConf
+	case queryContractSubCmd:
+		combineNetworkFlags(&queryContractConf.NetworkFlags, &cfg.NetworkFlags)
+		err := queryContractConf.ResolveNetwork(parser)
+		if err != nil {
+			printErrorAndExit(err.Error())
+		}
+		validateQueryContractConfig(queryContractConf)
+		config = queryContractConf
 	}
 
 	return parser.Command.Active.Name, config
@@ -151,5 +172,19 @@ func validateCallContractConfig(cfg *callContractConfig) {
 func validateEVMAddrConfig(cfg *evmAddrConfig) {
 	if cfg.BugnaAddress == "" {
 		printErrorAndExit("Bugna address is required")
+	}
+}
+
+func validateQueryContractConfig(cfg *queryContractConfig) {
+	if cfg.ContractAddress == "" {
+		printErrorAndExit("contract address is required")
+	}
+
+	if cfg.Method == "" {
+		printErrorAndExit("method is required")
+	}
+
+	if cfg.AbiFile == "" {
+		printErrorAndExit("ABI file is required")
 	}
 }
