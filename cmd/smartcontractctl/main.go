@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sync/atomic"
 
 	"github.com/bugnanetwork/bugnad/infrastructure/os/signal"
@@ -15,15 +14,23 @@ func main() {
 	defer panics.HandlePanic(log, "main", nil)
 
 	cmd, cfg := parseCommandLine()
-	fmt.Println(cmd)
+
+	var err error
 
 	switch cmd {
 	case deploySubCmd:
 		deployCfg := cfg.(*deployConfig)
-		err := deploySmartContract(deployCfg)
-		if err != nil {
-			printErrorAndExit(err.Error())
-		}
+		err = deploySmartContract(deployCfg)
+	case callContractSubCmd:
+		callContractCfg := cfg.(*callContractConfig)
+		err = callSmartContract(callContractCfg)
+	case evmAddrSubCmd:
+		evmAddrCfg := cfg.(*evmAddrConfig)
+		err = evmaddress(evmAddrCfg)
+	}
+
+	if err != nil {
+		printErrorAndExit(err.Error())
 	}
 
 	<-interrupt

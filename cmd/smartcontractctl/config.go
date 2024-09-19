@@ -17,7 +17,9 @@ const (
 )
 
 const (
-	deploySubCmd = "deploy"
+	deploySubCmd       = "deploy"
+	callContractSubCmd = "callcontract"
+	evmAddrSubCmd      = "evmaddr"
 )
 
 var (
@@ -37,6 +39,20 @@ type deployConfig struct {
 	configFlags
 }
 
+type callContractConfig struct {
+	ContractAddress string   `short:"a" long:"contractaddress" description:"Address of the contract"`
+	AbiFile         string   `short:"b" long:"abifile" description:"Path to the ABI file"`
+	Method          string   `short:"m" long:"method" description:"Method to call"`
+	Args            []string `short:"g" long:"args" description:"Arguments to the method"`
+	RawInput        string   `short:"i" long:"rawinput" description:"Raw input data"`
+	configFlags
+}
+
+type evmAddrConfig struct {
+	BugnaAddress string `short:"a" long:"bugnaaddress" description:"Bugna address"`
+	config.NetworkFlags
+}
+
 func parseCommandLine() (subCommand string, config interface{}) {
 	cfg := &configFlags{}
 	parser := flags.NewParser(cfg, flags.PrintErrors|flags.HelpFlag)
@@ -45,6 +61,12 @@ func parseCommandLine() (subCommand string, config interface{}) {
 
 	deployConf := &deployConfig{}
 	parser.AddCommand(deploySubCmd, "Deploy a contract", "Deploys a contract to the network", deployConf)
+
+	callContractConf := &callContractConfig{}
+	parser.AddCommand(callContractSubCmd, "Call a contract", "Calls a method on a contract", callContractConf)
+
+	evmAddrConf := &evmAddrConfig{}
+	parser.AddCommand(evmAddrSubCmd, "Convert Bugna address to EVM address", "Converts a Bugna address to an EVM address", evmAddrConf)
 
 	_, err := parser.Parse()
 	if err != nil {
@@ -66,6 +88,22 @@ func parseCommandLine() (subCommand string, config interface{}) {
 		}
 		validateDeployConfig(deployConf)
 		config = deployConf
+	case callContractSubCmd:
+		combineNetworkFlags(&callContractConf.NetworkFlags, &cfg.NetworkFlags)
+		err := callContractConf.ResolveNetwork(parser)
+		if err != nil {
+			printErrorAndExit(err.Error())
+		}
+		validateCallContractConfig(callContractConf)
+		config = callContractConf
+	case evmAddrSubCmd:
+		combineNetworkFlags(&evmAddrConf.NetworkFlags, &cfg.NetworkFlags)
+		err := evmAddrConf.ResolveNetwork(parser)
+		if err != nil {
+			printErrorAndExit(err.Error())
+		}
+		validateEVMAddrConfig(evmAddrConf)
+		config = evmAddrConf
 	}
 
 	return parser.Command.Active.Name, config
@@ -87,5 +125,31 @@ func validateDeployConfig(cfg *deployConfig) {
 
 	if cfg.PrivateKey == "" {
 		printErrorAndExit("private key is required")
+	}
+}
+
+func validateCallContractConfig(cfg *callContractConfig) {
+	if cfg.ContractAddress == "" {
+		printErrorAndExit("contract address is required")
+	}
+
+	if cfg.PrivateKey == "" {
+		printErrorAndExit("private key is required")
+	}
+
+	if cfg.RawInput == "" {
+		if cfg.Method == "" {
+			printErrorAndExit("method is required")
+		}
+
+		if cfg.AbiFile == "" {
+			printErrorAndExit("ABI file is required")
+		}
+	}
+}
+
+func validateEVMAddrConfig(cfg *evmAddrConfig) {
+	if cfg.BugnaAddress == "" {
+		printErrorAndExit("Bugna address is required")
 	}
 }
