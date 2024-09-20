@@ -83,8 +83,11 @@ func (t *transactionProcessor) excuteTXInput(tx *externalapi.DomainTransaction, 
 			return fmt.Errorf("err evm.Create: %w", err)
 		}
 	case ActionInteract:
+		snapshot := stateDB.Snapshot()
 		stateObject := stateDB.GetOrNewStateObject(vm.BytesToAddress(toAddress))
 		if stateObject.ScriptPublicKey() == nil {
+			stateDB.RevertToSnapshot(snapshot)
+			tx.Result = "invalid contract address"
 			return fmt.Errorf("invalid toAddress")
 		}
 

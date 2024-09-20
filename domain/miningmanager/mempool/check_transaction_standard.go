@@ -72,7 +72,7 @@ func (mp *mempool) checkTransactionStandardInIsolation(transaction *externalapi.
 		signatureScriptLen := len(input.SignatureScript)
 		if signatureScriptLen > maximumStandardSignatureScriptSize {
 			maximumSize := maximumStandardSignatureScriptSize
-			// TODO: check DAA score to allow max signature script size for smart contract
+			// TODO: check hardfork to allow bigger script size for smart contract
 			if txscript.IsBugnaScript(input.SignatureScript) {
 				maximumSize = maximumSmartcontractSignatureScriptSize
 				if signatureScriptLen < maximumSmartcontractSignatureScriptSize {
