@@ -1,8 +1,9 @@
 package dagconfig
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 )
 
 // The documentation refers to the following constants which aren't explicated in the code:
@@ -48,8 +49,8 @@ const (
 	// in block take longer)
 	defaultMergeSetSizeLimit                       = defaultGHOSTDAGK * 10
 	defaultSubsidyGenesisReward                    = 1 * constants.SompiPerBugna
-	defaultPreDeflationaryPhaseBaseSubsidy         = 500 * constants.SompiPerBugna
-	defaultDeflationaryPhaseBaseSubsidy            = 440 * constants.SompiPerBugna
+	defaultPreDeflationaryPhaseBaseSubsidy         = 1 * constants.DefaultPreDeflationaryPhaseCurve
+	defaultDeflationaryPhaseBaseSubsidy            = 2000 * constants.SompiPerBugna
 	defaultCoinbasePayloadScriptPublicKeyMaxLength = 150
 	// defaultDifficultyAdjustmentWindowSize is the number of blocks in a block's past used to calculate its difficulty
 	// target.
@@ -81,7 +82,7 @@ const (
 	// Half a year in seconds = 365.25 / 2 * 24 * 60 * 60 = 15778800
 	// The network was down for three days shortly after launch
 	// Three days in seconds = 3 * 24 * 60 * 60 = 259200
-	defaultDeflationaryPhaseDaaScore = 15778800 - 259200
+	defaultDeflationaryPhaseDaaScore = 2000
 
 	defaultMergeDepth = 3600
 )

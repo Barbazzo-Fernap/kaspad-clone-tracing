@@ -16,7 +16,7 @@ const (
 	SompiPerBugna = 100_000_000
 
 	// MaxSompi is the maximum transaction amount allowed in sompi.
-	MaxSompi = uint64(29_000_000_000 * SompiPerBugna)
+	MaxSompi = uint64(105_000_000_000 * SompiPerBugna)
 
 	// MaxTxInSequenceNum is the maximum sequence number the sequence field
 	// of a transaction input can be.
@@ -38,4 +38,7 @@ const (
 	// UnacceptedDAAScore is used to for UTXOEntries that were created by transactions in the mempool, or otherwise
 	// not-yet-accepted transactions.
 	UnacceptedDAAScore = math.MaxUint64
+
+	//
+	DefaultPreDeflationaryPhaseCurve = 5_000_000 * SompiPerBugna
 )
