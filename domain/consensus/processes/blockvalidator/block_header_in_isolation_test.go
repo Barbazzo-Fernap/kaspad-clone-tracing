@@ -1,10 +1,11 @@
 package blockvalidator_test
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/testapi"
 	"reflect"
 	"runtime"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/testapi"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"

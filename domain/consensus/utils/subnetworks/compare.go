@@ -2,6 +2,7 @@ package subnetworks
 
 import (
 	"bytes"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 

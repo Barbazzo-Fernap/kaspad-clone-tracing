@@ -1,9 +1,10 @@
 package protowire
 
 import (
+	"math"
+
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/pkg/errors"
-	"math"
 )
 
 func (x *BugnadMessage_SubmitBlockRequest) toAppMessage() (appmessage.Message, error) {

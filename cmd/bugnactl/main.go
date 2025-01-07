@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/bugnanetwork/bugnad/version"
 	"os"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/version"
 
 	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/server/grpcserver/protowire"
 

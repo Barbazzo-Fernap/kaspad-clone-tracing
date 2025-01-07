@@ -1,8 +1,9 @@
 package integration
 
 import (
-	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/app/appmessage"
 )
 
 func TestVirtualSelectedParentBlueScoreAndVirtualDAAScore(t *testing.T) {

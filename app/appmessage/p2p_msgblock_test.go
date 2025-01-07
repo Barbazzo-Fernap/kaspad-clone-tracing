@@ -5,8 +5,8 @@
 package appmessage
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	"github.com/bugnanetwork/bugnad/util/mstime"
+	"github.com/davecgh/go-spew/spew"
 	"math"
 	"reflect"
 	"testing"

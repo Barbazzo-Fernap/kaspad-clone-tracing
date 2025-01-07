@@ -3,13 +3,14 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+	"io/ioutil"
+	"strings"
+
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/serialization"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/pkg/errors"
-	"io/ioutil"
-	"strings"
 )
 
 func parse(conf *parseConfig) error {

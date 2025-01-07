@@ -1,11 +1,12 @@
 package coinbasemanager
 
 import (
+	"strconv"
+	"testing"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
-	"strconv"
-	"testing"
 )
 
 func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {

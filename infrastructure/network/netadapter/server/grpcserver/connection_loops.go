@@ -1,14 +1,15 @@
 package grpcserver
 
 import (
-	"github.com/davecgh/go-spew/spew"
-	"github.com/bugnanetwork/bugnad/app/appmessage"
-	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/infrastructure/logger"
+	"github.com/davecgh/go-spew/spew"
 
 	routerpkg "github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"

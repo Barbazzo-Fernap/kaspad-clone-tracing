@@ -1,11 +1,12 @@
 package serialization
 
 import (
+	"math"
+	"math/big"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
 	"github.com/pkg/errors"
-	"math"
-	"math/big"
 )
 
 // DomainBlockHeaderToDbBlockHeader converts BlockHeader to DbBlockHeader

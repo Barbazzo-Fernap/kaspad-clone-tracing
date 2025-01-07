@@ -1,9 +1,10 @@
 package blockheader
 
 import (
+	"math/big"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/pow"
-	"math/big"
 )
 
 type blockHeader struct {

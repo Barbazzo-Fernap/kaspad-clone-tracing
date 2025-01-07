@@ -1,8 +1,9 @@
 package serialization
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"math/big"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
 // BlockGHOSTDAGDataToDBBlockGHOSTDAGData converts BlockGHOSTDAGData to DbBlockGhostdagData

@@ -5,12 +5,13 @@
 package dagconfig
 
 import (
-	"github.com/bugnanet/go-muhash"
+	"math/big"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/subnetworks"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/transactionhelper"
-	"math/big"
+	"github.com/kaspanet/go-muhash"
 )
 
 var genesisTxOuts = []*externalapi.DomainTransactionOutput{}

@@ -6,9 +6,10 @@ package txscript
 
 import (
 	"bytes"
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"reflect"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"github.com/bugnanetwork/bugnad/util"

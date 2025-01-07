@@ -1,7 +1,6 @@
 package transactionvalidator_test
 
 import (
-	"github.com/kaspanet/go-secp256k1"
 	"github.com/bugnanetwork/bugnad/domain/consensus"
 	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
@@ -9,6 +8,7 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/utxo"
 	"github.com/bugnanetwork/bugnad/util"
+	"github.com/kaspanet/go-secp256k1"
 
 	"testing"
 

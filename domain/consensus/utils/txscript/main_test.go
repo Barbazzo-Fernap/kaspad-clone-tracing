@@ -1,9 +1,10 @@
 package txscript
 
 import (
-	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"os"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 )
 
 func TestMain(m *testing.M) {

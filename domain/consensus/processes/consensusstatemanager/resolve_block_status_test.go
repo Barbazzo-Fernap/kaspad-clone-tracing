@@ -2,8 +2,9 @@ package consensusstatemanager_test
 
 import (
 	"errors"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/utxo"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/utxo"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 

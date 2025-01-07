@@ -19,7 +19,7 @@ bugnad.db
 *.test
 
 # Real binaries, build with `go build .`
-bugnad
+/bugnad
 cmd/gencerts/gencerts
 cmd/bugnactl/bugnactl
 cmd/kasminer/bugnaminer
@@ -60,3 +60,4 @@ coverage.txt
 
 testdbs/
 coverage.tmp
+/build

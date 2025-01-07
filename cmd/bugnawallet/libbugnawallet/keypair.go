@@ -5,10 +5,10 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/kaspanet/go-secp256k1"
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/bip32"
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"github.com/bugnanetwork/bugnad/util"
+	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 )
 

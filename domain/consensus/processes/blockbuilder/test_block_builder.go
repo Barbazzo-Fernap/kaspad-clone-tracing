@@ -2,6 +2,9 @@ package blockbuilder
 
 import (
 	"encoding/binary"
+	"math/big"
+	"sort"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/testapi"
@@ -11,8 +14,6 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/pkg/errors"
-	"math/big"
-	"sort"
 )
 
 type testBlockBuilder struct {

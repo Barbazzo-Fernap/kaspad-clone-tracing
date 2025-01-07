@@ -5,11 +5,12 @@
 package addressmanager
 
 import (
-	"github.com/bugnanetwork/bugnad/infrastructure/db/database"
-	"github.com/bugnanetwork/bugnad/util/mstime"
 	"net"
 	"sync"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/infrastructure/db/database"
+	"github.com/bugnanetwork/bugnad/util/mstime"
 
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/pkg/errors"

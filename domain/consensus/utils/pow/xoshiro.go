@@ -2,8 +2,9 @@ package pow
 
 import (
 	"encoding/binary"
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"math/bits"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
 type xoShiRo256PlusPlus struct {

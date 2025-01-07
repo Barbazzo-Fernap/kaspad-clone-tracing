@@ -1,13 +1,14 @@
 package blocktemplatebuilder
 
 import (
+	"math"
+	"sort"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/processes/coinbasemanager"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/merkle"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/transactionhelper"
 	"github.com/bugnanetwork/bugnad/domain/consensusreference"
 	"github.com/bugnanetwork/bugnad/util/mstime"
-	"math"
-	"sort"
 
 	"github.com/bugnanetwork/bugnad/util/difficulty"
 

@@ -7,6 +7,7 @@ package txscript_test
 import (
 	"encoding/hex"
 	"fmt"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"

@@ -1,11 +1,12 @@
 package externalapi_test
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
 	"math/big"
 	"reflect"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
 )
 
 type blockToCompare struct {

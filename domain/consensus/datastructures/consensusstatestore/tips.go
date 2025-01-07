@@ -1,10 +1,10 @@
 package consensusstatestore
 
 import (
-	"github.com/golang/protobuf/proto"
 	"github.com/bugnanetwork/bugnad/domain/consensus/database/serialization"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/golang/protobuf/proto"
 )
 
 var tipsKeyName = []byte("tips")

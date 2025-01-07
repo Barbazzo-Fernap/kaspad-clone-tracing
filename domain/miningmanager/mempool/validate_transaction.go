@@ -2,6 +2,7 @@ package mempool
 
 import (
 	"fmt"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"

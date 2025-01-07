@@ -1,12 +1,13 @@
 package miningmanager
 
 import (
+	"sync"
+	"time"
+
 	"github.com/bugnanetwork/bugnad/domain/consensusreference"
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"github.com/bugnanetwork/bugnad/domain/miningmanager/blocktemplatebuilder"
 	mempoolpkg "github.com/bugnanetwork/bugnad/domain/miningmanager/mempool"
-	"sync"
-	"time"
 )
 
 // Factory instantiates new mining managers

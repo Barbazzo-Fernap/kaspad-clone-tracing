@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/davecgh/go-spew/spew"
 )
 
 // TestBlockHeader tests the MsgBlockHeader API.

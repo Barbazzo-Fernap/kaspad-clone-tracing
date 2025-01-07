@@ -1,8 +1,9 @@
 package utxo
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
 func TestUTXOEntry_Equal(t *testing.T) {

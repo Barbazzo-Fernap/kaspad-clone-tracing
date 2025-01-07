@@ -3,8 +3,8 @@ package main
 import (
 	"path/filepath"
 
-	"github.com/jessevdk/go-flags"
 	"github.com/bugnanetwork/bugnad/stability-tests/common"
+	"github.com/jessevdk/go-flags"
 )
 
 const (

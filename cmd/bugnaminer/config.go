@@ -12,8 +12,8 @@ import (
 	"github.com/bugnanetwork/bugnad/util"
 	"github.com/pkg/errors"
 
-	"github.com/jessevdk/go-flags"
 	"github.com/bugnanetwork/bugnad/version"
+	"github.com/jessevdk/go-flags"
 )
 
 const (

@@ -2,8 +2,9 @@ package client
 
 import (
 	"context"
-	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/daemon/server"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/daemon/server"
 
 	"github.com/pkg/errors"
 

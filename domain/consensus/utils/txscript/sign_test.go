@@ -12,8 +12,8 @@ import (
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
 
-	"github.com/kaspanet/go-secp256k1"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"

@@ -1,12 +1,13 @@
 package consensusstatemanager
 
 import (
+	"sort"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/bugnanetwork/bugnad/util/staging"
 	"github.com/pkg/errors"
-	"sort"
 )
 
 // tipsInDecreasingGHOSTDAGParentSelectionOrder returns the current DAG tips in decreasing parent selection order.

@@ -2,11 +2,12 @@ package libbugnawallet_test
 
 import (
 	"fmt"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"strings"
 	"testing"
 
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"

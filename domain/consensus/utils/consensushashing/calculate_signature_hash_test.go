@@ -3,8 +3,9 @@ package consensushashing_test
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/subnetworks"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/subnetworks"
 
 	"github.com/kaspanet/go-secp256k1"
 

@@ -3,9 +3,8 @@ package server
 import (
 	"context"
 
-	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
-
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/daemon/pb"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
 )
 
 func (s *server) Sign(_ context.Context, request *pb.SignRequest) (*pb.SignResponse, error) {

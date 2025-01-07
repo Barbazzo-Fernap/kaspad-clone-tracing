@@ -1,10 +1,11 @@
 package protowire
 
 import (
+	"math/big"
+
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
-	"math/big"
 )
 
 func (x *BugnadMessage_BlockWithTrustedData) toAppMessage() (appmessage.Message, error) {

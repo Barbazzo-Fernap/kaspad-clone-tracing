@@ -16,8 +16,8 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/subnetworks"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/transactionid"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/davecgh/go-spew/spew"
 )
 
 // TestTx tests the MsgTx API.

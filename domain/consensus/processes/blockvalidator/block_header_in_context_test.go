@@ -2,9 +2,10 @@ package blockvalidator_test
 
 import (
 	"errors"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"math/big"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
 

@@ -2,7 +2,7 @@ package pruningstore
 
 import (
 	"encoding/binary"
-	"github.com/golang/protobuf/proto"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/database"
 	"github.com/bugnanetwork/bugnad/domain/consensus/database/binaryserialization"
 	"github.com/bugnanetwork/bugnad/domain/consensus/database/serialization"
@@ -10,6 +10,7 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/lrucacheuint64tohash"
 	"github.com/bugnanetwork/bugnad/util/staging"
+	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 

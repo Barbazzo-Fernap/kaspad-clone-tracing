@@ -1,8 +1,9 @@
 package blockbuilder_test
 
 import (
-	"github.com/pkg/errors"
 	"testing"
+
+	"github.com/pkg/errors"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"

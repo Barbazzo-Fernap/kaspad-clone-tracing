@@ -2,9 +2,10 @@ package util_test
 
 import (
 	"fmt"
-	"github.com/bugnanetwork/bugnad/util/difficulty"
 	"math"
 	"math/big"
+
+	"github.com/bugnanetwork/bugnad/util/difficulty"
 
 	"github.com/bugnanetwork/bugnad/util"
 )

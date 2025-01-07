@@ -1,10 +1,11 @@
 package serialization
 
 import (
+	"math"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/utxo"
 	"github.com/pkg/errors"
-	"math"
 )
 
 // ScriptPublicKeyToDBScriptPublicKey converts ScriptPublicKey to DBScriptPublicKey

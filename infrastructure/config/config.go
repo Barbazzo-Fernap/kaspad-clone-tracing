@@ -18,13 +18,14 @@ import (
 
 	"github.com/btcsuite/go-socks/socks"
 	"github.com/jessevdk/go-flags"
+	"github.com/pkg/errors"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/bugnanetwork/bugnad/util"
 	"github.com/bugnanetwork/bugnad/util/network"
 	"github.com/bugnanetwork/bugnad/version"
-	"github.com/pkg/errors"
 )
 
 const (

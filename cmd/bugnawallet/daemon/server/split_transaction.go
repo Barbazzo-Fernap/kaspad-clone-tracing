@@ -1,10 +1,10 @@
 package server
 
 import (
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 
-	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/serialization"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"

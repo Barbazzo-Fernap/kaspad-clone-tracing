@@ -1,11 +1,12 @@
 package difficultymanager
 
 import (
+	"math"
+	"math/big"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/util/difficulty"
-	"math"
-	"math/big"
 )
 
 type difficultyBlock struct {

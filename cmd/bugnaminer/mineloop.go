@@ -2,10 +2,11 @@ package main
 
 import (
 	nativeerrors "errors"
-	"github.com/bugnanetwork/bugnad/version"
 	"math/rand"
 	"sync/atomic"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/version"
 
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/cmd/bugnaminer/templatemanager"

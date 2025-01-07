@@ -1,6 +1,9 @@
 package blockrelay
 
 import (
+
+	"github.com/pkg/errors"
+
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/app/protocol/common"
 	"github.com/bugnanetwork/bugnad/app/protocol/flowcontext"
@@ -14,7 +17,6 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/hashset"
 	"github.com/bugnanetwork/bugnad/infrastructure/config"
 	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
-	"github.com/pkg/errors"
 )
 
 // orphanResolutionRange is the maximum amount of blockLocator hashes

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
 	"github.com/bugnanetwork/bugnad/util"
 )

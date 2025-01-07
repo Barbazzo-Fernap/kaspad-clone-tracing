@@ -2,11 +2,12 @@ package common
 
 import (
 	"fmt"
-	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"os"
 	"sync/atomic"
 	"syscall"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 )
 
 // RunBugnadForTesting runs bugnad for testing purposes

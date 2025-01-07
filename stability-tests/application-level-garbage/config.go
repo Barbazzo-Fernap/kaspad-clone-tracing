@@ -7,8 +7,8 @@ import (
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/bugnanetwork/bugnad/stability-tests/common"
 
-	"github.com/jessevdk/go-flags"
 	"github.com/bugnanetwork/bugnad/infrastructure/config"
+	"github.com/jessevdk/go-flags"
 )
 
 const (

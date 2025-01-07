@@ -5,9 +5,10 @@
 package util_test
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"math"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 
 	. "github.com/bugnanetwork/bugnad/util"
 )

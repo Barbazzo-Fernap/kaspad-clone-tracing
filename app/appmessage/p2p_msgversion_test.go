@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/id"
+	"github.com/davecgh/go-spew/spew"
 )
 
 // TestVersion tests the MsgVersion API.

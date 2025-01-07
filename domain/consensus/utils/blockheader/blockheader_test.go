@@ -1,9 +1,10 @@
 package blockheader
 
 import (
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"math/big"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
 func TestDomainBlockHeader_Equal(t *testing.T) {

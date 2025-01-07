@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/bugnanetwork/bugnad/domain/consensus"
 	"os/exec"
 	"strings"
 	"sync/atomic"
 	"syscall"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus"
 
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/stability-tests/common"

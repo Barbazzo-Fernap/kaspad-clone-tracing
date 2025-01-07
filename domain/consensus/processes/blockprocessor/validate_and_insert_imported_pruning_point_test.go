@@ -1,13 +1,14 @@
 package blockprocessor_test
 
 import (
+	"math"
+	"testing"
+	"time"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
-	"math"
-	"testing"
-	"time"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"

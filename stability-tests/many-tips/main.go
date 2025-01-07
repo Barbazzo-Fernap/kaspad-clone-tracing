@@ -2,10 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/kaspanet/go-secp256k1"
-	"github.com/bugnanetwork/bugnad/app/appmessage"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/mining"
-	"github.com/bugnanetwork/bugnad/util"
 	"math/rand"
 	"os"
 	"os/exec"
@@ -14,6 +10,11 @@ import (
 	"sync/atomic"
 	"syscall"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/mining"
+	"github.com/bugnanetwork/bugnad/util"
+	"github.com/kaspanet/go-secp256k1"
 
 	"github.com/bugnanetwork/bugnad/stability-tests/common"
 	"github.com/bugnanetwork/bugnad/stability-tests/common/rpc"

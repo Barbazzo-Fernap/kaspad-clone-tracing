@@ -3,10 +3,11 @@ package pow
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
-	"github.com/bugnanetwork/bugnad/domain/consensus/utils/hashes"
 	"math/rand"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/hashes"
 )
 
 func BenchmarkMatrix_HeavyHash(b *testing.B) {

@@ -1,14 +1,15 @@
 package miningmanager_test
 
 import (
+	"reflect"
+	"strings"
+	"testing"
+
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
 	"github.com/bugnanetwork/bugnad/domain/consensusreference"
 	"github.com/bugnanetwork/bugnad/domain/miningmanager/model"
 	"github.com/bugnanetwork/bugnad/util"
 	"github.com/bugnanetwork/bugnad/version"
-	"reflect"
-	"strings"
-	"testing"
 
 	"github.com/bugnanetwork/bugnad/domain/miningmanager/mempool"
 

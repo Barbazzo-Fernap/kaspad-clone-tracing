@@ -1,6 +1,8 @@
 package pruningmanager
 
 import (
+	"sort"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
@@ -11,7 +13,6 @@ import (
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/bugnanetwork/bugnad/util/staging"
 	"github.com/pkg/errors"
-	"sort"
 )
 
 // pruningManager resolves and manages the current pruning point

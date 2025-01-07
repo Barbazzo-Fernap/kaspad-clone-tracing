@@ -2,6 +2,7 @@ package blockvalidator
 
 import (
 	"fmt"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"

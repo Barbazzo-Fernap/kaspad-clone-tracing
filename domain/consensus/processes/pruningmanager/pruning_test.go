@@ -2,11 +2,12 @@ package pruningmanager_test
 
 import (
 	"encoding/json"
-	"github.com/bugnanetwork/bugnad/infrastructure/db/database"
 	"os"
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/bugnanetwork/bugnad/infrastructure/db/database"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 

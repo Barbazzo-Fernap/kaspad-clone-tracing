@@ -1,12 +1,12 @@
 package ghostdagdatastore
 
 import (
-	"github.com/golang/protobuf/proto"
 	"github.com/bugnanetwork/bugnad/domain/consensus/database/serialization"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/lrucacheghostdagdata"
 	"github.com/bugnanetwork/bugnad/util/staging"
+	"github.com/golang/protobuf/proto"
 )
 
 var ghostdagDataBucketName = []byte("block-ghostdag-data")

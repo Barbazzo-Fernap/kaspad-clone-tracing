@@ -1,17 +1,18 @@
 package daa
 
 import (
+	"math"
+	"math/rand"
+	"os"
+	"testing"
+	"time"
+
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/pow"
 	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"github.com/bugnanetwork/bugnad/infrastructure/network/rpcclient"
 	"github.com/bugnanetwork/bugnad/stability-tests/common"
-	"math"
-	"math/rand"
-	"os"
-	"testing"
-	"time"
 )
 
 const rpcAddress = "localhost:9000"

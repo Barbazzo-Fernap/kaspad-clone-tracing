@@ -3,11 +3,11 @@ package main
 import (
 	"time"
 
-	"github.com/kaspanet/go-secp256k1"
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/stability-tests/common"
 	"github.com/bugnanetwork/bugnad/stability-tests/common/rpc"
 	"github.com/bugnanetwork/bugnad/util"
+	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 )
 

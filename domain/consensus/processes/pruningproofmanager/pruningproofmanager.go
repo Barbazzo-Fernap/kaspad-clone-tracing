@@ -1,6 +1,8 @@
 package pruningproofmanager
 
 import (
+	"math/big"
+
 	consensusDB "github.com/bugnanetwork/bugnad/domain/consensus/database"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/blockheaderstore"
 	"github.com/bugnanetwork/bugnad/domain/consensus/datastructures/blockrelationstore"
@@ -19,7 +21,6 @@ import (
 	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 	"github.com/bugnanetwork/bugnad/util/staging"
 	"github.com/pkg/errors"
-	"math/big"
 )
 
 type pruningProofManager struct {

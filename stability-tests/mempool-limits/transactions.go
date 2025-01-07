@@ -5,7 +5,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kaspanet/go-secp256k1"
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
@@ -18,6 +17,7 @@ import (
 	"github.com/bugnanetwork/bugnad/infrastructure/network/rpcclient"
 	"github.com/bugnanetwork/bugnad/stability-tests/common/mine"
 	"github.com/bugnanetwork/bugnad/util"
+	"github.com/kaspanet/go-secp256k1"
 )
 
 const (

@@ -2,10 +2,11 @@ package consensusstatemanager_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/bugnanetwork/bugnad/domain/consensus/model"
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/testapi"
 	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
-	"testing"
 
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 

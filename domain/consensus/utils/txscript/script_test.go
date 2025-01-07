@@ -7,9 +7,10 @@ package txscript
 import (
 	"bytes"
 	"encoding/hex"
-	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"reflect"
 	"testing"
+
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 )
 
 // TestParseOpcode tests for opcode parsing with bad data templates.
