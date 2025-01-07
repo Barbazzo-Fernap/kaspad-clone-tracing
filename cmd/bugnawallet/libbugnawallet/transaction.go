@@ -1,13 +1,13 @@
-package libkaspawallet
+package libbugnawallet
 
 import (
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/bip32"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/serialization"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/subnetworks"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
-	"github.com/kaspanet/kaspad/util"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/bip32"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/serialization"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/subnetworks"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/util"
 	"github.com/pkg/errors"
 )
 

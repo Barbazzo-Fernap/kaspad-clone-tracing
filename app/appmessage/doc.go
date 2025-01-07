@@ -1,30 +1,30 @@
 /*
-Package appmessage implements the kaspa appmessage protocol.
+Package appmessage implements the bugna appmessage protocol.
 
 At a high level, this package provides support for marshalling and unmarshalling
-supported kaspa messages to and from the appmessage. This package does not deal
+supported bugna messages to and from the appmessage. This package does not deal
 with the specifics of message handling such as what to do when a message is
 received. This provides the caller with a high level of flexibility.
 
-# Kaspa Message Overview
+# Bugna Message Overview
 
-The kaspa protocol consists of exchanging messages between peers. Each
+The bugna protocol consists of exchanging messages between peers. Each
 message is preceded by a header which identifies information about it such as
-which kaspa network it is a part of, its type, how big it is, and a checksum
+which bugna network it is a part of, its type, how big it is, and a checksum
 to verify validity. All encoding and decoding of message headers is handled by
 this package.
 
-To accomplish this, there is a generic interface for kaspa messages named
+To accomplish this, there is a generic interface for bugna messages named
 Message which allows messages of any type to be read, written, or passed around
 through channels, functions, etc. In addition, concrete implementations of most
-of the currently supported kaspa messages are provided. For these supported
+of the currently supported bugna messages are provided. For these supported
 messages, all of the details of marshalling and unmarshalling to and from the
-appmessage using kaspa encoding are handled so the caller doesn't have to concern
+appmessage using bugna encoding are handled so the caller doesn't have to concern
 themselves with the specifics.
 
 # Message Interaction
 
-The following provides a quick summary of how the kaspa messages are intended
+The following provides a quick summary of how the bugna messages are intended
 to interact with one another. As stated above, these interactions are not
 directly handled by this package.
 
@@ -48,7 +48,7 @@ interactions in no particular order.
 # Common Parameters
 
 There are several common parameters that arise when using this package to read
-and write kaspa messages. The following sections provide a quick overview of
+and write bugna messages. The following sections provide a quick overview of
 these parameters so the next sections can build on them.
 
 # Protocol Version
@@ -60,10 +60,10 @@ latest protocol version this package supports and is typically the value to use
 for all outbound connections before a potentially lower protocol version is
 negotiated.
 
-# Kaspa Network
+# Bugna Network
 
-The kaspa network is a magic number which is used to identify the start of a
-message and which kaspa network the message applies to. This package provides
+The bugna network is a magic number which is used to identify the start of a
+message and which bugna network the message applies to. This package provides
 the following constants:
 
 	appmessage.Mainnet
@@ -73,8 +73,8 @@ the following constants:
 
 # Determining Message Type
 
-As discussed in the kaspa message overview section, this package reads
-and writes kaspa messages using a generic interface named Message. In
+As discussed in the bugna message overview section, this package reads
+and writes bugna messages using a generic interface named Message. In
 order to determine the actual concrete type of the message, use a type
 switch or type assertion. An example of a type switch follows:
 
@@ -91,33 +91,33 @@ switch or type assertion. An example of a type switch follows:
 
 # Reading Messages
 
-In order to unmarshall kaspa messages from the appmessage, use the ReadMessage
+In order to unmarshall bugna messages from the appmessage, use the ReadMessage
 function. It accepts any io.Reader, but typically this will be a net.Conn to
-a remote node running a kaspa peer. Example syntax is:
+a remote node running a bugna peer. Example syntax is:
 
-	// Reads and validates the next kaspa message from conn using the
-	// protocol version pver and the kaspa network kaspaNet. The returns
+	// Reads and validates the next bugna message from conn using the
+	// protocol version pver and the bugna network bugnaNet. The returns
 	// are a appmessage.Message, a []byte which contains the unmarshalled
 	// raw payload, and a possible error.
-	msg, rawPayload, err := appmessage.ReadMessage(conn, pver, kaspaNet)
+	msg, rawPayload, err := appmessage.ReadMessage(conn, pver, bugnaNet)
 	if err != nil {
 		// Log and handle the error
 	}
 
 # Writing Messages
 
-In order to marshall kaspa messages to the appmessage, use the WriteMessage
+In order to marshall bugna messages to the appmessage, use the WriteMessage
 function. It accepts any io.Writer, but typically this will be a net.Conn to
-a remote node running a kaspa peer. Example syntax to request addresses
+a remote node running a bugna peer. Example syntax to request addresses
 from a remote peer is:
 
-	// Create a new getaddr kaspa message.
+	// Create a new getaddr bugna message.
 	msg := appmessage.NewMsgRequestAddresses()
 
-	// Writes a kaspa message msg to conn using the protocol version
-	// pver, and the kaspa network kaspaNet. The return is a possible
+	// Writes a bugna message msg to conn using the protocol version
+	// pver, and the bugna network bugnaNet. The return is a possible
 	// error.
-	err := appmessage.WriteMessage(conn, msg, pver, kaspaNet)
+	err := appmessage.WriteMessage(conn, msg, pver, bugnaNet)
 	if err != nil {
 		// Log and handle the error
 	}

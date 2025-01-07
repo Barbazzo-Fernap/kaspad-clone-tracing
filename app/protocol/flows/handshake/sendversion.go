@@ -1,22 +1,22 @@
 package handshake
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	"github.com/kaspanet/kaspad/infrastructure/logger"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
-	"github.com/kaspanet/kaspad/version"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/protocol/common"
+	peerpkg "github.com/bugnanetwork/bugnad/app/protocol/peer"
+	"github.com/bugnanetwork/bugnad/infrastructure/logger"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
+	"github.com/bugnanetwork/bugnad/version"
 	"github.com/pkg/errors"
 )
 
 var (
 	// userAgentName is the user agent name and is used to help identify
-	// ourselves to other kaspa peers.
-	userAgentName = "kaspad"
+	// ourselves to other bugna peers.
+	userAgentName = "bugnad"
 
 	// userAgentVersion is the user agent version and is used to help
-	// identify ourselves to other kaspa peers.
+	// identify ourselves to other bugna peers.
 	userAgentVersion = version.Version()
 
 	// defaultServices describes the default services that are supported by

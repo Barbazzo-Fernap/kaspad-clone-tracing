@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"github.com/kaspanet/kaspad/stability-tests/common/rpc"
+	"github.com/bugnanetwork/bugnad/stability-tests/common/rpc"
 
 	"github.com/pkg/errors"
 )

@@ -1,18 +1,18 @@
 package protowire
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/pkg/errors"
 )
 
-func (x *KaspadMessage_GetSubnetworkRequest) toAppMessage() (appmessage.Message, error) {
+func (x *BugnadMessage_GetSubnetworkRequest) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage_GetSubnetworkRequest is nil")
+		return nil, errors.Wrapf(errorNil, "BugnadMessage_GetSubnetworkRequest is nil")
 	}
 	return x.GetSubnetworkRequest.toAppMessage()
 }
 
-func (x *KaspadMessage_GetSubnetworkRequest) fromAppMessage(message *appmessage.GetSubnetworkRequestMessage) error {
+func (x *BugnadMessage_GetSubnetworkRequest) fromAppMessage(message *appmessage.GetSubnetworkRequestMessage) error {
 	x.GetSubnetworkRequest = &GetSubnetworkRequestMessage{
 		SubnetworkId: message.SubnetworkID,
 	}
@@ -28,14 +28,14 @@ func (x *GetSubnetworkRequestMessage) toAppMessage() (appmessage.Message, error)
 	}, nil
 }
 
-func (x *KaspadMessage_GetSubnetworkResponse) toAppMessage() (appmessage.Message, error) {
+func (x *BugnadMessage_GetSubnetworkResponse) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage_GetSubnetworkResponse is nil")
+		return nil, errors.Wrapf(errorNil, "BugnadMessage_GetSubnetworkResponse is nil")
 	}
 	return x.GetSubnetworkResponse.toAppMessage()
 }
 
-func (x *KaspadMessage_GetSubnetworkResponse) fromAppMessage(message *appmessage.GetSubnetworkResponseMessage) error {
+func (x *BugnadMessage_GetSubnetworkResponse) fromAppMessage(message *appmessage.GetSubnetworkResponseMessage) error {
 	var err *RPCError
 	if message.Error != nil {
 		err = &RPCError{Message: message.Error.Message}

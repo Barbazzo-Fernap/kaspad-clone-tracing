@@ -7,18 +7,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kaspanet/kaspad/domain/consensus"
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/ruleerrors"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/blockheader"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/merkle"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/mining"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/pow"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/testutils"
-	"github.com/kaspanet/kaspad/util/difficulty"
+	"github.com/bugnanetwork/bugnad/domain/consensus"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/blockheader"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/merkle"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/mining"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/pow"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/testutils"
+	"github.com/bugnanetwork/bugnad/util/difficulty"
 	"github.com/pkg/errors"
 )
 
@@ -102,7 +102,7 @@ func TestPOW(t *testing.T) {
 		}
 		random := rand.New(rand.NewSource(0))
 		// Difficulty is too high on mainnet to actually mine.
-		if consensusConfig.Name != "kaspa-mainnet" {
+		if consensusConfig.Name != "bugna-mainnet" {
 			mining.SolveBlock(validBlock, random)
 			err = tc.ValidateAndInsertBlock(validBlock, true)
 			if err != nil {

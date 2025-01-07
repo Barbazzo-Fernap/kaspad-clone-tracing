@@ -3,13 +3,13 @@ package transactionvalidator
 import (
 	"math"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/ruleerrors"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/transactionhelper"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/transactionhelper"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/pkg/errors"
 )
 
@@ -150,8 +150,8 @@ func (v *transactionValidator) checkTransactionInputAmounts(tx *externalapi.Doma
 		// output values of the input transactions must not be negative
 		// or more than the max allowed per transaction. All amounts in
 		// a transaction are in a unit value known as a sompi. One
-		// kaspa is a quantity of sompi as defined by the
-		// SompiPerKaspa constant.
+		// bugna is a quantity of sompi as defined by the
+		// SompiPerBugna constant.
 		totalSompiIn, err = v.checkEntryAmounts(utxoEntry, totalSompiIn)
 		if err != nil {
 			return 0, err

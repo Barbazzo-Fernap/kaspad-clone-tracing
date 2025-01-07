@@ -2,11 +2,11 @@ package util_test
 
 import (
 	"fmt"
-	"github.com/kaspanet/kaspad/util/difficulty"
+	"github.com/bugnanetwork/bugnad/util/difficulty"
 	"math"
 	"math/big"
 
-	"github.com/kaspanet/kaspad/util"
+	"github.com/bugnanetwork/bugnad/util"
 )
 
 func ExampleAmount() {
@@ -20,9 +20,9 @@ func ExampleAmount() {
 	a = util.Amount(1e5)
 	fmt.Println("100,000 Sompi:", a)
 	// Output:
-	// Zero Sompi: 0 KAS
-	// 100,000,000 Sompi: 1 KAS
-	// 100,000 Sompi: 0.001 KAS
+	// Zero Sompi: 0 BGA
+	// 100,000,000 Sompi: 1 BGA
+	// 100,000 Sompi: 0.001 BGA
 }
 
 func ExampleNewAmount() {
@@ -54,26 +54,26 @@ func ExampleNewAmount() {
 	}
 	fmt.Println(amountNaN) //Output 4
 
-	// Output: 1 KAS
-	// 0.01234567 KAS
-	// 0 KAS
-	// invalid kaspa amount
+	// Output: 1 BGA
+	// 0.01234567 BGA
+	// 0 BGA
+	// invalid bugna amount
 }
 
 func ExampleAmount_unitConversions() {
 	amount := util.Amount(44433322211100)
 
-	fmt.Println("Sompi to kKAS:", amount.Format(util.AmountKiloKAS))
-	fmt.Println("Sompi to KAS:", amount)
-	fmt.Println("Sompi to MilliKAS:", amount.Format(util.AmountMilliKAS))
-	fmt.Println("Sompi to MicroKAS:", amount.Format(util.AmountMicroKAS))
+	fmt.Println("Sompi to kBGA:", amount.Format(util.AmountKiloBGA))
+	fmt.Println("Sompi to BGA:", amount)
+	fmt.Println("Sompi to MilliBGA:", amount.Format(util.AmountMilliBGA))
+	fmt.Println("Sompi to MicroBGA:", amount.Format(util.AmountMicroBGA))
 	fmt.Println("Sompi to Sompi:", amount.Format(util.AmountSompi))
 
 	// Output:
-	// Sompi to kKAS: 444.333222111 kKAS
-	// Sompi to KAS: 444333.222111 KAS
-	// Sompi to MilliKAS: 444333222.111 mKAS
-	// Sompi to MicroKAS: 444333222111 μKAS
+	// Sompi to kBGA: 444.333222111 kBGA
+	// Sompi to BGA: 444333.222111 BGA
+	// Sompi to MilliBGA: 444333222.111 mBGA
+	// Sompi to MicroBGA: 444333222111 μBGA
 	// Sompi to Sompi: 44433322211100 Sompi
 }
 

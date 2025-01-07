@@ -2,14 +2,14 @@ package headersselectedchainstore
 
 import (
 	"encoding/binary"
-	"github.com/kaspanet/kaspad/util/staging"
+	"github.com/bugnanetwork/bugnad/util/staging"
 
-	"github.com/kaspanet/kaspad/domain/consensus/database"
-	"github.com/kaspanet/kaspad/domain/consensus/database/binaryserialization"
-	"github.com/kaspanet/kaspad/domain/consensus/model"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/lrucache"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/lrucacheuint64tohash"
+	"github.com/bugnanetwork/bugnad/domain/consensus/database"
+	"github.com/bugnanetwork/bugnad/domain/consensus/database/binaryserialization"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/lrucache"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/lrucacheuint64tohash"
 	"github.com/pkg/errors"
 )
 

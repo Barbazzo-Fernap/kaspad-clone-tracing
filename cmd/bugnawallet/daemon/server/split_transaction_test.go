@@ -3,21 +3,21 @@ package server
 import (
 	"testing"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/serialization"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/serialization"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/keys"
-	"github.com/kaspanet/kaspad/util/txmass"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/keys"
+	"github.com/bugnanetwork/bugnad/util/txmass"
 
-	"github.com/kaspanet/kaspad/domain/dagconfig"
+	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/utxo"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/utxo"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet"
-	"github.com/kaspanet/kaspad/domain/consensus"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/testutils"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
+	"github.com/bugnanetwork/bugnad/domain/consensus"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/testutils"
 )
 
 func TestEstimateMassAfterSignatures(t *testing.T) {
@@ -43,17 +43,17 @@ func TestEstimateMassAfterSignatures(t *testing.T) {
 			t.Fatalf("Error from estimateMassAfterSignatures: %s", err)
 		}
 
-		signedTxStep1Bytes, err := libkaspawallet.Sign(params, mnemonics[:1], unsignedTransactionBytes, false)
+		signedTxStep1Bytes, err := libbugnawallet.Sign(params, mnemonics[:1], unsignedTransactionBytes, false)
 		if err != nil {
 			t.Fatalf("Sign: %+v", err)
 		}
 
-		signedTxStep2Bytes, err := libkaspawallet.Sign(params, mnemonics[1:2], signedTxStep1Bytes, false)
+		signedTxStep2Bytes, err := libbugnawallet.Sign(params, mnemonics[1:2], signedTxStep1Bytes, false)
 		if err != nil {
 			t.Fatalf("Sign: %+v", err)
 		}
 
-		extractedSignedTx, err := libkaspawallet.ExtractTransaction(signedTxStep2Bytes, false)
+		extractedSignedTx, err := libbugnawallet.ExtractTransaction(signedTxStep2Bytes, false)
 		if err != nil {
 			t.Fatalf("ExtractTransaction: %+v", err)
 		}
@@ -83,12 +83,12 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 	publicKeys := make([]string, numKeys)
 	for i := 0; i < numKeys; i++ {
 		var err error
-		mnemonics[i], err = libkaspawallet.CreateMnemonic()
+		mnemonics[i], err = libbugnawallet.CreateMnemonic()
 		if err != nil {
 			t.Fatalf("CreateMnemonic: %+v", err)
 		}
 
-		publicKeys[i], err = libkaspawallet.MasterPublicKeyFromMnemonic(&consensusConfig.Params, mnemonics[i], true)
+		publicKeys[i], err = libbugnawallet.MasterPublicKeyFromMnemonic(&consensusConfig.Params, mnemonics[i], true)
 		if err != nil {
 			t.Fatalf("MasterPublicKeyFromMnemonic: %+v", err)
 		}
@@ -96,7 +96,7 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 
 	const minimumSignatures = 2
 	path := "m/1/2/3"
-	address, err := libkaspawallet.Address(params, publicKeys, minimumSignatures, path, false)
+	address, err := libbugnawallet.Address(params, publicKeys, minimumSignatures, path, false)
 	if err != nil {
 		t.Fatalf("Address: %+v", err)
 	}
@@ -128,7 +128,7 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 
 	block1Tx := block1.Transactions[0]
 	block1TxOut := block1Tx.Outputs[0]
-	selectedUTXOs := []*libkaspawallet.UTXO{
+	selectedUTXOs := []*libbugnawallet.UTXO{
 		{
 			Outpoint: &externalapi.DomainOutpoint{
 				TransactionID: *consensushashing.TransactionID(block1.Transactions[0]),
@@ -139,8 +139,8 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 		},
 	}
 
-	unsignedTransaction, err := libkaspawallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
-		[]*libkaspawallet.Payment{{
+	unsignedTransaction, err := libbugnawallet.CreateUnsignedTransaction(publicKeys, minimumSignatures,
+		[]*libbugnawallet.Payment{{
 			Address: address,
 			Amount:  10,
 		}}, selectedUTXOs)

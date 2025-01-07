@@ -3,13 +3,13 @@ package mempool
 import (
 	"fmt"
 
-	"github.com/kaspanet/kaspad/util/txmass"
+	"github.com/bugnanetwork/bugnad/util/txmass"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 )
 
 const (
@@ -45,7 +45,7 @@ func (mp *mempool) checkTransactionStandardInIsolation(transaction *externalapi.
 	// The transaction must be a currently supported version.
 	//
 	// This check is currently mirrored in consensus.
-	// However, in a later version of Kaspa the consensus-valid transaction version range might diverge from the
+	// However, in a later version of Bugna the consensus-valid transaction version range might diverge from the
 	// standard transaction version range, and thus the validation should happen in both levels.
 	if transaction.Version > mp.config.MaximumStandardTransactionVersion ||
 		transaction.Version < mp.config.MinimumStandardTransactionVersion {

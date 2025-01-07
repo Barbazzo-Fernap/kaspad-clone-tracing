@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/util/profiling"
+	"github.com/bugnanetwork/bugnad/stability-tests/common"
+	"github.com/bugnanetwork/bugnad/util/profiling"
 
-	"github.com/kaspanet/kaspad/util/panics"
+	"github.com/bugnanetwork/bugnad/util/panics"
 	"github.com/pkg/errors"
 )
 
 func main() {
-	defer panics.HandlePanic(log, "kaspadsanity-main", nil)
+	defer panics.HandlePanic(log, "bugnadsanity-main", nil)
 	err := parseConfig()
 	if err != nil {
 		panic(errors.Wrap(err, "error in parseConfig"))

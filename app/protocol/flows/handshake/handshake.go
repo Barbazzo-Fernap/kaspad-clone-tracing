@@ -3,18 +3,18 @@ package handshake
 import (
 	"sync/atomic"
 
-	"github.com/kaspanet/kaspad/domain"
+	"github.com/bugnanetwork/bugnad/domain"
 
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	"github.com/kaspanet/kaspad/app/protocol/protocolerrors"
-	"github.com/kaspanet/kaspad/infrastructure/network/addressmanager"
+	"github.com/bugnanetwork/bugnad/app/protocol/common"
+	"github.com/bugnanetwork/bugnad/app/protocol/protocolerrors"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/addressmanager"
 
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
+	"github.com/bugnanetwork/bugnad/infrastructure/config"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	routerpkg "github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	peerpkg "github.com/bugnanetwork/bugnad/app/protocol/peer"
+	routerpkg "github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

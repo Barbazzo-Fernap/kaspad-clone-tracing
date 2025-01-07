@@ -3,9 +3,9 @@ package main
 import (
 	"sync/atomic"
 
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/kaspanet/kaspad/util/profiling"
+	"github.com/bugnanetwork/bugnad/stability-tests/common"
+	"github.com/bugnanetwork/bugnad/util/panics"
+	"github.com/bugnanetwork/bugnad/util/profiling"
 	"github.com/pkg/errors"
 )
 

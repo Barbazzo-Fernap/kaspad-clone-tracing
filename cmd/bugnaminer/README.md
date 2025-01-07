@@ -1,6 +1,6 @@
-# kaspaminer
+# bugnaminer
 
-Kaspaminer is a CPU-based miner for kaspad
+Bugnaminer is a CPU-based miner for bugnad
 
 ## Requirements
 
@@ -19,11 +19,11 @@ Go 1.19 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install kaspad including all dependencies:
+- Run the following commands to obtain and install bugnad including all dependencies:
 
 ```bash
-$ git clone https://github.com/kaspanet/kaspad
-$ cd kaspad/cmd/kaspaminer
+$ git clone https://github.com/bugnanetwork/bugnad
+$ cd bugnad/cmd/bugnaminer
 $ go install .
 ```
 
@@ -33,13 +33,13 @@ $ go install .
   
 ## Usage
 
-The full kaspaminer configuration options can be seen with:
+The full bugnaminer configuration options can be seen with:
 
 ```bash
-$ kaspaminer --help
+$ bugnaminer --help
 ```
 
 But the minimum configuration needed to run it is:
 ```bash
-$ kaspaminer --miningaddr=<YOUR_MINING_ADDRESS>
+$ bugnaminer --miningaddr=<YOUR_MINING_ADDRESS>
 ```

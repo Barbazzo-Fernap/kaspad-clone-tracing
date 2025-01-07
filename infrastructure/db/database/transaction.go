@@ -1,6 +1,6 @@
 package database
 
-// Transaction defines the interface of a generic kaspad database
+// Transaction defines the interface of a generic bugnad database
 // transaction.
 //
 // Note: Transactions provide data consistency over the state of

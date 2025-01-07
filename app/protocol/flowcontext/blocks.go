@@ -3,14 +3,14 @@ package flowcontext
 import (
 	"time"
 
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	"github.com/kaspanet/kaspad/app/protocol/protocolerrors"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	"github.com/kaspanet/kaspad/domain/consensus/ruleerrors"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
+	peerpkg "github.com/bugnanetwork/bugnad/app/protocol/peer"
+	"github.com/bugnanetwork/bugnad/app/protocol/protocolerrors"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
 	"github.com/pkg/errors"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
 )
 
 // OnNewBlock updates the mempool after a new block arrival, and

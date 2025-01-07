@@ -3,15 +3,15 @@ package mempool
 import (
 	"sync"
 
-	"github.com/kaspanet/kaspad/domain/consensus/ruleerrors"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/ruleerrors"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/pkg/errors"
 
-	"github.com/kaspanet/kaspad/domain/consensusreference"
+	"github.com/bugnanetwork/bugnad/domain/consensusreference"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
-	miningmanagermodel "github.com/kaspanet/kaspad/domain/miningmanager/model"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
+	miningmanagermodel "github.com/bugnanetwork/bugnad/domain/miningmanager/model"
 )
 
 type mempool struct {
@@ -161,12 +161,12 @@ func (mp *mempool) BlockCandidateTransactions() []*externalapi.DomainTransaction
 			}
 
 			numExtraOuts := len(tx.Outputs) - len(tx.Inputs)
-			if !hasCoinbaseInput && numExtraOuts > 2 && tx.Fee < uint64(numExtraOuts)*constants.SompiPerKaspa {
+			if !hasCoinbaseInput && numExtraOuts > 2 && tx.Fee < uint64(numExtraOuts)*constants.SompiPerBugna {
 				log.Debugf("Filtered spam tx %s", consensushashing.TransactionID(tx))
 				continue
 			}
 
-			if hasCoinbaseInput || tx.Fee > uint64(numExtraOuts)*constants.SompiPerKaspa {
+			if hasCoinbaseInput || tx.Fee > uint64(numExtraOuts)*constants.SompiPerBugna {
 				candidateTxs = append(candidateTxs, tx)
 			} else {
 				txNewestUTXODaaScore := tx.Inputs[0].UTXOEntry.BlockDAAScore()

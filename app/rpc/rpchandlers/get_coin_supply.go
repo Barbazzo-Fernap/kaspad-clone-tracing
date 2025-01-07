@@ -1,17 +1,17 @@
 package rpchandlers
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/rpc/rpccontext"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/rpc/rpccontext"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
 )
 
 // HandleGetCoinSupply handles the respectively named RPC command
 func HandleGetCoinSupply(context *rpccontext.Context, _ *router.Router, _ appmessage.Message) (appmessage.Message, error) {
 	if !context.Config.UTXOIndex {
 		errorMessage := &appmessage.GetCoinSupplyResponseMessage{}
-		errorMessage.Error = appmessage.RPCErrorf("Method unavailable when kaspad is run without --utxoindex")
+		errorMessage.Error = appmessage.RPCErrorf("Method unavailable when bugnad is run without --utxoindex")
 		return errorMessage, nil
 	}
 

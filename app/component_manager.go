@@ -4,25 +4,25 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 
-	"github.com/kaspanet/kaspad/domain/miningmanager/mempool"
+	"github.com/bugnanetwork/bugnad/domain/miningmanager/mempool"
 
-	"github.com/kaspanet/kaspad/app/protocol"
-	"github.com/kaspanet/kaspad/app/rpc"
-	"github.com/kaspanet/kaspad/domain"
-	"github.com/kaspanet/kaspad/domain/consensus"
-	"github.com/kaspanet/kaspad/domain/utxoindex"
-	"github.com/kaspanet/kaspad/infrastructure/config"
-	infrastructuredatabase "github.com/kaspanet/kaspad/infrastructure/db/database"
-	"github.com/kaspanet/kaspad/infrastructure/network/addressmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/connmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/id"
-	"github.com/kaspanet/kaspad/util/panics"
+	"github.com/bugnanetwork/bugnad/app/protocol"
+	"github.com/bugnanetwork/bugnad/app/rpc"
+	"github.com/bugnanetwork/bugnad/domain"
+	"github.com/bugnanetwork/bugnad/domain/consensus"
+	"github.com/bugnanetwork/bugnad/domain/utxoindex"
+	"github.com/bugnanetwork/bugnad/infrastructure/config"
+	infrastructuredatabase "github.com/bugnanetwork/bugnad/infrastructure/db/database"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/addressmanager"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/connmanager"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/id"
+	"github.com/bugnanetwork/bugnad/util/panics"
 )
 
-// ComponentManager is a wrapper for all the kaspad services
+// ComponentManager is a wrapper for all the bugnad services
 type ComponentManager struct {
 	cfg               *config.Config
 	addressManager    *addressmanager.AddressManager
@@ -34,14 +34,14 @@ type ComponentManager struct {
 	started, shutdown int32
 }
 
-// Start launches all the kaspad services.
+// Start launches all the bugnad services.
 func (a *ComponentManager) Start() {
 	// Already started?
 	if atomic.AddInt32(&a.started, 1) != 1 {
 		return
 	}
 
-	log.Trace("Starting kaspad")
+	log.Trace("Starting bugnad")
 
 	err := a.netAdapter.Start()
 	if err != nil {
@@ -51,15 +51,15 @@ func (a *ComponentManager) Start() {
 	a.connectionManager.Start()
 }
 
-// Stop gracefully shuts down all the kaspad services.
+// Stop gracefully shuts down all the bugnad services.
 func (a *ComponentManager) Stop() {
 	// Make sure this only happens once.
 	if atomic.AddInt32(&a.shutdown, 1) != 1 {
-		log.Infof("Kaspad is already in the process of shutting down")
+		log.Infof("Bugnad is already in the process of shutting down")
 		return
 	}
 
-	log.Warnf("Kaspad shutting down")
+	log.Warnf("Bugnad shutting down")
 
 	a.connectionManager.Stop()
 

@@ -3,9 +3,9 @@ package server
 import (
 	"context"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/daemon/pb"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/daemon/pb"
 )
 
 func (s *server) Sign(_ context.Context, request *pb.SignRequest) (*pb.SignResponse, error) {
@@ -26,7 +26,7 @@ func (s *server) signTransactions(unsignedTransactions [][]byte, password string
 	}
 	signedTransactions := make([][]byte, len(unsignedTransactions))
 	for i, unsignedTransaction := range unsignedTransactions {
-		signedTransaction, err := libkaspawallet.Sign(s.params, mnemonics, unsignedTransaction, s.keysFile.ECDSA)
+		signedTransaction, err := libbugnawallet.Sign(s.params, mnemonics, unsignedTransaction, s.keysFile.ECDSA)
 		if err != nil {
 			return nil, err
 		}

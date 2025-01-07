@@ -7,7 +7,7 @@ package bech32_test
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/kaspanet/kaspad/util/bech32"
+	"github.com/bugnanetwork/bugnad/util/bech32"
 )
 
 // This example demonstrates how to decode a bech32 encoded string.

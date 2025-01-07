@@ -1,18 +1,18 @@
 package rpchandlers
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/rpc/rpccontext"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
-	"github.com/kaspanet/kaspad/util"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/rpc/rpccontext"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
+	"github.com/bugnanetwork/bugnad/util"
 )
 
 // HandleGetUTXOsByAddresses handles the respectively named RPC command
 func HandleGetUTXOsByAddresses(context *rpccontext.Context, _ *router.Router, request appmessage.Message) (appmessage.Message, error) {
 	if !context.Config.UTXOIndex {
 		errorMessage := &appmessage.GetUTXOsByAddressesResponseMessage{}
-		errorMessage.Error = appmessage.RPCErrorf("Method unavailable when kaspad is run without --utxoindex")
+		errorMessage.Error = appmessage.RPCErrorf("Method unavailable when bugnad is run without --utxoindex")
 		return errorMessage, nil
 	}
 

@@ -7,22 +7,22 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"github.com/pkg/errors"
 )
 
-// FormatKas takes the amount of sompis as uint64, and returns amount of KAS with 8  decimal places
+// FormatKas takes the amount of sompis as uint64, and returns amount of BGA with 8  decimal places
 func FormatKas(amount uint64) string {
 	res := "                   "
 	if amount > 0 {
-		res = fmt.Sprintf("%19.8f", float64(amount)/constants.SompiPerKaspa)
+		res = fmt.Sprintf("%19.8f", float64(amount)/constants.SompiPerBugna)
 	}
 	return res
 }
 
 // KasToSompi takes in a string representation of the Kas value to convert to Sompi
 func KasToSompi(amount string) (uint64, error) {
-	err := validateKASAmountFormat(amount)
+	err := validateBGAAmountFormat(amount)
 
 	if err != nil {
 		return 0, err
@@ -33,11 +33,11 @@ func KasToSompi(amount string) (uint64, error) {
 	parts := strings.Split(amount, ".")
 	amountStr := ""
 
-	if constants.SompiPerKaspa%10 != 0 {
-		return 0, errors.Errorf("Unable to convert to sompi when SompiPerKaspa is not a multiple of 10")
+	if constants.SompiPerBugna%10 != 0 {
+		return 0, errors.Errorf("Unable to convert to sompi when SompiPerBugna is not a multiple of 10")
 	}
 
-	decimalPlaces := int(math.Log10(constants.SompiPerKaspa))
+	decimalPlaces := int(math.Log10(constants.SompiPerBugna))
 	decimalStr := ""
 
 	if len(parts) == 2 {
@@ -52,7 +52,7 @@ func KasToSompi(amount string) (uint64, error) {
 	return convertedAmount, err
 }
 
-func validateKASAmountFormat(amount string) error {
+func validateBGAAmountFormat(amount string) error {
 	// Check whether it's an integer, or a float with max 8 digits
 	match, err := regexp.MatchString("^([1-9]\\d{0,11}|0)(\\.\\d{0,8})?$", amount)
 

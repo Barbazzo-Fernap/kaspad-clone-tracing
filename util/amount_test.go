@@ -5,11 +5,11 @@
 package util_test
 
 import (
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
 	"math"
 	"testing"
 
-	. "github.com/kaspanet/kaspad/util"
+	. "github.com/bugnanetwork/bugnad/util"
 )
 
 func TestAmountCreation(t *testing.T) {
@@ -36,7 +36,7 @@ func TestAmountCreation(t *testing.T) {
 			name:     "one hundred",
 			amount:   100,
 			valid:    true,
-			expected: 100 * constants.SompiPerKaspa,
+			expected: 100 * constants.SompiPerBugna,
 		},
 		{
 			name:     "fraction",
@@ -48,13 +48,13 @@ func TestAmountCreation(t *testing.T) {
 			name:     "rounding up",
 			amount:   54.999999999999943157,
 			valid:    true,
-			expected: 55 * constants.SompiPerKaspa,
+			expected: 55 * constants.SompiPerBugna,
 		},
 		{
 			name:     "rounding down",
 			amount:   55.000000000000056843,
 			valid:    true,
-			expected: 55 * constants.SompiPerKaspa,
+			expected: 55 * constants.SompiPerBugna,
 		},
 
 		// Negative tests.
@@ -102,40 +102,40 @@ func TestAmountUnitConversions(t *testing.T) {
 		s         string
 	}{
 		{
-			name:      "MKAS",
+			name:      "MBGA",
 			amount:    Amount(constants.MaxSompi),
-			unit:      AmountMegaKAS,
+			unit:      AmountMegaBGA,
 			converted: 29000,
-			s:         "29000 MKAS",
+			s:         "29000 MBGA",
 		},
 		{
-			name:      "kKAS",
+			name:      "kBGA",
 			amount:    44433322211100,
-			unit:      AmountKiloKAS,
+			unit:      AmountKiloBGA,
 			converted: 444.33322211100,
-			s:         "444.333222111 kKAS",
+			s:         "444.333222111 kBGA",
 		},
 		{
-			name:      "KAS",
+			name:      "BGA",
 			amount:    44433322211100,
-			unit:      AmountKAS,
+			unit:      AmountBGA,
 			converted: 444333.22211100,
-			s:         "444333.222111 KAS",
+			s:         "444333.222111 BGA",
 		},
 		{
-			name:      "mKAS",
+			name:      "mBGA",
 			amount:    44433322211100,
-			unit:      AmountMilliKAS,
+			unit:      AmountMilliBGA,
 			converted: 444333222.11100,
-			s:         "444333222.111 mKAS",
+			s:         "444333222.111 mBGA",
 		},
 		{
 
-			name:      "μKAS",
+			name:      "μBGA",
 			amount:    44433322211100,
-			unit:      AmountMicroKAS,
+			unit:      AmountMicroBGA,
 			converted: 444333222111.00,
-			s:         "444333222111 μKAS",
+			s:         "444333222111 μBGA",
 		},
 		{
 
@@ -151,7 +151,7 @@ func TestAmountUnitConversions(t *testing.T) {
 			amount:    44433322211100,
 			unit:      AmountUnit(-1),
 			converted: 4443332.2211100,
-			s:         "4443332.22111 1e-1 KAS",
+			s:         "4443332.22111 1e-1 BGA",
 		},
 	}
 
@@ -168,18 +168,18 @@ func TestAmountUnitConversions(t *testing.T) {
 			continue
 		}
 
-		// Verify that Amount.ToKAS works as advertised.
-		f1 := test.amount.ToUnit(AmountKAS)
-		f2 := test.amount.ToKAS()
+		// Verify that Amount.ToBGA works as advertised.
+		f1 := test.amount.ToUnit(AmountBGA)
+		f2 := test.amount.ToBGA()
 		if f1 != f2 {
-			t.Errorf("%v: ToKAS does not match ToUnit(AmountKAS): %v != %v", test.name, f1, f2)
+			t.Errorf("%v: ToBGA does not match ToUnit(AmountBGA): %v != %v", test.name, f1, f2)
 		}
 
 		// Verify that Amount.String works as advertised.
-		s1 := test.amount.Format(AmountKAS)
+		s1 := test.amount.Format(AmountBGA)
 		s2 := test.amount.String()
 		if s1 != s2 {
-			t.Errorf("%v: String does not match Format(AmountKAS): %v != %v", test.name, s1, s2)
+			t.Errorf("%v: String does not match Format(AmountBGA): %v != %v", test.name, s1, s2)
 		}
 	}
 }
@@ -192,16 +192,16 @@ func TestAmountMulF64(t *testing.T) {
 		res  Amount
 	}{
 		{
-			name: "Multiply 0.1 KAS by 2",
-			amt:  100e5, // 0.1 KAS
+			name: "Multiply 0.1 BGA by 2",
+			amt:  100e5, // 0.1 BGA
 			mul:  2,
-			res:  200e5, // 0.2 KAS
+			res:  200e5, // 0.2 BGA
 		},
 		{
-			name: "Multiply 0.2 KAS by 0.02",
-			amt:  200e5, // 0.2 KAS
+			name: "Multiply 0.2 BGA by 0.02",
+			amt:  200e5, // 0.2 BGA
 			mul:  1.02,
-			res:  204e5, // 0.204 KAS
+			res:  204e5, // 0.204 BGA
 		},
 		{
 			name: "Round down",
@@ -217,9 +217,9 @@ func TestAmountMulF64(t *testing.T) {
 		},
 		{
 			name: "Multiply by 0.",
-			amt:  1e8, // 1 KAS
+			amt:  1e8, // 1 BGA
 			mul:  0,
-			res:  0, // 0 KAS
+			res:  0, // 0 BGA
 		},
 		{
 			name: "Multiply 1 by 0.5.",

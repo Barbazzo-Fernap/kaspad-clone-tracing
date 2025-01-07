@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/serialization"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/consensushashing"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/constants"
-	"github.com/kaspanet/kaspad/domain/consensus/utils/txscript"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/serialization"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/consensushashing"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/constants"
+	"github.com/bugnanetwork/bugnad/domain/consensus/utils/txscript"
 	"github.com/pkg/errors"
 	"io/ioutil"
 	"strings"
@@ -48,8 +48,8 @@ func parse(conf *parseConfig) error {
 			partiallySignedInput := partiallySignedTransaction.PartiallySignedInputs[index]
 
 			if conf.Verbose {
-				fmt.Printf("Input %d: \tOutpoint: %s:%d \tAmount: %.2f Kaspa\n", index, input.PreviousOutpoint.TransactionID,
-					input.PreviousOutpoint.Index, float64(partiallySignedInput.PrevOutput.Value)/float64(constants.SompiPerKaspa))
+				fmt.Printf("Input %d: \tOutpoint: %s:%d \tAmount: %.2f Bugna\n", index, input.PreviousOutpoint.TransactionID,
+					input.PreviousOutpoint.Index, float64(partiallySignedInput.PrevOutput.Value)/float64(constants.SompiPerBugna))
 			}
 
 			allInputSompi += partiallySignedInput.PrevOutput.Value
@@ -71,8 +71,8 @@ func parse(conf *parseConfig) error {
 				addressString = fmt.Sprintf("<Non-standard transaction script public key: %s>", scriptPublicKeyHex)
 			}
 
-			fmt.Printf("Output %d: \tRecipient: %s \tAmount: %.2f Kaspa\n",
-				index, addressString, float64(output.Value)/float64(constants.SompiPerKaspa))
+			fmt.Printf("Output %d: \tRecipient: %s \tAmount: %.2f Bugna\n",
+				index, addressString, float64(output.Value)/float64(constants.SompiPerBugna))
 
 			allOutputSompi += output.Value
 		}

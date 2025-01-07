@@ -1,15 +1,15 @@
 
-Kaspad
+Bugnad
 ====
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/kaspanet/kaspad)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/bugnanetwork/bugnad)
 
-Kaspad is the reference full node Kaspa implementation written in Go (golang).
+Bugnad is the reference full node Bugna implementation written in Go (golang).
 
-## What is kaspa
+## What is bugna
 
-Kaspa is an attempt at a proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is based on [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus.
+Bugna is an attempt at a proof-of-work cryptocurrency with instant confirmations and sub-second block times. It is based on [the PHANTOM protocol](https://eprint.iacr.org/2018/104.pdf), a generalization of Nakamoto consensus.
 
 ## Requirements
 
@@ -28,26 +28,26 @@ Go 1.18 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install kaspad including all dependencies:
+- Run the following commands to obtain and install bugnad including all dependencies:
 
 ```bash
-$ git clone https://github.com/kaspanet/kaspad
-$ cd kaspad
+$ git clone https://github.com/bugnanetwork/bugnad
+$ cd bugnad
 $ go install . ./cmd/...
 ```
 
-- Kaspad (and utilities) should now be installed in `$(go env GOPATH)/bin`. If you did
+- Bugnad (and utilities) should now be installed in `$(go env GOPATH)/bin`. If you did
   not already add the bin directory to your system path during Go installation,
   you are encouraged to do so now.
 
 
 ## Getting Started
 
-Kaspad has several configuration options available to tweak how it runs, but all
+Bugnad has several configuration options available to tweak how it runs, but all
 of the basic operations work with zero configuration.
 
 ```bash
-$ kaspad
+$ bugnad
 ```
 
 ## Discord
@@ -55,15 +55,15 @@ Join our discord server using the following link: https://discord.gg/YNYnNN5Pf2
 
 ## Issue Tracker
 
-The [integrated github issue tracker](https://github.com/kaspanet/kaspad/issues)
+The [integrated github issue tracker](https://github.com/bugnanetwork/bugnad/issues)
 is used for this project.
 
-Issue priorities may be seen at https://github.com/orgs/kaspanet/projects/4
+Issue priorities may be seen at https://github.com/orgs/bugnanet/projects/4
 
 ## Documentation
 
-The [documentation](https://github.com/kaspanet/docs) is a work-in-progress
+The [documentation](https://github.com/bugnanet/docs) is a work-in-progress
 
 ## License
 
-Kaspad is licensed under the copyfree [ISC License](https://choosealicense.com/licenses/isc/).
+Bugnad is licensed under the copyfree [ISC License](https://choosealicense.com/licenses/isc/).

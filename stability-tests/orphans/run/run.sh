@@ -1,23 +1,23 @@
 #!/bin/bash
-rm -rf /tmp/kaspad-temp
+rm -rf /tmp/bugnad-temp
 
-kaspad --simnet --appdir=/tmp/kaspad-temp --profile=6061 &
-KASPAD_PID=$!
+bugnad --simnet --appdir=/tmp/bugnad-temp --profile=6061 &
+BGAPAD_PID=$!
 
 sleep 1
 
 orphans --simnet -alocalhost:16511 -n20 --profile=7000
 TEST_EXIT_CODE=$?
 
-kill $KASPAD_PID
+kill $BGAPAD_PID
 
-wait $KASPAD_PID
-KASPAD_EXIT_CODE=$?
+wait $BGAPAD_PID
+BGAPAD_EXIT_CODE=$?
 
 echo "Exit code: $TEST_EXIT_CODE"
-echo "Kaspad exit code: $KASPAD_EXIT_CODE"
+echo "Bugnad exit code: $BGAPAD_EXIT_CODE"
 
-if [ $TEST_EXIT_CODE -eq 0 ] && [ $KASPAD_EXIT_CODE -eq 0 ]; then
+if [ $TEST_EXIT_CODE -eq 0 ] && [ $BGAPAD_EXIT_CODE -eq 0 ]; then
   echo "orphans test: PASSED"
   exit 0
 fi

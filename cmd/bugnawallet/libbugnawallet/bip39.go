@@ -1,10 +1,10 @@
-package libkaspawallet
+package libbugnawallet
 
 import (
 	"fmt"
 
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/bip32"
-	"github.com/kaspanet/kaspad/domain/dagconfig"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/bip32"
+	"github.com/bugnanetwork/bugnad/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"
 )
@@ -69,13 +69,13 @@ func extendedKeyFromMnemonicAndPath(mnemonic string, path string, params *dagcon
 func versionFromParams(params *dagconfig.Params) ([4]byte, error) {
 	switch params.Name {
 	case dagconfig.MainnetParams.Name:
-		return bip32.KaspaMainnetPrivate, nil
+		return bip32.BugnaMainnetPrivate, nil
 	case dagconfig.TestnetParams.Name:
-		return bip32.KaspaTestnetPrivate, nil
+		return bip32.BugnaTestnetPrivate, nil
 	case dagconfig.DevnetParams.Name:
-		return bip32.KaspaDevnetPrivate, nil
+		return bip32.BugnaDevnetPrivate, nil
 	case dagconfig.SimnetParams.Name:
-		return bip32.KaspaSimnetPrivate, nil
+		return bip32.BugnaSimnetPrivate, nil
 	}
 
 	return [4]byte{}, errors.Errorf("unknown network %s", params.Name)

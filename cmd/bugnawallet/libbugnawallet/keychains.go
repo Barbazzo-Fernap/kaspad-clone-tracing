@@ -1,4 +1,4 @@
-package libkaspawallet
+package libbugnawallet
 
 const (
 	// ExternalKeychain is the key chain that is used to create receive addresses

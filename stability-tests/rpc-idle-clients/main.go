@@ -3,10 +3,10 @@ package main
 import (
 	"time"
 
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/stability-tests/common/rpc"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/kaspanet/kaspad/util/profiling"
+	"github.com/bugnanetwork/bugnad/stability-tests/common"
+	"github.com/bugnanetwork/bugnad/stability-tests/common/rpc"
+	"github.com/bugnanetwork/bugnad/util/panics"
+	"github.com/bugnanetwork/bugnad/util/profiling"
 	"github.com/pkg/errors"
 )
 

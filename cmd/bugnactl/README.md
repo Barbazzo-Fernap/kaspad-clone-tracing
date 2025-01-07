@@ -1,6 +1,6 @@
-# kaspactl
+# bugnactl
 
-kaspactl is an RPC client for kaspad
+bugnactl is an RPC client for bugnad
 
 ## Requirements
 
@@ -19,15 +19,15 @@ Go 1.19 or later.
 $ go version
 ```
 
-- Run the following commands to obtain and install kaspad including all dependencies:
+- Run the following commands to obtain and install bugnad including all dependencies:
 
 ```bash
-$ git clone https://github.com/kaspanet/kaspad
-$ cd kaspad/cmd/kaspactl
+$ git clone https://github.com/bugnanetwork/bugnad
+$ cd bugnad/cmd/bugnactl
 $ go install .
 ```
 
-- Kaspactl should now be installed in `$(go env GOPATH)/bin`. If you did not already add the bin directory to your
+- Bugnactl should now be installed in `$(go env GOPATH)/bin`. If you did not already add the bin directory to your
   system path during Go installation, you are encouraged to do so now.
 
 ## Usage
@@ -41,13 +41,13 @@ $ kaspctl --help
 But the minimum configuration needed to run it is:
 
 ```bash
-$ kaspactl <REQUEST_JSON>
+$ bugnactl <REQUEST_JSON>
 ```
 
 For example:
 
 ```
-$ kaspactl '{"getBlockDagInfoRequest":{}}'
+$ bugnactl '{"getBlockDagInfoRequest":{}}'
 ```
 
 For a list of all available requests check out the [RPC documentation](infrastructure/network/netadapter/server/grpcserver/protowire/rpc.md)

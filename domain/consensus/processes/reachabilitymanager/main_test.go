@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/kaspanet/kaspad/infrastructure/logger"
+	"github.com/bugnanetwork/bugnad/infrastructure/logger"
 )
 
 const logLevel = logger.LevelWarn

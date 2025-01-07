@@ -1,14 +1,14 @@
 package protowire
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/domain/consensus/model/externalapi"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 
-func (x *KaspadMessage_BlockLocator) toAppMessage() (appmessage.Message, error) {
+func (x *BugnadMessage_BlockLocator) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage_BlockLocator is nil")
+		return nil, errors.Wrapf(errorNil, "BugnadMessage_BlockLocator is nil")
 	}
 	hashes, err := x.BlockLocator.toAppMessage()
 	if err != nil {
@@ -28,7 +28,7 @@ func (x *BlockLocatorMessage) toAppMessage() ([]*externalapi.DomainHash, error) 
 	return protoHashesToDomain(x.Hashes)
 }
 
-func (x *KaspadMessage_BlockLocator) fromAppMessage(msgBlockLocator *appmessage.MsgBlockLocator) error {
+func (x *BugnadMessage_BlockLocator) fromAppMessage(msgBlockLocator *appmessage.MsgBlockLocator) error {
 	if len(msgBlockLocator.BlockLocatorHashes) > appmessage.MaxBlockLocatorsPerMsg {
 		return errors.Errorf("too many block locator hashes for message "+
 			"[count %d, max %d]", len(msgBlockLocator.BlockLocatorHashes), appmessage.MaxBlockLocatorsPerMsg)

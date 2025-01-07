@@ -1,20 +1,20 @@
 package protocol
 
 import (
-	"github.com/kaspanet/kaspad/app/protocol/common"
-	"github.com/kaspanet/kaspad/app/protocol/flows/ready"
-	"github.com/kaspanet/kaspad/app/protocol/flows/v5"
+	"github.com/bugnanetwork/bugnad/app/protocol/common"
+	"github.com/bugnanetwork/bugnad/app/protocol/flows/ready"
+	"github.com/bugnanetwork/bugnad/app/protocol/flows/v5"
 	"sync"
 	"sync/atomic"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
-	"github.com/kaspanet/kaspad/app/protocol/flows/handshake"
-	peerpkg "github.com/kaspanet/kaspad/app/protocol/peer"
-	"github.com/kaspanet/kaspad/app/protocol/protocolerrors"
-	"github.com/kaspanet/kaspad/infrastructure/network/addressmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/connmanager"
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter"
-	routerpkg "github.com/kaspanet/kaspad/infrastructure/network/netadapter/router"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/protocol/flows/handshake"
+	peerpkg "github.com/bugnanetwork/bugnad/app/protocol/peer"
+	"github.com/bugnanetwork/bugnad/app/protocol/protocolerrors"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/addressmanager"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/connmanager"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter"
+	routerpkg "github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

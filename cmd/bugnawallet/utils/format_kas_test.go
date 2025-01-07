@@ -57,7 +57,7 @@ func TestValidateAmountFormat(t *testing.T) {
 	}
 
 	for _, testCase := range validCases {
-		err := validateKASAmountFormat(testCase)
+		err := validateBGAAmountFormat(testCase)
 
 		if err != nil {
 			t.Error(err)
@@ -77,11 +77,11 @@ func TestValidateAmountFormat(t *testing.T) {
 		"111111111111111111111", // all digits
 		"111111111111A11111111", // non-period/non-digit where decimal would be
 		"000000000000.00000000", // all zeros
-		"kaspa",                 // all text
+		"bugna",                 // all text
 	}
 
 	for _, testCase := range invalidCases {
-		err := validateKASAmountFormat(testCase)
+		err := validateBGAAmountFormat(testCase)
 
 		if err == nil {
 			t.Errorf("Expected an error but succeeded validation for test case %s", testCase)

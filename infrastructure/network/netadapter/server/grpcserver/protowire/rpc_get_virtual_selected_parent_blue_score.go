@@ -1,30 +1,30 @@
 package protowire
 
 import (
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/pkg/errors"
 )
 
-func (x *KaspadMessage_GetVirtualSelectedParentBlueScoreRequest) toAppMessage() (appmessage.Message, error) {
+func (x *BugnadMessage_GetVirtualSelectedParentBlueScoreRequest) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage_GetVirtualSelectedParentBlueScoreRequest is nil")
+		return nil, errors.Wrapf(errorNil, "BugnadMessage_GetVirtualSelectedParentBlueScoreRequest is nil")
 	}
 	return &appmessage.GetVirtualSelectedParentBlueScoreRequestMessage{}, nil
 }
 
-func (x *KaspadMessage_GetVirtualSelectedParentBlueScoreRequest) fromAppMessage(message *appmessage.GetVirtualSelectedParentBlueScoreRequestMessage) error {
+func (x *BugnadMessage_GetVirtualSelectedParentBlueScoreRequest) fromAppMessage(message *appmessage.GetVirtualSelectedParentBlueScoreRequestMessage) error {
 	x.GetVirtualSelectedParentBlueScoreRequest = &GetVirtualSelectedParentBlueScoreRequestMessage{}
 	return nil
 }
 
-func (x *KaspadMessage_GetVirtualSelectedParentBlueScoreResponse) toAppMessage() (appmessage.Message, error) {
+func (x *BugnadMessage_GetVirtualSelectedParentBlueScoreResponse) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage_GetVirtualSelectedParentBlueScoreResponse is nil")
+		return nil, errors.Wrapf(errorNil, "BugnadMessage_GetVirtualSelectedParentBlueScoreResponse is nil")
 	}
 	return x.GetVirtualSelectedParentBlueScoreResponse.toAppMessage()
 }
 
-func (x *KaspadMessage_GetVirtualSelectedParentBlueScoreResponse) fromAppMessage(message *appmessage.GetVirtualSelectedParentBlueScoreResponseMessage) error {
+func (x *BugnadMessage_GetVirtualSelectedParentBlueScoreResponse) fromAppMessage(message *appmessage.GetVirtualSelectedParentBlueScoreResponseMessage) error {
 	var err *RPCError
 	if message.Error != nil {
 		err = &RPCError{Message: message.Error.Message}

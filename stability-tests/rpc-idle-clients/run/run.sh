@@ -1,32 +1,32 @@
 #!/bin/bash
-rm -rf /tmp/kaspad-temp
+rm -rf /tmp/bugnad-temp
 
 NUM_CLIENTS=128
-kaspad --devnet --appdir=/tmp/kaspad-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
-KASPAD_PID=$!
-KASPAD_KILLED=0
-function killKaspadIfNotKilled() {
-  if [ $KASPAD_KILLED -eq 0 ]; then
-    kill $KASPAD_PID
+bugnad --devnet --appdir=/tmp/bugnad-temp --profile=6061 --rpcmaxwebsockets=$NUM_CLIENTS &
+BGAPAD_PID=$!
+BGAPAD_KILLED=0
+function killBugnadIfNotKilled() {
+  if [ $BGAPAD_KILLED -eq 0 ]; then
+    kill $BGAPAD_PID
   fi
 }
-trap "killKaspadIfNotKilled" EXIT
+trap "killBugnadIfNotKilled" EXIT
 
 sleep 1
 
 rpc-idle-clients --devnet --profile=7000 -n=$NUM_CLIENTS
 TEST_EXIT_CODE=$?
 
-kill $KASPAD_PID
+kill $BGAPAD_PID
 
-wait $KASPAD_PID
-KASPAD_EXIT_CODE=$?
-KASPAD_KILLED=1
+wait $BGAPAD_PID
+BGAPAD_EXIT_CODE=$?
+BGAPAD_KILLED=1
 
 echo "Exit code: $TEST_EXIT_CODE"
-echo "Kaspad exit code: $KASPAD_EXIT_CODE"
+echo "Bugnad exit code: $BGAPAD_EXIT_CODE"
 
-if [ $TEST_EXIT_CODE -eq 0 ] && [ $KASPAD_EXIT_CODE -eq 0 ]; then
+if [ $TEST_EXIT_CODE -eq 0 ] && [ $BGAPAD_EXIT_CODE -eq 0 ]; then
   echo "rpc-idle-clients test: PASSED"
   exit 0
 fi

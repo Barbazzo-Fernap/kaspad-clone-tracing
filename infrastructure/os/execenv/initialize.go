@@ -5,10 +5,10 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/kaspanet/kaspad/infrastructure/os/limits"
+	"github.com/bugnanetwork/bugnad/infrastructure/os/limits"
 )
 
-// Initialize initializes the execution environment required to run kaspad
+// Initialize initializes the execution environment required to run bugnad
 func Initialize(desiredLimits *limits.DesiredLimits) {
 	// Use all processor cores.
 	runtime.GOMAXPROCS(runtime.NumCPU())

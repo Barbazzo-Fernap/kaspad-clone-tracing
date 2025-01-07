@@ -1,10 +1,10 @@
 package mempoollimits
 
 import (
-	"github.com/kaspanet/kaspad/infrastructure/network/rpcclient"
-	"github.com/kaspanet/kaspad/stability-tests/common"
-	"github.com/kaspanet/kaspad/util/panics"
-	"github.com/kaspanet/kaspad/util/profiling"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/rpcclient"
+	"github.com/bugnanetwork/bugnad/stability-tests/common"
+	"github.com/bugnanetwork/bugnad/util/panics"
+	"github.com/bugnanetwork/bugnad/util/profiling"
 	"os"
 	"testing"
 )
@@ -73,9 +73,9 @@ func TestMempoolLimits(t *testing.T) {
 }
 
 func buildRPCClient(t *testing.T) *rpcclient.RPCClient {
-	client, err := rpcclient.NewRPCClient(activeConfig().KaspadRPCAddress)
+	client, err := rpcclient.NewRPCClient(activeConfig().BugnadRPCAddress)
 	if err != nil {
-		t.Fatalf("error connecting to %s: %s", activeConfig().KaspadRPCAddress, err)
+		t.Fatalf("error connecting to %s: %s", activeConfig().BugnadRPCAddress, err)
 	}
 	return client
 }

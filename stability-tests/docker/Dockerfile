@@ -1,14 +1,14 @@
-ARG KASPAD_IMAGE
-ARG KASPAMINER_IMAGE
+ARG BGAPAD_IMAGE
+ARG BGAPAMINER_IMAGE
 
-FROM ${KASPAD_IMAGE} as kaspad
-FROM ${KASPAMINER_IMAGE} as kaspaminer
+FROM ${BGAPAD_IMAGE} as bugnad
+FROM ${BGAPAMINER_IMAGE} as bugnaminer
 
 FROM golang:1.19-alpine
 
-RUN mkdir -p /go/src/github.com/kaspanet/kaspad
+RUN mkdir -p /go/src/github.com/bugnanetwork/bugnad
 
-WORKDIR /go/src/github.com/kaspanet/kaspad
+WORKDIR /go/src/github.com/bugnanetwork/bugnad
 
 RUN apk add bash build-base git
 
@@ -19,11 +19,11 @@ RUN go mod download
 
 COPY . .
 
-COPY --from=kaspad /app/ /app/
-COPY --from=kaspaminer /app/ /app/
+COPY --from=bugnad /app/ /app/
+COPY --from=bugnaminer /app/ /app/
 ENV PATH="/app:${PATH}"
 
-WORKDIR /go/src/github.com/kaspanet/kaspad/stability-tests
+WORKDIR /go/src/github.com/bugnanetwork/bugnad/stability-tests
 
 RUN go install ./...
 

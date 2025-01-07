@@ -3,18 +3,18 @@ package protowire
 import (
 	"math"
 
-	"github.com/kaspanet/kaspad/app/appmessage"
+	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/pkg/errors"
 )
 
-func (x *KaspadMessage_Transaction) toAppMessage() (appmessage.Message, error) {
+func (x *BugnadMessage_Transaction) toAppMessage() (appmessage.Message, error) {
 	if x == nil {
-		return nil, errors.Wrapf(errorNil, "KaspadMessage_Transaction is nil")
+		return nil, errors.Wrapf(errorNil, "BugnadMessage_Transaction is nil")
 	}
 	return x.Transaction.toAppMessage()
 }
 
-func (x *KaspadMessage_Transaction) fromAppMessage(msgTx *appmessage.MsgTx) error {
+func (x *BugnadMessage_Transaction) fromAppMessage(msgTx *appmessage.MsgTx) error {
 	x.Transaction = new(TransactionMessage)
 	x.Transaction.fromAppMessage(msgTx)
 	return nil

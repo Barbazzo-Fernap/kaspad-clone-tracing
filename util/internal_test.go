@@ -12,7 +12,7 @@ interface. The functions are only exported while the tests are being run.
 package util
 
 import (
-	"github.com/kaspanet/kaspad/util/bech32"
+	"github.com/bugnanetwork/bugnad/util/bech32"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -47,21 +47,21 @@ func TstAddressScriptHash(prefix Bech32Prefix, hash [blake2b.Size256]byte) *Addr
 }
 
 // TstAddressSAddr returns the expected script address bytes for
-// P2PK kaspa addresses.
+// P2PK bugna addresses.
 func TstAddressSAddrP2PK(addr string) []byte {
 	_, decoded, _, _ := bech32.Decode(addr)
 	return decoded[:PublicKeySize]
 }
 
 // TstAddressSAddr returns the expected script address bytes for
-// ECDSA P2PK kaspa addresses.
+// ECDSA P2PK bugna addresses.
 func TstAddressSAddrP2PKECDSA(addr string) []byte {
 	_, decoded, _, _ := bech32.Decode(addr)
 	return decoded[:PublicKeySizeECDSA]
 }
 
 // TstAddressSAddrP2SH returns the expected script address bytes for
-// P2SH kaspa addresses.
+// P2SH bugna addresses.
 func TstAddressSAddrP2SH(addr string) []byte {
 	_, decoded, _, _ := bech32.Decode(addr)
 	return decoded[:blake2b.Size256]

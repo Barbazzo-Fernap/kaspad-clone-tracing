@@ -1,9 +1,9 @@
 # -- multistage docker build: stage #1: build stage
 FROM golang:1.19-alpine AS build
 
-RUN mkdir -p /go/src/github.com/kaspanet/kaspad
+RUN mkdir -p /go/src/github.com/bugnanetwork/bugnad
 
-WORKDIR /go/src/github.com/kaspanet/kaspad
+WORKDIR /go/src/github.com/bugnanetwork/bugnad
 
 RUN apk add --no-cache curl git openssh binutils gcc musl-dev
 
@@ -14,8 +14,8 @@ RUN go mod download
 
 COPY . .
 
-WORKDIR /go/src/github.com/kaspanet/kaspad/cmd/kaspaminer
-RUN GOOS=linux go build -a -installsuffix cgo -o kaspaminer .
+WORKDIR /go/src/github.com/bugnanetwork/bugnad/cmd/bugnaminer
+RUN GOOS=linux go build -a -installsuffix cgo -o bugnaminer .
 
 # --- multistage docker build: stage #2: runtime image
 FROM alpine
@@ -23,7 +23,7 @@ WORKDIR /app
 
 RUN apk add --no-cache ca-certificates tini
 
-COPY --from=build /go/src/github.com/kaspanet/kaspad/cmd/kaspaminer/kaspaminer /app/
+COPY --from=build /go/src/github.com/bugnanetwork/bugnad/cmd/bugnaminer/bugnaminer /app/
 
 USER nobody
 ENTRYPOINT [ "/sbin/tini", "--" ]

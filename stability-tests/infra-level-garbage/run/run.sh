@@ -1,23 +1,23 @@
 #!/bin/bash
-rm -rf /tmp/kaspad-temp
+rm -rf /tmp/bugnad-temp
 
-kaspad --devnet --appdir=/tmp/kaspad-temp --profile=6061 &
-KASPAD_PID=$!
+bugnad --devnet --appdir=/tmp/bugnad-temp --profile=6061 &
+BGAPAD_PID=$!
 
 sleep 1
 
 infra-level-garbage --devnet -alocalhost:16611 -m messages.dat --profile=7000
 TEST_EXIT_CODE=$?
 
-kill $KASPAD_PID
+kill $BGAPAD_PID
 
-wait $KASPAD_PID
-KASPAD_EXIT_CODE=$?
+wait $BGAPAD_PID
+BGAPAD_EXIT_CODE=$?
 
 echo "Exit code: $TEST_EXIT_CODE"
-echo "Kaspad exit code: $KASPAD_EXIT_CODE"
+echo "Bugnad exit code: $BGAPAD_EXIT_CODE"
 
-if [ $TEST_EXIT_CODE -eq 0 ] && [ $KASPAD_EXIT_CODE -eq 0 ]; then
+if [ $TEST_EXIT_CODE -eq 0 ] && [ $BGAPAD_EXIT_CODE -eq 0 ]; then
   echo "infra-level-garbage test: PASSED"
   exit 0
 fi

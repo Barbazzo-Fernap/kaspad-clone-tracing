@@ -1,6 +1,6 @@
 package appmessage
 
-// MsgTrustedData represents a kaspa TrustedData message
+// MsgTrustedData represents a bugna TrustedData message
 type MsgTrustedData struct {
 	baseMessage
 

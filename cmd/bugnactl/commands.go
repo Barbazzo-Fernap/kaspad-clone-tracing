@@ -5,42 +5,42 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/kaspanet/kaspad/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/bugnanetwork/bugnad/infrastructure/network/netadapter/server/grpcserver/protowire"
 )
 
 var commandTypes = []reflect.Type{
-	reflect.TypeOf(protowire.KaspadMessage_AddPeerRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetConnectedPeerInfoRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetPeerAddressesRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetCurrentNetworkRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetInfoRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_AddPeerRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetConnectedPeerInfoRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetPeerAddressesRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetCurrentNetworkRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetInfoRequest{}),
 
-	reflect.TypeOf(protowire.KaspadMessage_GetBlockRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetBlocksRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetHeadersRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetBlockCountRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetBlockDagInfoRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetSelectedTipHashRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetVirtualSelectedParentBlueScoreRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetVirtualSelectedParentChainFromBlockRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_ResolveFinalityConflictRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_EstimateNetworkHashesPerSecondRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBlockRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBlocksRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetHeadersRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBlockCountRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBlockDagInfoRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetSelectedTipHashRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetVirtualSelectedParentBlueScoreRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetVirtualSelectedParentChainFromBlockRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_ResolveFinalityConflictRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_EstimateNetworkHashesPerSecondRequest{}),
 
-	reflect.TypeOf(protowire.KaspadMessage_GetBlockTemplateRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_SubmitBlockRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBlockTemplateRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_SubmitBlockRequest{}),
 
-	reflect.TypeOf(protowire.KaspadMessage_GetMempoolEntryRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetMempoolEntriesRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetMempoolEntriesByAddressesRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetMempoolEntryRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetMempoolEntriesRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetMempoolEntriesByAddressesRequest{}),
 
-	reflect.TypeOf(protowire.KaspadMessage_SubmitTransactionRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_SubmitTransactionRequest{}),
 
-	reflect.TypeOf(protowire.KaspadMessage_GetUtxosByAddressesRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetBalanceByAddressRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_GetCoinSupplyRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetUtxosByAddressesRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetBalanceByAddressRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_GetCoinSupplyRequest{}),
 
-	reflect.TypeOf(protowire.KaspadMessage_BanRequest{}),
-	reflect.TypeOf(protowire.KaspadMessage_UnbanRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_BanRequest{}),
+	reflect.TypeOf(protowire.BugnadMessage_UnbanRequest{}),
 }
 
 type commandDescription struct {

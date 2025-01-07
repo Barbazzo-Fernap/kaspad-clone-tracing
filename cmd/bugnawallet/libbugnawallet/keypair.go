@@ -1,4 +1,4 @@
-package libkaspawallet
+package libbugnawallet
 
 import (
 	"math"
@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/kaspanet/go-secp256k1"
-	"github.com/kaspanet/kaspad/cmd/kaspawallet/libkaspawallet/bip32"
-	"github.com/kaspanet/kaspad/domain/dagconfig"
-	"github.com/kaspanet/kaspad/util"
+	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet/bip32"
+	"github.com/bugnanetwork/bugnad/domain/dagconfig"
+	"github.com/bugnanetwork/bugnad/util"
 	"github.com/pkg/errors"
 )
 
