@@ -211,29 +211,13 @@ var MainnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "bugna-mainnet",
 	Net:         appmessage.Mainnet,
-	RPCPort:     "16110",
-	DefaultPort: "16111",
+	RPCPort:     "38138",
+	DefaultPort: "38139",
 	DNSSeeds: []string{
-		// This DNS seeder is run by Wolfie
-		"mainnet-dnsseed.kas.pa",
-		// This DNS seeder is run by Denis Mashkevich
-		"mainnet-dnsseed-1.bugnanet.org",
-		// This DNS seeder is run by Denis Mashkevich
-		"mainnet-dnsseed-2.bugnanet.org",
-		// This DNS seeder is run by Constantine Bytensky
-		"dnsseed.cbytensky.org",
-		// This DNS seeder is run by Georges Künzli
-		"seeder1.bugnad.net",
-		// This DNS seeder is run by Georges Künzli
-		"seeder2.bugnad.net",
-		// This DNS seeder is run by Georges Künzli
-		"seeder3.bugnad.net",
-		// This DNS seeder is run by Georges Künzli
-		"seeder4.bugnad.net",
-		// This DNS seeder is run by Tim
-		"bugnadns.bugnacalc.net",
-		// This DNS seeder is run by supertypo
-		"n-mainnet.bugna.ws",
+		"seeder1-mainnet.bugna.org",
+		// "seeder2-mainnet.bugna.org",
+		// "seeder3-mainnet.bugna.org",
+		// "seeder4-mainnet.bugna.org",
 	},
 
 	// DAG parameters
