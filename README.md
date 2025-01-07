@@ -13,7 +13,7 @@ Bugna is an attempt at a proof-of-work cryptocurrency with instant confirmations
 
 ## Requirements
 
-Go 1.18 or later.
+Go 1.20 or later.
 
 ## Installation
 
@@ -51,18 +51,7 @@ $ bugnad
 ```
 
 ## Discord
-Join our discord server using the following link: https://discord.gg/YNYnNN5Pf2
-
-## Issue Tracker
-
-The [integrated github issue tracker](https://github.com/bugnanetwork/bugnad/issues)
-is used for this project.
-
-Issue priorities may be seen at https://github.com/orgs/bugnanet/projects/4
-
-## Documentation
-
-The [documentation](https://github.com/bugnanet/docs) is a work-in-progress
+Join our discord server using the following link: https://discord.gg/DWzrk4ZwbA
 
 ## License
 
