@@ -1,6 +1,7 @@
 package blockrelay
 
 import (
+	"time"
 
 	"github.com/pkg/errors"
 
@@ -72,6 +73,16 @@ func HandleRelayInvs(context RelayInvsContext, incomingRoute *router.Route, outg
 }
 
 func (flow *handleRelayInvsFlow) start() error {
+	if time.Now().Before(flow.Config().LaunchDate) {
+		log.Infof("No block relay available before the launch date of the network")
+		log.Infof("Waiting for the launch date of the network: %s", flow.Config().LaunchDate)
+	}
+
+	select {
+	case <-time.After(time.Until(flow.Config().LaunchDate)):
+		log.Infof("Launch date of the network reached. Starting block relay")
+	}
+
 	for {
 		log.Debugf("Waiting for inv")
 		inv, err := flow.readInv()

@@ -2,6 +2,8 @@ package server
 
 import (
 	"context"
+	"time"
+
 	"github.com/bugnanetwork/bugnad/app/appmessage"
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/daemon/pb"
 	"github.com/bugnanetwork/bugnad/cmd/bugnawallet/libbugnawallet"
@@ -9,7 +11,6 @@ import (
 	"github.com/bugnanetwork/bugnad/domain/consensus/model/externalapi"
 	"github.com/bugnanetwork/bugnad/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
-	"time"
 )
 
 func (s *server) Broadcast(_ context.Context, request *pb.BroadcastRequest) (*pb.BroadcastResponse, error) {

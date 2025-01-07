@@ -127,6 +127,7 @@ type Flags struct {
 	AllowSubmitBlockWhenNotSynced   bool          `long:"allow-submit-block-when-not-synced" hidden:"true" description:"Allow the node to accept blocks from RPC while not synced (this flag is mainly used for testing)"`
 	EnableSanityCheckPruningUTXOSet bool          `long:"enable-sanity-check-pruning-utxo" hidden:"true" description:"When moving the pruning point - check that the utxo set matches the utxo commitment"`
 	ProtocolVersion                 uint32        `long:"protocol-version" description:"Use non default p2p protocol version"`
+	LaunchDate                      time.Time
 	NetworkFlags
 	ServiceOptions *ServiceOptions
 }
@@ -573,6 +574,9 @@ func LoadConfig() (*Config, error) {
 	if configFileError != nil {
 		log.Warnf("%s", configFileError)
 	}
+
+	cfg.LaunchDate = time.Date(2024, 03, 14, 15, 0, 0, 0, time.UTC)
+
 	return cfg, nil
 }
 
